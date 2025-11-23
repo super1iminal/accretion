@@ -1,0 +1,15 @@
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\accretion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\accretion.AssemblyInfoInputs.cache
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\accretion.AssemblyInfo.cs
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\accretion.csproj.CoreCompileInputs.cache
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\bin\Debug\net5.0\accretion.exe
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\bin\Debug\net5.0\accretion.deps.json
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\bin\Debug\net5.0\accretion.runtimeconfig.json
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\bin\Debug\net5.0\accretion.runtimeconfig.dev.json
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\bin\Debug\net5.0\accretion.dll
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\bin\Debug\net5.0\accretion.pdb
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\accretion.dll
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\refint\accretion.dll
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\accretion.pdb
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\accretion.genruntimeconfig.cache
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\ref\accretion.dll

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="accretion.console/accretion.console.csproj" />
+  <Project Path="accretion/accretion.csproj" />
+</Solution>
