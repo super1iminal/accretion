@@ -5,6 +5,7 @@
 
         public interface IVisitor<T>
         {
+            T VisitTernaryExpr(Ternary expr);
             T VisitBinaryExpr(Binary expr);
             T VisitGroupingExpr(Grouping expr);
             T VisitLiteralExpr(Literal expr);
@@ -12,6 +13,26 @@
         }
 
         public abstract T Accept<T>(IVisitor<T> visitor);
+
+
+        public class Ternary : Expr
+        {
+            public Ternary(Expr condition, Expr consequent, Expr alternative)
+            {
+                this.Condition = condition;
+                this.Consequent = consequent;
+                this.Alternative = alternative;
+            }
+
+            public override T Accept<T>(IVisitor<T> visitor)
+            {
+                return visitor.VisitTernaryExpr(this);
+            }
+
+            public readonly Expr Condition;
+            public readonly Expr Consequent;
+            public readonly Expr Alternative;
+        }
 
 
         public class Binary : Expr

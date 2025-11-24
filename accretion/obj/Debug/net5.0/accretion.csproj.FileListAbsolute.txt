@@ -13,3 +13,4 @@ C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\r
 C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\accretion.pdb
 C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\accretion.genruntimeconfig.cache
 C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\ref\accretion.dll
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion\obj\Debug\net5.0\accretion.sourcelink.json
