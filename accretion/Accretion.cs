@@ -7,7 +7,10 @@ namespace accretion
     // TODO: add ternary operator ?:
     public class Accretion
     {
+        private static readonly Interpreter interpreter = new();
         static bool hadError = false;
+        static bool hadRuntimeError = false;
+
         static void Main(string[] args)
         {
             if (args.Length > 1)
@@ -19,8 +22,32 @@ namespace accretion
                 RunFile(args[0]);
             } else
             {
-                RunPrompt();
+                RunPrePrompt();
             }
+        }
+
+        private static void RunPrePrompt()
+        {
+            Console.WriteLine("1 for file and 2 for REPL");
+            string line = Console.ReadLine();
+            if (line != null)
+            {
+                if (line == "1")
+                {
+                    Console.WriteLine("Path:");
+                    string path = Console.ReadLine();
+                    if (path != null)
+                    {
+                        RunFile(path);
+                    }
+                }
+                else if (line == "2")
+                {
+                    RunPrompt();
+                }
+            }
+
+            Console.WriteLine("Quitting...");
         }
 
         private static void RunFile(string path)
@@ -28,10 +55,9 @@ namespace accretion
             string fileText = File.ReadAllText(path);
             Run(fileText);
 
-            if (hadError)
-            {
-                Environment.Exit(65);
-            }
+            if (hadError) Environment.Exit(65);
+
+            if (hadRuntimeError) Environment.Exit(70);
         }
 
         private static void RunPrompt()
@@ -50,18 +76,21 @@ namespace accretion
         {
             Scanner scanner = new(source);
             List<Token> tokens = scanner.ScanTokens();
+            
             Parser parser = new(tokens);
-            Expr expression = parser.Parse();
+            List<Stmt> statements = parser.Parse();
 
             if (hadError) return;
 
-            Console.WriteLine(new ASTPrinter().Print(expression));
+            interpreter.Interpret(statements);
+
+            //Console.WriteLine(new ASTPrinter().Print(expression));
 
 
-            foreach (Token token in tokens)
-            {
-                Console.WriteLine(token);
-            }
+            //foreach (Token token in tokens)
+            //{
+            //    Console.WriteLine(token);
+            //}
         }
 
         public static void Error(int line, string message)
@@ -79,6 +108,13 @@ namespace accretion
             {
                 Report(token.Line, $" at '{token.Lexeme}'", message);
             }
+        }
+
+        public static void AccretionRuntimeError(RuntimeError error)
+        {
+            Console.WriteLine($"{error.Message}\n[line {error.Token.Line}]");
+
+            hadRuntimeError = true;
         }
 
         static void Report(int line, string where, string message)

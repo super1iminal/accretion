@@ -22,16 +22,15 @@ namespace accretion
             this.tokens = tokens;
         }
 
-        public Expr Parse()
+        public List<Stmt> Parse()
         {
-            try
+            List<Stmt> statements = new();
+            while (!IsAtEnd())
             {
-                return Expression();
+                statements.Add(Statement());
             }
-            catch (ParseError)
-            {
-                return null;
-            }
+
+            return statements;
         }
 
 
@@ -72,7 +71,12 @@ namespace accretion
             return new ParseError();
         }
 
-        // HELPERS
+
+
+
+
+
+        // ======== CORE HELPERS ======== 
         private bool Match(params TokenType[] types)
         {
             foreach (TokenType t in types)
@@ -142,10 +146,52 @@ namespace accretion
 
 
 
-        // RULES
+
+
+
+
+
+
+        // ======== STATEMENT RULES ======== 
+        private Stmt Statement()
+        {
+            if (Match(TokenType.PRINT)) return PrintStatement();
+
+            return ExpressionStatement(); // fallthrough case, hard to recognize an expression statement on its own
+        }
+
+
+        private Stmt PrintStatement()
+        {
+            Expr value = Expression(); // remember, expressions resolve to a value
+
+            Consume(TokenType.SEMICOLON, "Expect ';' after value.");
+
+            return new Stmt.Print(value);
+        }
+
+
+        private Stmt ExpressionStatement()
+        {
+            Expr expr = Expression();
+
+            Consume(TokenType.SEMICOLON, "Expect ';' after value.");
+
+            return new Stmt.Expression(expr);
+        }
+
+
+
+
+
+
+
+
+
+        // ======== EXPRESSION RULES ======== 
         private Expr Expression()
         {
-            return EqualityRule();
+            return TernaryRule();
         }
 
         private Expr TernaryRule()
