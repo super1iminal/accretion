@@ -25,5 +25,20 @@ namespace accretion
         {
             return Type + " " + Lexeme + " " + Literal;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (obj is Token tother)
+            {
+                return (Type ==tother.Type && Equals(Literal, tother.Literal) && Equals(Lexeme, tother.Lexeme)); // don't compare lines
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Type, Lexeme, Literal);
+        }
     }
 }

@@ -79,20 +79,101 @@ using System.Threading.Tasks;
  * 
  * 
  * new grammar alert! program-level grammar unlocked alert
+ * remember, ordered from lowest to highest precedence
+ * if precendence is lower, it'll "wait" until all higher precedence rules have been used, then will combine using lower precedence
  * 
- * program      -> statement* EOF  (a bunch of statements followed by the end of the file lol)
- * statement    -> exprStmt | printStmt
+ * program      -> declaration* EOF  (a bunch of statements followed by the end of the file lol)
+ * 
+ * declaration  -> varDecl | statement
+ * varDecl      -> "var" IDENTIFIER ( "=" expression )? ";"
+ * statement    -> exprStmt | printStmt | block | ifStmt | whileStmt | forStmt | jumpStmt
  * 
  * exprStmt     -> expression ";"
  * printStmt    -> "print" expression ";"
+ * block        -> "{" declaration* "}"
+ * ifStmt       -> "if" "(" expression ")" statement ("else" statement)?
+ * whileStmt    -> "while" "(" expression ")" statement
+ * forStmt      -> "for" "(" (varDecl | exprStmt | ";") expression? ";" expression? ")" statement       (variable declared here is scoped to the rest of the for loop)
+ * jumpStmt     -> ("break" | "continue") ";"
  * 
- * expression   -> ternary
- * ternary      -> equality ( "?" ternary ":" ternary )?
+ * expression   -> assignment
+ * assignment   -> IDENTIFIER "=" assignment | ternary
+ * ternary      -> logic_or ( "?" ternary ":" ternary )?
+ * logic_or     -> logic_and ("or" logic_and)*
+ * logic_and    -> equality ("and" equality)*
  * equality     -> comparison ( ( "!=" | "==" ) comparison )*
  * comparison   -> term ( (">" | ">=" | "<" | "<=" ) term)*
  * term         -> factor ( ( "-" | "+ ) factor )*
  * factor       -> unary ( ( "/" | "*" ) unary)*
  * unary        -> ( "!" | "-" ) unary | primary
- * primary      -> NUMBER | STRING | "true" | "false" | "nil" | "(" expression ")"
+ * primary      -> NUMBER | STRING | "true" | "false" | "nil" | "(" expression ")" | IDENTIFIER
+ * 
+ * 
+ * 
+ * pieces of an interpreter
+ * 
+ * scanner -> scans characters into 1+ size tokens, tokens have lexeme (string) type (semicolon, etc.) and possible literal (string/double for now)
+ * parser -> scans tokens into statements, which contain 1+ size (num tokens) expressions, expressions contain other expressions (multiple ASTs)
+ * interpreter -> given list of statements, visits each statement and executes arbitrary code via visitor pattern
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * FUNCTINOSSSS
+ * program      -> declaration* EOF  (a bunch of statements followed by the end of the file lol)
+ * 
+ * declaration  -> funDecl | varDecl | statement
+ * funDecl      -> "fun" function
+ * function     -> IDENTIFIER "(" parameters? ")" block
+ * parameters   -> IDENTIFIER ( "," IDENTIFIER )*
+ * 
+ * varDecl      -> IDENTIFIER IDENTIFIER ( "=" expression )? ";"
+ * statement    -> exprStmt | printStmt | block | ifStmt | whileStmt | forStmt | jumpStmt | returnStmt
+ * 
+ * exprStmt     -> expression ";"
+ * printStmt    -> "print" expression ";"
+ * block        -> "{" declaration* "}"
+ * ifStmt       -> "if" "(" expression ")" statement ("else" statement)?
+ * whileStmt    -> "while" "(" expression ")" statement
+ * forStmt      -> "for" "(" (varDecl | exprStmt | ";") expression? ";" expression? ")" statement       (variable declared here is scoped to the rest of the for loop)
+ * jumpStmt     -> ("break" | "continue") ";"
+ * returnStmt   -> "return" expression? ";"
+ * 
+ * expression   -> assignment
+ * assignment   -> IDENTIFIER "=" assignment | ternary
+ * ternary      -> logic_or ( "?" ternary ":" ternary )?
+ * logic_or     -> logic_and ("or" logic_and)*
+ * logic_and    -> equality ("and" equality)*
+ * equality     -> comparison ( ( "!=" | "==" ) comparison )*
+ * comparison   -> term ( (">" | ">=" | "<" | "<=" ) term)*
+ * term         -> factor ( ( "-" | "+ ) factor )*
+ * factor       -> unary ( ( "/" | "*" ) unary)*
+ * unary        -> ( "!" | "-" ) unary | call
+ * call         -> primary ( "(" arguments? ")" )*
+ * arguments    -> expression ("," expression )*
+ * primary      -> NUMBER | STRING | "true" | "false" | "nil" | "(" expression ")" | IDENTIFIER
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
  * 
  */

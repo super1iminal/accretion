@@ -9,6 +9,8 @@ namespace accretion
      *  - given a valid sequence of tokens, produce an AST
      *  - given an invalid sequence of tokens, detect any errors and tell user their mistakes
      *  
+     *  
+     *  parser goes thru sequence of tokens by a top-down approach, checking for pattern matches and if so, consuming the sequence of tokens that matches a pattern
      */
     public class Parser
     {
@@ -27,7 +29,7 @@ namespace accretion
             List<Stmt> statements = new();
             while (!IsAtEnd())
             {
-                statements.Add(Statement());
+                statements.Add(Declaration());
             }
 
             return statements;
@@ -151,18 +153,204 @@ namespace accretion
 
 
 
+        // ======== DECLARATION RULES ======== 
+        private Stmt Declaration()
+        {
+            // declaration  -> varDecl | statement
+            try
+            {
+                if (Match(TokenType.FUN)) return FunctionDeclaration("function");
+                if (Match(TokenType.VAR)) return VarDeclaration();
+
+                return Statement();
+            }
+            catch (ParseError)
+            {
+                Synchronize();
+                return null;
+            }
+        }
+
+        private Stmt VarDeclaration()
+        {
+            // varDecl      -> "var" IDENTIFIER ( "=" expression )? ";"
+
+            Token name = Consume(TokenType.IDENTIFIER, "Expect variable name.");
+
+            Expr initializer = null;
+            if (Match(TokenType.EQUAL))
+            {
+                initializer = Expression();
+            }
+
+            Consume(TokenType.SEMICOLON, "Expect ';' after variable declaration.");
+            return new Stmt.Var(name, initializer);
+        }
+
+        private Stmt FunctionDeclaration(string kind)
+        {
+            Token name = Consume(TokenType.IDENTIFIER, $"Expect {kind} name.");
+            Consume(TokenType.LEFT_PAREN, $"Expect '(' after {kind} name.");
+            List<Token> parameters = new();
+
+            if (!Check(TokenType.RIGHT_PAREN))
+            {
+                do
+                {
+                    if (parameters.Count >= 255)
+                    {
+                        Error(Peek(), "Can't have more than 255 parameters.");
+                    }
+
+                    parameters.Add(
+                        Consume(TokenType.IDENTIFIER, "Expect parameter name."));
+
+                } while (Match(TokenType.COMMA));
+            }
+
+            Consume(TokenType.RIGHT_PAREN, "Expect ')' after parameters.");
+
+            Consume(TokenType.LEFT_BRACE, $"Expect '{{' before {kind} body.");
+            List<Stmt> body = Block();
+
+            return new Stmt.Function(name, parameters, body);
+        }
+
+
+
+
+
+
+
 
         // ======== STATEMENT RULES ======== 
         private Stmt Statement()
         {
+            // statement    -> exprStmt | printStmt
+            if (Match(TokenType.BREAK) || Match(TokenType.CONTINUE)) return JumpStatement();
+            if (Match(TokenType.FOR)) return ForStatement();
+            if (Match(TokenType.IF)) return IfStatement();
             if (Match(TokenType.PRINT)) return PrintStatement();
+            if (Match(TokenType.RETURN)) return ReturnStatement();
+            if (Match(TokenType.WHILE)) return WhileStatement();
+            if (Match(TokenType.LEFT_BRACE)) return new Stmt.Block(Block());
 
             return ExpressionStatement(); // fallthrough case, hard to recognize an expression statement on its own
+        }
+
+        private Stmt IfStatement()
+        {
+            // ifStmt       -> "if" "(" expression ")" statement ("else" statement)?
+            // ambiguity: if (a) if (b) x(); else y();
+            //  does the else belong to the first if or the second?
+            // sol'n: else if bound to the nearest if
+            // which is what happens, since we cval expression, then check for another statement (which could include if + else)
+
+            Consume(TokenType.LEFT_PAREN, "Expect '(' after 'if'.");
+            Expr condition = Expression();
+            Consume(TokenType.RIGHT_PAREN, "Expect ')' after if condition.");
+
+            Stmt consequent = Statement(); // allows for blocks
+            Stmt alternative = null;
+
+            if (Match(TokenType.ELSE))
+            {
+                alternative = Statement();
+            }
+
+            return new Stmt.If(condition, consequent, alternative);
+        }
+
+        private Stmt WhileStatement()
+        {
+            Consume(TokenType.LEFT_PAREN, "Expect '(' after 'while'.");
+            Expr condition = Expression();
+            Consume(TokenType.RIGHT_PAREN, "Expect ')' after condition.");
+
+            Stmt body = Statement();
+
+            return new Stmt.While(condition, body);
+        }
+
+        // we don't actually have a Stmt.For class, instead we turn it into a While stmt by "Desugaring"
+        // this also allows us to have the declared var in scope of the for loop by creating a virtual block
+        private Stmt ForStatement()
+        {
+            Consume(TokenType.LEFT_PAREN, "Expect '(' after 'for'.");
+
+            Stmt initializer;
+            if (Match(TokenType.SEMICOLON))
+            {
+                initializer = null;
+            } else if (Match(TokenType.VAR))
+            {
+                initializer = VarDeclaration();
+            } else
+            {
+                initializer = ExpressionStatement();
+            }
+
+            Expr condition = null;
+            if (!Check(TokenType.SEMICOLON))
+            {
+                condition = Expression();
+            }
+            Consume(TokenType.SEMICOLON, "Expect ';' after loop condition.");
+
+            Expr increment = null;
+            if (!Check(TokenType.RIGHT_PAREN))
+            {
+                increment = Expression();
+            }
+            Consume(TokenType.RIGHT_PAREN, "Expect ')' after for clauses");
+
+            Stmt body = Statement();
+
+            if (increment != null)
+            {
+                body = new Stmt.Block(new List<Stmt> { body, new Stmt.Expression(increment)});
+            }
+
+            if (condition == null) condition = new Expr.Literal(true);
+            body = new Stmt.While(condition, body);
+
+            if (initializer != null)
+            {
+                body = new Stmt.Block(new List<Stmt> { initializer, body });
+            }
+
+            return body;
+        }
+
+        private Stmt JumpStatement()
+        {
+            // TODO: add static check to see if jump statement is outside of loop
+            Token label = Previous();
+
+            Consume(TokenType.SEMICOLON, $"Expect ';' after {label.Lexeme}.");
+
+            Stmt stmt = new Stmt.Jump(label);
+            return stmt;
+        }
+
+        private List<Stmt> Block()
+        {
+            // block -> "{" declaration* "}"
+            List<Stmt> statements = new();
+
+            while (!Check(TokenType.RIGHT_BRACE) && !IsAtEnd())
+            {
+                statements.Add(Declaration());
+            }
+
+            Consume(TokenType.RIGHT_BRACE, "Expect '}' after block.");
+            return statements;
         }
 
 
         private Stmt PrintStatement()
         {
+            // printStmt    -> "print" expression ";"
             Expr value = Expression(); // remember, expressions resolve to a value
 
             Consume(TokenType.SEMICOLON, "Expect ';' after value.");
@@ -173,11 +361,25 @@ namespace accretion
 
         private Stmt ExpressionStatement()
         {
+            // exprStmt     -> expression ";"
             Expr expr = Expression();
 
             Consume(TokenType.SEMICOLON, "Expect ';' after value.");
 
             return new Stmt.Expression(expr);
+        }
+
+        private Stmt ReturnStatement()
+        {
+            Token keyword = Previous();
+            Expr value = null;
+            if (!Check(TokenType.SEMICOLON))
+            {
+                value = Expression();
+            }
+
+            Consume(TokenType.SEMICOLON, "Expect ';' after return value.");
+            return new Stmt.Return(keyword, value);
         }
 
 
@@ -191,11 +393,77 @@ namespace accretion
         // ======== EXPRESSION RULES ======== 
         private Expr Expression()
         {
-            return TernaryRule();
+            // expression -> assignment
+            return AssignmentRule();
         }
+
+        private Expr AssignmentRule()
+        {
+            // assignment -> IDENTIFIER "=" assignment | ternary
+            // allows for x = y = 4
+            //  this would be x = (y = 4)
+
+            // problem: there may be many tokens until =
+            //  e.g., node.left = new Node()
+            // but we only have a single token of lookahead (we would otherwise look for =, like in declaration)
+
+            Expr expr = OrRule(); // base case, could be a variable
+            // we parse the left side as an rvalue, but then we convert it into an l-value representation
+                // works because every valid assignment target is also just a normal expression, so we can use that and parse the left side as if it was an expression
+                // (but it's not, since it doesn't resolve to anything)
+                // however, the LHS needs to be a valid assignment target (currently just a variable)
+
+            if (Match(TokenType.EQUAL))
+            {
+                Token equals = Previous(); // gets the token we just read in Match() (=)
+                Expr value = AssignmentRule();
+            
+                if (expr is Expr.Variable var) {
+                    Token name = var.Name;
+                    return new Expr.Assign(name, value);
+                }
+
+                Error(equals, "Invalid assignment target.");
+            }
+
+            return expr; // at the end of recursion loop, expr will return the literal (e.g., 4)
+                        // in the second-to-last loop, expr will return the assignment (e.g., Assign(y, 4)
+                        // in the third-to-last loop, expr will return the assignment (Assign(x, y))
+        }
+
+        private Expr OrRule()
+        {
+            Expr expr = AndRule();
+
+            while (Match(TokenType.OR))
+            {
+                Token op = Previous();
+                Expr right = AndRule();
+                expr = new Expr.Logical(expr, op, right);
+            }
+
+            return expr;
+        }
+
+        private Expr AndRule()
+        {
+            Expr expr = TernaryRule();
+
+            while (Match(TokenType.AND))
+            {
+                Token op = Previous();
+                Expr right = TernaryRule();
+                expr = new Expr.Logical(expr, op, right);
+            }
+
+            return expr;
+        }
+
 
         private Expr TernaryRule()
         {
+            // ternary -> equality ( "?" ternary ":" ternary )?
+
             Expr expr = EqualityRule();
 
             if (Match(TokenType.QUESTION))
@@ -297,7 +565,46 @@ namespace accretion
                 return new Expr.Unary(op, right);
             }
 
-            return PrimaryRule();
+            return CallRule();
+        }
+
+        private Expr CallRule()
+        {
+            Expr expr = PrimaryRule();
+
+            while (true)
+            {
+                if (Match(TokenType.LEFT_PAREN))
+                {
+                    expr = FinishCall(expr);
+                } else
+                {
+                    break;
+                }
+            }
+
+            return expr;
+        }
+
+        private Expr FinishCall(Expr callee)
+        {
+            List<Expr> arguments = new();
+
+            if (!Check(TokenType.RIGHT_PAREN))
+            {
+                do
+                {
+                    if (arguments.Count >= 255)
+                    {
+                        Error(Peek(), "Can't have more than 255 arguments.");
+                    }
+                    arguments.Add(Expression());
+                } while (Match(TokenType.COMMA));
+            }
+
+            Token paren = Consume(TokenType.RIGHT_PAREN, "Expect ')' after arguments.");
+
+            return new Expr.Call(callee, paren, arguments);
         }
 
         private Expr PrimaryRule()
@@ -311,6 +618,11 @@ namespace accretion
             if (Match(TokenType.NUMBER, TokenType.STRING))
             {
                 return new Expr.Literal(Previous().Literal);
+            }
+
+            if (Match(TokenType.IDENTIFIER))
+            {
+                return new Expr.Variable(Previous());
             }
 
             // groups have highest priority

@@ -22,9 +22,13 @@ namespace accretion
         IDENTIFIER, STRING, NUMBER,
 
         // Keywords.
-        AND, CLASS, ELSE, FALSE, FUN, FOR, IF, NIL, OR,
-        PRINT, RETURN, SUPER, THIS, TRUE, VAR, WHILE,
+        AND, BREAK, CONTINUE, ELSE, FALSE, FUN, FOR, IF, NIL, OR,
+        PRINT, RETURN, TRUE, VAR, WHILE,
 
-        EOF
+        EOF,
+
+
+        // class-related keywords
+        CLASS, SUPER, THIS
     }
 }

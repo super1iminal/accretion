@@ -9,6 +9,7 @@ namespace accretion
     {
         private static readonly Interpreter interpreter = new();
         static bool hadError = false;
+        static bool hadWarning = false;
         static bool hadRuntimeError = false;
 
         static void Main(string[] args)
@@ -16,7 +17,7 @@ namespace accretion
             if (args.Length > 1)
             {
                 Console.WriteLine("Usage: acc [script file path]");
-                Environment.Exit(64);
+                System.Environment.Exit(64);
             } else if (args.Length == 1)
             {
                 RunFile(args[0]);
@@ -55,9 +56,9 @@ namespace accretion
             string fileText = File.ReadAllText(path);
             Run(fileText);
 
-            if (hadError) Environment.Exit(65);
+            if (hadError) System.Environment.Exit(65);
 
-            if (hadRuntimeError) Environment.Exit(70);
+            if (hadRuntimeError) System.Environment.Exit(70);
         }
 
         private static void RunPrompt()
@@ -82,6 +83,11 @@ namespace accretion
 
             if (hadError) return;
 
+            Resolver resolver = new Resolver(interpreter);
+            resolver.Resolve(statements);
+
+            if (hadError) return; // need both this and previous check because shouldn't resolve if there are syntax errors
+
             interpreter.Interpret(statements);
 
             //Console.WriteLine(new ASTPrinter().Print(expression));
@@ -95,18 +101,35 @@ namespace accretion
 
         public static void Error(int line, string message)
         {
-            Report(line, "", message);
+            ReportError(line, "", message);
         }
 
         public static void Error(Token token, string message)
         {
             if (token.Type == TokenType.EOF)
             {
-                Report(token.Line, "at end", message);
+                ReportError(token.Line, "at end", message);
             }
             else
             {
-                Report(token.Line, $" at '{token.Lexeme}'", message);
+                ReportError(token.Line, $" at '{token.Lexeme}'", message);
+            }
+        }
+
+        public static void Warning(int line, string message)
+        {
+            ReportWarning(line, "", message);
+        }
+
+        public static void Warning(Token token, string message)
+        {
+            if (token.Type == TokenType.EOF)
+            {
+                ReportWarning(token.Line, "at end", message);
+            }
+            else
+            {
+                ReportWarning(token.Line, $" at '{token.Lexeme}'", message);
             }
         }
 
@@ -117,10 +140,16 @@ namespace accretion
             hadRuntimeError = true;
         }
 
-        static void Report(int line, string where, string message)
+        static void ReportError(int line, string where, string message)
         {
             Console.WriteLine($"[line {line}] Error {where}: {message}");
             hadError = true;
+        }
+
+        static void ReportWarning(int line, string where, string message)
+        {
+            Console.WriteLine($"[line {line}] Warning {where}: {message}");
+            hadWarning = true;
         }
     }
 }
