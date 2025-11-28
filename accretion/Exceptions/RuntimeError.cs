@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace accretion
+namespace accretion.Exceptions
 {
     public class RuntimeError : Exception
     {

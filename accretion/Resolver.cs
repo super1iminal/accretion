@@ -18,6 +18,9 @@ namespace accretion
     /// variable and assignment expression need to have their variables resolved
     /// 
     /// we still need to traverse other nodes because they may contain the above nodes
+    /// 
+    /// calculates what scope the current variable is in 
+    /// also checks for variable use before definition
     /// </summary>
     public class Resolver : Expr.IVisitor<object>, Stmt.IVisitor
     {

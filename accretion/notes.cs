@@ -138,12 +138,12 @@ using System.Threading.Tasks;
  * FUNCTINOSSSS
  * program      -> declaration* EOF  (a bunch of statements followed by the end of the file lol)
  * 
- * declaration  -> funDecl | varDecl | statement
- * funDecl      -> "fun" function
- * function     -> IDENTIFIER "(" parameters? ")" block
- * parameters   -> IDENTIFIER ( "," IDENTIFIER )*
+ * declaration  -> ( IDENTIFIER IDENTIFIER ( funDecl | varDecl ) ) | statement
+ * funDecl      -> function
+ * function     -> "(" parameters? ")" block
+ * parameters   -> IDENTIFIER IDENTIFIER ( "," IDENTIFIER IDENTIFIER )*
  * 
- * varDecl      -> IDENTIFIER IDENTIFIER ( "=" expression )? ";"
+ * varDecl      -> ( "=" expression )? ";"
  * statement    -> exprStmt | printStmt | block | ifStmt | whileStmt | forStmt | jumpStmt | returnStmt
  * 
  * exprStmt     -> expression ";"
@@ -151,7 +151,7 @@ using System.Threading.Tasks;
  * block        -> "{" declaration* "}"
  * ifStmt       -> "if" "(" expression ")" statement ("else" statement)?
  * whileStmt    -> "while" "(" expression ")" statement
- * forStmt      -> "for" "(" (varDecl | exprStmt | ";") expression? ";" expression? ")" statement       (variable declared here is scoped to the rest of the for loop)
+ * forStmt      -> "for" "(" ( IDENTIFIER IDENTIFIER varDecl | exprStmt | ";") expression? ";" expression? ")" statement       (variable declared here is scoped to the rest of the for loop)
  * jumpStmt     -> ("break" | "continue") ";"
  * returnStmt   -> "return" expression? ";"
  * 

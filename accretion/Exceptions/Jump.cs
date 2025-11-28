@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace accretion
+namespace accretion.Exceptions
 {
     public class Jump : RuntimeError
     {

@@ -111,9 +111,21 @@ namespace accretion
             return Peek().Type == type;
         }
 
+        private bool CheckNext(TokenType type)
+        {
+            if (current + 1 >= tokens.Count) return false;
+            return PeekNext().Type == type;
+        }
+
         private Token Peek()
         {
             return tokens[current];
+        }
+
+        private Token PeekNext()
+        {
+            if (current + 1 >= tokens.Count) return tokens[tokens.Count - 1];
+            return tokens[current + 1];
         }
 
         private bool IsAtEnd()
@@ -156,42 +168,41 @@ namespace accretion
         // ======== DECLARATION RULES ======== 
         private Stmt Declaration()
         {
-            // declaration  -> varDecl | statement
+            // declaration  -> (IDENTIFIER IDENTIFIER (varDecl | funDecl)) | statement
+            // note that statements can contain identifiers but only a single one, not two consecutive identifiers
             try
             {
-                if (Match(TokenType.FUN)) return FunctionDeclaration("function");
-                if (Match(TokenType.VAR)) return VarDeclaration();
+                if (Check(TokenType.IDENTIFIER) && CheckNext(TokenType.IDENTIFIER))
+                {
+                    Token type = Advance();
+                    Token name = Advance();
+
+                    if (Check(TokenType.LEFT_PAREN))
+                    {
+                        return FunctionDeclaration(type, name);
+                    }
+                    else
+                    {
+                       return VarDeclaration(type, name);
+                    }
+                }
 
                 return Statement();
             }
             catch (ParseError)
             {
-                Synchronize();
+                Synchronize(); // TODO: fix synchronize
                 return null;
             }
         }
 
-        private Stmt VarDeclaration()
+        private Stmt FunctionDeclaration(Token type, Token name)
         {
-            // varDecl      -> "var" IDENTIFIER ( "=" expression )? ";"
-
-            Token name = Consume(TokenType.IDENTIFIER, "Expect variable name.");
-
-            Expr initializer = null;
-            if (Match(TokenType.EQUAL))
-            {
-                initializer = Expression();
-            }
-
-            Consume(TokenType.SEMICOLON, "Expect ';' after variable declaration.");
-            return new Stmt.Var(name, initializer);
-        }
-
-        private Stmt FunctionDeclaration(string kind)
-        {
-            Token name = Consume(TokenType.IDENTIFIER, $"Expect {kind} name.");
-            Consume(TokenType.LEFT_PAREN, $"Expect '(' after {kind} name.");
+            // funDecl -> "(" parameters? ")" block
+            // parameters -> IDENTIFIER IDENTIFIER ( IDENTIFIER IDENTIFIER ",")*
+            Consume(TokenType.LEFT_PAREN, $"Expect '(' after function name.");
             List<Token> parameters = new();
+            List<Token> parameterTypes = new();
 
             if (!Check(TokenType.RIGHT_PAREN))
             {
@@ -202,18 +213,35 @@ namespace accretion
                         Error(Peek(), "Can't have more than 255 parameters.");
                     }
 
-                    parameters.Add(
-                        Consume(TokenType.IDENTIFIER, "Expect parameter name."));
+                    Token paramType = Consume(TokenType.IDENTIFIER, "Expect parameter type.");
+                    Token paramName = Consume(TokenType.IDENTIFIER, "Expect parameter name.");
+
+                    parameters.Add(paramName);
+                    parameterTypes.Add(paramType);
 
                 } while (Match(TokenType.COMMA));
             }
 
             Consume(TokenType.RIGHT_PAREN, "Expect ')' after parameters.");
 
-            Consume(TokenType.LEFT_BRACE, $"Expect '{{' before {kind} body.");
+            Consume(TokenType.LEFT_BRACE, $"Expect '{{' before function body.");
             List<Stmt> body = Block();
 
-            return new Stmt.Function(name, parameters, body);
+            return new Stmt.Function(name, parameters, parameterTypes, body, type);
+        }
+
+        private Stmt VarDeclaration(Token type, Token name)
+        {
+            // varDecl      -> ( "=" expression )? ";"
+
+            Expr initializer = null;
+            if (Match(TokenType.EQUAL))
+            {
+                initializer = Expression();
+            }
+
+            Consume(TokenType.SEMICOLON, "Expect ';' after variable declaration."); // handles any other tokens after IDENTIFIER IDENTIFIER xxxx that don't match var or function
+            return new Stmt.Var(name, type, initializer);
         }
 
 
@@ -282,9 +310,11 @@ namespace accretion
             if (Match(TokenType.SEMICOLON))
             {
                 initializer = null;
-            } else if (Match(TokenType.VAR))
+            } else if (Check(TokenType.IDENTIFIER) && CheckNext(TokenType.IDENTIFIER)) // need to have both because a single identifier can be part of an expr stmt
             {
-                initializer = VarDeclaration();
+                Token type = Advance();
+                Token name = Advance();
+                initializer = VarDeclaration(type, name);
             } else
             {
                 initializer = ExpressionStatement();

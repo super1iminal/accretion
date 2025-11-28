@@ -55,11 +55,13 @@ namespace accretion
 
         public class Function : Stmt
         {
-            public Function(Token name, List<Token> parameters, List<Stmt> body)
+            public Function(Token name, List<Token> parameters, List<Token> parameterTypes, List<Stmt> body, Token returnType)
             {
                 this.Name = name;
                 this.Parameters = parameters;
+                this.Parametertypes = parameterTypes;
                 this.Body = body;
+                this.Returntype = returnType;
             }
 
             public override void Accept(IVisitor visitor)
@@ -69,7 +71,9 @@ namespace accretion
             }
             public readonly Token Name;
             public readonly List<Token> Parameters;
+            public readonly List<Token> Parametertypes;
             public readonly List<Stmt> Body;
+            public readonly Token Returntype;
         }
 
 
@@ -145,9 +149,10 @@ namespace accretion
 
         public class Var : Stmt
         {
-            public Var(Token name, Expr initializer)
+            public Var(Token name, Token type, Expr initializer)
             {
                 this.Name = name;
+                this.Type = type;
                 this.Initializer = initializer;
             }
 
@@ -157,6 +162,7 @@ namespace accretion
                 return;
             }
             public readonly Token Name;
+            public readonly Token Type;
             public readonly Expr Initializer;
         }
 
