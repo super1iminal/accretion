@@ -19,7 +19,7 @@ namespace accretion
         LESS, LESS_EQUAL,
 
         // Literals.
-        IDENTIFIER, STRING, NUMBER,
+        IDENTIFIER, STRING, DOUBLE, INT,
 
         // Keywords.
         AND, BREAK, CONTINUE, ELSE, FALSE, FUN, FOR, IF, NIL, OR,

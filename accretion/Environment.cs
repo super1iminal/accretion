@@ -10,7 +10,7 @@ namespace accretion
     public class Environment
     {
         // TODO: add initialization tracking and throw a runtime error in interpreter if accessing a non-initialized variable
-        private readonly Dictionary<string, object> values = new();
+        private readonly Dictionary<string, object> values = new(); // stores name-value pair (value can be an AccretionCallable)
         private readonly Environment enclosing; // parent env, for scoping
 
 

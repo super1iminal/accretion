@@ -40,11 +40,12 @@ namespace accretion
 
         public class Ternary : Expr
         {
-            public Ternary(Expr condition, Expr consequent, Expr alternative)
+            public Ternary(Expr condition, Expr consequent, Expr alternative, Token name)
             {
                 this.Condition = condition;
                 this.Consequent = consequent;
                 this.Alternative = alternative;
+                this.Name = name;
             }
 
             public override T Accept<T>(IVisitor<T> visitor)
@@ -54,6 +55,7 @@ namespace accretion
             public readonly Expr Condition;
             public readonly Expr Consequent;
             public readonly Expr Alternative;
+            public readonly Token Name;
         }
 
 
@@ -78,11 +80,12 @@ namespace accretion
 
         public class Call : Expr
         {
-            public Call(Expr callee, Token paren, List<Expr> arguments)
+            public Call(Expr callee, Token paren, List<Expr> arguments, List<Token> argumentNames)
             {
                 this.Callee = callee;
                 this.Paren = paren;
                 this.Arguments = arguments;
+                this.Argumentnames = argumentNames;
             }
 
             public override T Accept<T>(IVisitor<T> visitor)
@@ -92,6 +95,7 @@ namespace accretion
             public readonly Expr Callee;
             public readonly Token Paren;
             public readonly List<Expr> Arguments;
+            public readonly List<Token> Argumentnames;
         }
 
 

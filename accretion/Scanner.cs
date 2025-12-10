@@ -196,16 +196,24 @@ namespace accretion
 
         private void MatchNumber()
         {
+            bool isInt = true;
             while (char.IsDigit(Peek())) Advance();
 
             if (Peek() == '.' && char.IsDigit(PeekNext()))
             {
                 Advance();
+                isInt = false;
 
                 while (char.IsDigit(Peek())) Advance();
             }
 
-            AddToken(TokenType.NUMBER, Double.Parse(source.Substring(start, current - start)));
+            if (isInt)
+            {
+                AddToken(TokenType.INT, int.Parse(source.Substring(start, current - start)));
+            } else
+            {
+                AddToken(TokenType.DOUBLE, double.Parse(source.Substring(start, current - start)));
+            }
         }
 
         private void MatchIdentifier()

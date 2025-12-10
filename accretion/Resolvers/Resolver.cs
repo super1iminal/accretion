@@ -148,14 +148,14 @@ namespace accretion
             {
                 Accretion.Error(expr.Name, "Can't read local variable in its own initializer");
             }
-            ResolveLocal(expr, expr.Name);
+            ResolveVar(expr, expr.Name);
             return null;
         }
 
         public object VisitAssignExpr(Expr.Assign expr)
         {
             Resolve(expr.Value); // value could have another assignment op
-            ResolveLocal(expr, expr.Name);
+            ResolveVar(expr, expr.Name);
             return null;
         }
 
@@ -220,7 +220,13 @@ namespace accretion
 
 
         // HELPERS
-        public void Resolve(List<Stmt> statements)
+        public void BeginResolve(List<Stmt> statements)
+        {
+            BeginScope();
+            Resolve(statements);
+            EndScope();
+        }
+        private void Resolve(List<Stmt> statements)
         {
             foreach (Stmt stmt in statements)
             {
@@ -277,7 +283,7 @@ namespace accretion
             scopes.Peek()[name] = true; // now available for use, after initializer
         }
 
-        private void ResolveLocal(Expr expr, Token name)
+        private void ResolveVar(Expr expr, Token name)
         {
             for (int i = 0; i < scopes.Count; i++)
             {
@@ -289,6 +295,8 @@ namespace accretion
                     return;
                 }
             }
+
+            Accretion.Error(name, "There is no declared variable with that name.");
         }
 
         private void ResolveFunction(Stmt.Function function, FunctionType type)

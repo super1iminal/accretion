@@ -1,4 +1,6 @@
-﻿using accretion.Exceptions;
+﻿using accretion.Callables;
+using accretion.Exceptions;
+using accretion.Resolvers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,32 +14,15 @@ namespace accretion
     // need a type check for each cast
     public class Interpreter : Expr.IVisitor<object>, Stmt.IVisitor // remember, object is the return value of the visitor
     {
-        public readonly Environment Globals = new();
-        private Environment environment;
+        private Environment environment = new();
         private readonly Dictionary<Expr, int> locals = new();
 
         // native function
-        private class ClockCallable : AccretionCallable
-        {
-            public int Arity { get { return 0; } }
-
-            public object Call(Interpreter interpreter, List<object> arguments)
-            {
-                return (double)DateTime.Now.Second;
-            }
-
-            override public string ToString()
-            {
-                return "<native fn>";
-            }
-
-        }
 
         public Interpreter()
         {
-            environment = Globals;
-
-            Globals.Define("clock", new ClockCallable());
+            environment.Define("clock", new NativeCallable(NativeFunctions.Clock, new AccType(AccType.NativeType.DOUBLE), null));
+            environment.Define("absd", new NativeCallable(NativeFunctions.Abs, new AccType()))
         }
         // PUBLIC API
         public void Interpret(List<Stmt> statements)
@@ -185,47 +170,70 @@ namespace accretion
             switch (expr.Op.Type)
             {
                 case TokenType.GREATER:
-                    CheckNumberOperands(expr.Op, left, right);
-                    return (double)left > (double)right;
+                    if (IsDouble(left, right)) return (double)left > (double)right;
+                    if (IsInt(left, right)) return (int)left > (int)right;
+                    throw new RuntimeError(expr.Op, "Operands must be numbers.");
                 case TokenType.GREATER_EQUAL:
-                    CheckNumberOperands(expr.Op, left, right);
-                    return (double)left >= (double)right;
+                    if (IsDouble(left, right)) return (double)left >= (double)right;
+                    if (IsInt(left, right)) return (int)left >= (int)right;
+                    throw new RuntimeError(expr.Op, "Operands must be numbers.");
                 case TokenType.LESS:
-                    CheckNumberOperands(expr.Op, left, right);
-                    return (double)left < (double)right;
+                    if (IsDouble(left, right)) return (double)left < (double)right;
+                    if (IsInt(left, right)) return (int)left < (int)right;
+                    throw new RuntimeError(expr.Op, "Operands must be numbers.");
                 case TokenType.LESS_EQUAL:
-                    CheckNumberOperands(expr.Op, left, right);
-                    return (double)left <= (double)right;
+                    if (IsDouble(left, right)) return (double)left <= (double)right;
+                    if (IsInt(left, right)) return (int)left <= (int)right;
+                    throw new RuntimeError(expr.Op, "Operands must be numbers.");
                 case TokenType.MINUS:
-                    CheckNumberOperands(expr.Op, left, right);
-                    return (double)left - (double)right;
+                    if (IsDouble(left, right)) return (double)left - (double)right;
+                    if (IsInt(left, right)) return (int)left - (int)right;
+                    throw new RuntimeError(expr.Op, "Operands must be numbers.");
                 case TokenType.PLUS:
-                    if ((left is double ld) && (right is double rd))
+                    return HandleAddition(expr.Op, left, right);
+                case TokenType.SLASH:
+                    if (IsDouble(left, right))
                     {
-                        return ld + rd;
+                        return (double)left / (double)right;
                     }
-                    else if ((left is string ls) && (right is string rs))
+                    else if (IsInt(left, right))
                     {
-                        return ls + rs;
+                        return (double)(int)left / (double)(int)right;
                     }
-                    else if ((left is string lsb) && (right is double rdb))
+                    else if (IsInt(left) && IsDouble(right))
                     {
-                        return lsb + rdb.ToString();
+                        return (double)(int)left / (double)right;
                     }
-                    else if ((left is double ldb) && (right is string rsb))
+                    else if (IsDouble(left) && IsInt(right))
                     {
-                        return ldb.ToString() + rsb;
+                        return (double)left / (double)(int)right;
                     }
                     else
                     {
-                        throw new RuntimeError(expr.Op, "Operands must be two numbers or two strings");
+                        throw new RuntimeError(expr.Op, "Operands must be numbers.");
                     }
-                case TokenType.SLASH:
-                    CheckNumberOperands(expr.Op, left, right);
-                    return (double)left / (double)right;
+
                 case TokenType.STAR:
-                    CheckNumberOperands(expr.Op, left, right);
-                    return (double)left * (double)right;
+                    if (IsDouble(left, right))
+                    {
+                        return (double)left * (double)right;
+                    }
+                    else if (IsInt(left, right))
+                    {
+                        return (double)(int)left * (double)(int)right;
+                    }
+                    else if (IsInt(left) && IsDouble(right))
+                    {
+                        return (double)(int)left * (double)right;
+                    }
+                    else if (IsDouble(left) && IsInt(right))
+                    {
+                        return (double)left * (double)(int)right;
+                    }
+                    else
+                    {
+                        throw new RuntimeError(expr.Op, "Operands must be numbers.");
+                    }
 
                 case TokenType.BANG_EQUAL:
                     return !IsEqual(left, right);
@@ -271,8 +279,18 @@ namespace accretion
                 case TokenType.BANG:
                     return !IsTruthy(right);
                 case TokenType.MINUS:
-                    CheckNumberOperand(expr.Op, right);
-                    return -(double)right; // although right should be a number, we can't statically know that, so we cast it
+                    if (IsInt(right)) {
+                        return -(int)right;
+                    }
+                    else if (IsDouble(right))
+                    {
+                        return -(double)right; // although right should be a number, we can't statically know that, so we cast it
+                    }
+                    else
+                    {
+                        throw new RuntimeError(expr.Op, "Operand must be a number.");
+                    }
+                        
             }
 
             return null; // unreachable, but required to satisfy all paths must return a value
@@ -295,16 +313,14 @@ namespace accretion
             }
             else
             {
-                Globals.Assign(expr.Name, value);
+                throw new RuntimeError(expr.Name, "Attempting to assign to a variable that does not exist.");
             }
-
-                environment.Assign(expr.Name, value);
+            environment.Assign(expr.Name, value);
             return value;
         }
 
 
         // not within binary due to short-circuiting logic
-        // TODO: when typing, make this true/false
         public object VisitLogicalExpr(Expr.Logical expr)
         {
             object left = Evaluate(expr.Left);
@@ -312,15 +328,13 @@ namespace accretion
             // short circuiting
             if (expr.Op.Type == TokenType.OR)
             {
-                if (IsTruthy(left)) return left;
-                // TODO: lowkey change this to return True/False.... 
-                // otherwise { print "hi" or 2" } will print "hi"... lol
+                if (IsTruthy(left)) return true;
             } else
             {
-                if (!IsTruthy(left)) return left;
+                if (!IsTruthy(left)) return false;
             }
 
-            return Evaluate(expr.Right);
+            return IsTruthy(Evaluate(expr.Right));
         }
 
         public object VisitCallExpr(Expr.Call expr)
@@ -385,7 +399,7 @@ namespace accretion
             }
             else
             {
-                return Globals.Get(name);
+                throw new RuntimeError(name, "Attempting to get a variable that does not exist.");
             }
         }
 
@@ -413,6 +427,7 @@ namespace accretion
             if (obj == null) return false;
             if (obj is bool b) return b;
             if (obj is double d) return d != ((double)0.0);
+            if (obj is int i) return i != 0;
             if (obj is string s) return s != "";
             return true;
         }
@@ -425,18 +440,68 @@ namespace accretion
             return Equals(left, right);
         }
 
-        private static void CheckNumberOperand(Token optr, object opnd)
+        private static bool IsDouble(params object[] objs)
         {
-            if (opnd is double) return;
-
-            throw new RuntimeError(optr, "Operand must be a number.");
+            foreach (object obj in objs)
+            {
+                if (obj is not double) return false;
+            }
+            return true;
         }
 
-        private static void CheckNumberOperands(Token optr, object left, object right)
+        private static bool IsInt(params object[] objs)
         {
-            if (left is double && right is double) return;
+            foreach (object obj in objs)
+            {
+                if (obj is not int) return false;
+            }
+            return true;
+        }
 
-            throw new RuntimeError(optr, "Operands must be numbers.");
+        private static bool IsString(params object[] objs)
+        {
+            foreach (object obj in objs)
+            {
+                if (obj is not string) return false;
+            }
+            return true;
+        }
+
+        private object HandleAddition(Token op, object left, object right)
+        {
+            if ((IsString(left) || IsString(right)) && IsAlphaNum(left, right))
+            {
+                return left.ToString() + right.ToString();
+            }
+            else if (IsDouble(left, right))
+            {
+                return (double)left + (double)right;
+            }
+            else if (IsInt(left, right))
+            {
+                return (int)left + (int)right;
+            }
+            else if (IsInt(left) && IsDouble(right))
+            {
+                return (double)(int)left + (double)right;
+            }
+            else if (IsDouble(left) && IsInt(right))
+            {
+                return (double)left + (double)(int)right;
+            }
+            else
+            {
+                throw new RuntimeError(op, "Operands must be a combination of numbers and strings");
+            }
+        }
+
+        private static bool IsAlphaNum(params object[] objs)
+        {
+            foreach (object obj in objs)
+            {
+                if (!(IsString(obj) || IsInt(obj) || IsDouble(obj))) return false;
+            }
+            return true;
         }
 
         public string Stringify(object obj)

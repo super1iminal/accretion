@@ -494,17 +494,18 @@ namespace accretion
         {
             // ternary -> equality ( "?" ternary ":" ternary )?
 
-            Expr expr = EqualityRule();
+            Expr expr = EqualityRule(); // condition if ternary
 
             if (Match(TokenType.QUESTION))
             {
+                Token name = Previous();
                 // current is currently one token after ?
                 Expr consequent = TernaryRule();
                 if (Match(TokenType.COLON))
                 {
                     // current is currently one token after :
                     Expr alternative = TernaryRule();
-                    expr = new Expr.Ternary(expr, consequent, alternative);
+                    expr = new Expr.Ternary(expr, consequent, alternative, name);
                 } 
                 else
                 {
@@ -619,6 +620,7 @@ namespace accretion
         private Expr FinishCall(Expr callee)
         {
             List<Expr> arguments = new();
+            List<Token> argumentNames = new();
 
             if (!Check(TokenType.RIGHT_PAREN))
             {
@@ -629,12 +631,14 @@ namespace accretion
                         Error(Peek(), "Can't have more than 255 arguments.");
                     }
                     arguments.Add(Expression());
+                    argumentNames.Add(Previous());
+
                 } while (Match(TokenType.COMMA));
             }
 
             Token paren = Consume(TokenType.RIGHT_PAREN, "Expect ')' after arguments.");
 
-            return new Expr.Call(callee, paren, arguments);
+            return new Expr.Call(callee, paren, arguments, argumentNames);
         }
 
         private Expr PrimaryRule()
@@ -645,7 +649,7 @@ namespace accretion
             if (Match(TokenType.TRUE)) return new Expr.Literal(true);
             if (Match(TokenType.NIL)) return new Expr.Literal(null);
 
-            if (Match(TokenType.NUMBER, TokenType.STRING))
+            if (Match(TokenType.DOUBLE) || Match(TokenType.STRING) || Match(TokenType.INT))
             {
                 return new Expr.Literal(Previous().Literal);
             }

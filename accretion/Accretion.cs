@@ -1,4 +1,5 @@
 ﻿using accretion.Exceptions;
+using accretion.Resolvers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +41,7 @@ namespace accretion
                     string path = Console.ReadLine();
                     if (path != null)
                     {
-                        RunFile(path);
+                        RunFile("C:\\Users\\asher\\Documents\\Coding\\accretion\\scripts\\" + path);
                     }
                 }
                 else if (line == "2")
@@ -85,9 +86,14 @@ namespace accretion
             if (hadError) return;
 
             Resolver resolver = new Resolver(interpreter);
-            resolver.Resolve(statements);
+            resolver.BeginResolve(statements);
 
             if (hadError) return; // need both this and previous check because shouldn't resolve if there are syntax errors
+
+            Typer typer = new Typer();
+            typer.BeginResolve(statements);
+
+            if (hadError) return;
 
             interpreter.Interpret(statements);
 
