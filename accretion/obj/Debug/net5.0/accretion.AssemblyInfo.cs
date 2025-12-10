@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("accretion")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6aa305832c448373b22fe254cbebf9795eb378d7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aefda149c43f86612a6401901bf1da6459124000")]
 [assembly: System.Reflection.AssemblyProductAttribute("accretion")]
 [assembly: System.Reflection.AssemblyTitleAttribute("accretion")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
