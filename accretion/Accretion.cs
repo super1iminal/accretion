@@ -6,7 +6,6 @@ using System.IO;
 
 namespace accretion
 {
-    // TODO: add ternary operator ?:
     public class Accretion
     {
         private static readonly Interpreter interpreter = new();

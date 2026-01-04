@@ -354,7 +354,6 @@ namespace accretion
 
         private Stmt JumpStatement()
         {
-            // TODO: add static check to see if jump statement is outside of loop
             Token label = Previous();
 
             Consume(TokenType.SEMICOLON, $"Expect ';' after {label.Lexeme}.");
