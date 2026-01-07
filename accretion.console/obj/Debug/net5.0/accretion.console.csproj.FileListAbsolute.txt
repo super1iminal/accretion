@@ -21,3 +21,4 @@ C:\Users\asher\Documents\Coding\accretion\accretion\accretion.console\obj\Debug\
 C:\Users\asher\Documents\Coding\accretion\accretion\accretion.console\obj\Debug\net5.0\accretion.console.pdb
 C:\Users\asher\Documents\Coding\accretion\accretion\accretion.console\obj\Debug\net5.0\accretion.console.genruntimeconfig.cache
 C:\Users\asher\Documents\Coding\accretion\accretion\accretion.console\obj\Debug\net5.0\ref\accretion.console.dll
+C:\Users\asher\Documents\Coding\accretion\accretion\accretion.console\obj\Debug\net5.0\accretion.console.sourcelink.json

@@ -1,0 +1,12 @@
+{
+    "name": "Unary Operators",
+    "description": "Tests unary minus and bang operators",
+    "script": "int x = 5;\nprint -x;\nbool t = true;\nprint !t;",
+    "expectedOutput": "-5\nfalse",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["operators", "unary"]
+}

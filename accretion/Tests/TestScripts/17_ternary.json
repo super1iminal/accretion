@@ -1,0 +1,12 @@
+{
+    "name": "Ternary Operator",
+    "description": "Tests ternary conditional operator",
+    "script": "int x = 10;\nstring result = x > 5 ? \"big\" : \"small\";\nprint result;",
+    "expectedOutput": "big",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["operators", "ternary"]
+}

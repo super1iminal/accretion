@@ -1,13 +1,12 @@
-﻿using System;
+﻿using accretion.Errors;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace accretion
+namespace accretion.Core
 {
     public class Scanner
     {
+        private readonly ErrorManager errors;
+
         private readonly string source;
         private readonly List<Token> tokens = new();
         private int start = 0;
@@ -38,9 +37,10 @@ namespace accretion
         };
 
 
-        public Scanner(string source)
+        public Scanner(string source, ErrorManager errors)
         {
             this.source = source;
+            this.errors = errors;
         }
 
         public List<Token> ScanTokens()
@@ -124,7 +124,7 @@ namespace accretion
                     }
                     else
                     {
-                        Accretion.Error(line, "Unexpected character.");
+                        errors.CompilerError(line, "Unexpected character.");
                     }
                     break;
             }
@@ -166,7 +166,7 @@ namespace accretion
 
         private char PeekNext()
         {
-            if ((current + 1) >= source.Length) return '\0';
+            if (current + 1 >= source.Length) return '\0';
             return source[current + 1];
         }
 
@@ -183,14 +183,14 @@ namespace accretion
 
             if (IsAtEnd())
             {
-                Accretion.Error(line, "Unterminated string.");
+                errors.CompilerError(line, "Unterminated string.");
                 return;
             }
 
             // we had skipped this for the closing '"'
             Advance();
 
-            string literal = source.Substring(start + 1, (current - start) - 2);
+            string literal = source.Substring(start + 1, current - start - 2);
             AddToken(TokenType.STRING, literal);
         }
 
@@ -236,12 +236,12 @@ namespace accretion
         // STATIC HELPERS
         private static bool IsALphaU(char c)
         {
-            return char.IsLetter(c) || (c == '_');
+            return char.IsLetter(c) || c == '_';
         }
 
         private static bool IsAlphaNumU(char c)
         {
-            return char.IsLetterOrDigit(c) || (c == '_');
+            return char.IsLetterOrDigit(c) || c == '_';
         }
 
     }

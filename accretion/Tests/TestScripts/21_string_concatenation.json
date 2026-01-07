@@ -1,0 +1,12 @@
+{
+    "name": "String Concatenation",
+    "description": "Tests string concatenation with + operator",
+    "script": "string greeting = \"Hello\";\nstring name = \"World\";\nprint greeting + \", \" + name + \"!\";",
+    "expectedOutput": "Hello, World!",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["strings", "operators"]
+}

@@ -1,0 +1,12 @@
+{
+    "name": "If-Else Statement",
+    "description": "Tests if-else branching",
+    "script": "int x = 10;\nif (x > 5) {\n  print \"greater\";\n} else {\n  print \"smaller\";\n}",
+    "expectedOutput": "greater",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["conditionals", "if"]
+}

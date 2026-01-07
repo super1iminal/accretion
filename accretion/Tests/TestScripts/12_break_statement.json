@@ -1,0 +1,12 @@
+{
+    "name": "Break Statement",
+    "description": "Tests break statement in while loop",
+    "script": "int i = 0;\nwhile (i < 10) {\n  if (i == 3) {\n    break;\n  }\n  print i;\n  i = i + 1;\n}",
+    "expectedOutput": "0\n1\n2",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["loops", "break"]
+}

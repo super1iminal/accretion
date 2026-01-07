@@ -1,8 +1,8 @@
-﻿using System;
+﻿using accretion.Errors;
+using System;
 using System.Collections.Generic;
-using System.Data.Common;
 
-namespace accretion
+namespace accretion.Core
 {
     /* 
      * a parser has two jobs:
@@ -14,14 +14,17 @@ namespace accretion
      */
     public class Parser
     {
+        private readonly ErrorManager errors;
+
         private readonly List<Token> tokens;
         private int current = 0;
 
         private class ParseError : Exception { }
 
-        public Parser(List<Token> tokens)
+        public Parser(List<Token> tokens, ErrorManager errors)
         {
             this.tokens = tokens;
+            this.errors = errors;
         }
 
         public List<Stmt> Parse()
@@ -69,13 +72,9 @@ namespace accretion
 
         private ParseError Error(Token token, string message)
         {
-            Accretion.Error(token, message);
+            errors.CompilerError(token, message);
             return new ParseError();
         }
-
-
-
-
 
 
         // ======== CORE HELPERS ======== 
@@ -100,7 +99,8 @@ namespace accretion
         {
             if (Check(type)) return Advance();
 
-            throw Error(Peek(), message);
+            Error(Peek(), message);
+            return null; // error throws an error
         }
 
 
@@ -191,7 +191,7 @@ namespace accretion
             }
             catch (ParseError)
             {
-                Synchronize(); // TODO: fix synchronize
+                Synchronize();
                 return null;
             }
         }
@@ -508,7 +508,7 @@ namespace accretion
                 } 
                 else
                 {
-                    throw Error(Peek(), "Expect alternative expression (:) in ternary.");
+                    Error(Peek(), "Expect alternative expression (:) in ternary.");
                 }
             }
 
@@ -666,7 +666,8 @@ namespace accretion
                 return new Expr.Grouping(expr);
             }
 
-            throw Error(Peek(), "Expect expression.");
+            Error(Peek(), "Expect expression.");
+            return null; // Error throws an error
         }
 
         

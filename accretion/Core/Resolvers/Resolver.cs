@@ -1,14 +1,13 @@
-﻿using System;
+﻿using accretion.Errors;
+using accretion.Natives;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace accretion
+namespace accretion.Core.Resolvers
 {
     /// <summary>
     /// if the parser is syntactic analysis, this is a *semantic* analysis. 
-    /// walk the AST and resolves variable scoping
+    /// walk the AST and resolves variable scoping and other heuristic analysis
     /// 
     /// interesting nodes:
     /// block statement creates a new scope for its contained statements
@@ -24,18 +23,30 @@ namespace accretion
     /// </summary>
     public class Resolver : Expr.IVisitor<object>, Stmt.IVisitor
     {
+        private readonly ErrorManager errors;
+
         private readonly Interpreter interpreter;
         private readonly Stack<Dictionary<Token, bool>> scopes = new(); // keeps track of the stack of scopes currently in scope
-        private Stack<HashSet<Token>> accessedVars = new();
-        private FunctionType currentFunction = FunctionType.NONE;
-        private bool inLoop = false;
         // each element is a dict representing a block's scope (e.g., [{"a": true}, {"b": false}]
         // keys are variable names, values tell us whether we've finished resolving the variable's initializer
         // only tracks local vars (globals are not tracked)
+        private readonly List<string> globalNames = new(); // todo
 
-        public Resolver(Interpreter interpreter)
+        private Stack<HashSet<Token>> accessedVars = new(); // heuristic use, to see whether all vars in a scope have been used
+        private FunctionType currentFunction = FunctionType.NONE; // heuristic use, to check if we're returning outside of a function
+
+        private bool inLoop = false; // heuristic use, to tell if we're breaking/continuing outside of a loop
+
+
+
+        public Resolver(Interpreter interpreter, ErrorManager errors)
         {
             this.interpreter = interpreter;
+            foreach (var native in NativeRegistry.All)
+            {
+                globalNames.Add(native.Name);
+            }
+            this.errors = errors;
         }
 
         private enum FunctionType
@@ -104,7 +115,7 @@ namespace accretion
         {
             if (currentFunction == FunctionType.NONE)
             {
-                Accretion.Error(stmt.Keyword, "Can't return from top-level code.");
+                errors.CompilerError(stmt.Keyword, "Can't return from top-level code");
             }
             
             if (stmt.Value != null) Resolve(stmt.Value);
@@ -128,7 +139,7 @@ namespace accretion
         {
             if (!inLoop)
             {
-                Accretion.Error(stmt.Label, "Can't jump outside of a loop.");
+                errors.CompilerError(stmt.Label, "Can't jump outside of a loop");
             }
             return;
         }
@@ -144,9 +155,9 @@ namespace accretion
         // EXPRESSIONS
         public object VisitVariableExpr(Expr.Variable expr)
         {
-            if ((scopes.Count > 0) && scopes.Peek().TryGetValue(expr.Name, out bool defined) && (defined == false))
+            if (scopes.Count > 0 && scopes.Peek().TryGetValue(expr.Name, out bool defined) && defined == false)
             {
-                Accretion.Error(expr.Name, "Can't read local variable in its own initializer");
+                errors.CompilerError(expr.Name, "Can't read local variable in its own initializer");
             }
             ResolveVar(expr, expr.Name);
             return null;
@@ -258,7 +269,7 @@ namespace accretion
             {
                 foreach (Token token in closedScope.Keys)
                 {
-                    if (!accessedVarsScope.Contains(token)) Accretion.Warning(token, "Local variable unused.");
+                    if (!accessedVarsScope.Contains(token)) errors.CompilerWarning(token, "Local variable unused");
                 }
             }
         }
@@ -271,7 +282,7 @@ namespace accretion
             Dictionary<Token, bool> scope = scopes.Peek();
             if (scope.ContainsKey(name))
             {
-                Accretion.Error(name, "Already a variable with this name in this scope.");
+                errors.CompilerError(name, "Already a variable with this name in this scope");
             }
             scope[name] = false; // not ready to be used yet, has only been declared
         }
@@ -290,13 +301,21 @@ namespace accretion
                 if (scopes.ElementAt(i).ContainsKey(name))
                 {
                     interpreter.Resolve(expr, i); // tells interpreter how many scopes are between the current scope and scope where var is defined
-                    HashSet<Token> accessedVarsScope = accessedVars.ElementAt(i);
+                    HashSet<Token> accessedVarsScope = accessedVars.ElementAt(i); // tracking used variables for warnings for unused variables
                     accessedVarsScope.Add(name);
                     return;
                 }
+
+                if (globalNames.Contains(name.Lexeme))
+                {
+                    return; // note that this is a special case. we don't need to add the global to the locals because it is the only kind of thing we don't add.
+                    // it's like not adding it to locals is another "layer" in the resolution-- the base layer. 
+                    // also, if this was by name, we'd have to add it, but since it's by expression, the expression won't resolve to anything, so the interpreter will know it's
+                    // either bunk or it resolves to a global
+                }
             }
 
-            Accretion.Error(name, "There is no declared variable with that name.");
+            errors.CompilerError(name, "There is no declared variable or function with that name");
         }
 
         private void ResolveFunction(Stmt.Function function, FunctionType type)

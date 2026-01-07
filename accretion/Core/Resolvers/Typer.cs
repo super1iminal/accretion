@@ -1,119 +1,37 @@
-﻿using accretion.Exceptions;
+﻿using accretion.Errors;
+using accretion.Natives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Formats.Asn1.AsnWriter;
+using System.Xml.Linq;
 
-namespace accretion.Resolvers
+namespace accretion.Core.Resolvers
 {
-
-    public class AccType 
-    {
-        public readonly string Value;
-        public enum NativeType
-        {
-            VOID,
-            DOUBLE,
-            STRING,
-            BOOL,
-            INT
-        }
-
-        public AccType(string value) { Value = value; }
-        public AccType(Token value) { Value = value.Lexeme; }
-        public AccType(NativeType ntype)
-        {
-            switch (ntype)
-            {
-                case NativeType.DOUBLE:
-                    Value = "double";
-                    break;
-                case NativeType.STRING:
-                    Value = "string";
-                    break;
-                case NativeType.VOID:
-                    Value = "void";
-                    break;
-                case NativeType.BOOL:
-                    Value = "bool";
-                    break;
-            }
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj is not AccType type) return false;
-            if (type.Value == null) return false;
-
-            return Equals(Value, type.Value);
-        }
-
-        public override int GetHashCode()
-        {
-            return Value.GetHashCode();
-        }
-    }
-
-    public class FunType : AccType
-    {
-        // value is also ReturnType for consistency and resolvability
-        public readonly AccType ReturnType; // change this to FunType to allow for returning functions
-        public readonly List<AccType> ParamTypes;
-
-        public FunType(AccType returnType, List<AccType> ParamTypes) : base(returnType.Value)
-        {
-            this.ReturnType = returnType;
-            this.ParamTypes = ParamTypes;
-        }
-
-        public FunType(Token returnTypeToken, List<Token> paramTypeTokens) : base(returnTypeToken.Lexeme) 
-        {
-            ReturnType = new AccType(returnTypeToken);
-            ParamTypes = new();
-            foreach (Token paramTypeToken in paramTypeTokens)
-            {
-                ParamTypes.Add(new AccType(paramTypeToken));
-            }
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (!(obj is FunType type)) return false;
-            if (obj == null) return false;
-
-            if (!Equals(ReturnType,type.ReturnType)) return false;
-            if (this.ParamTypes.Count != type.ParamTypes.Count) return false;
-
-            for (int i = 0;  i < this.ParamTypes.Count; i++)
-            {
-                if (!Equals(ParamTypes[i], type.ParamTypes[i])) return false;
-            }
-
-            return true;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(ReturnType.GetHashCode(), ParamTypes.GetHashCode());
-        }
-    }
-
+    // todo: treat ints as doubles in initializer and assignment if the type of var is double
+    
     public class Typer : Expr.IVisitor<AccType>, Stmt.IVisitor
     {
         private readonly Stack<Dictionary<Token, AccType>> scopes = new();
+        private readonly Dictionary<string, AccType> globalTypes = new();
 
         private readonly HashSet<AccType> validTypes = new();
+        private readonly AccType ignoreType = new("ignore"); // anytime a variable or function is ignored due to non-existent types, it is set to ignore
+                                                             // so the user doesn't get flooded with compile errors
 
-        private FunType currentFunctionType = null;
+        private AccType currentFunctionReturnType = null; // to see if return value matches stated function return value
 
-        public Typer()
+        private readonly ErrorManager errors;
+
+        public Typer(ErrorManager errors)
         {
-            foreach (AccType.NativeType nativeType in Enum.GetValues(typeof(AccType.NativeType)))
+            validTypes.UnionWith(NativeAccTypeFactory.nativeAccTypes);
+
+            foreach (var native in NativeRegistry.All)
             {
-                validTypes.Add(new AccType(nativeType));
+                globalTypes[native.Name] = native.Type;
             }
+
+            this.errors = errors;
         }
 
 
@@ -129,10 +47,22 @@ namespace accretion.Resolvers
         // variable declaration
         public void VisitVarStmt(Stmt.Var stmt)
         {
-            DeclareVar(stmt.Name, stmt.Type);
+            AccType initType = null;
             if (stmt.Initializer != null)
             {
-                Resolve(stmt.Initializer); // make sure initializer type is the same type as the declaration
+                initType = Resolve(stmt.Initializer);
+            }
+            AccType varType = DeclareVar(stmt.Name, stmt.Type);
+
+            if (varType == ignoreType)
+            {
+                return;
+            }
+
+            if (initType != null && !Equals(varType, initType))
+            {
+                errors.CompilerError(stmt.Type, "Variable initializer does not match variable type"); // todo: move this to the initializer resolution to use initializer token,
+                                                                                                      // or implicitly split variable initialization into declaration and assignment to avoid this
             }
 
             return;
@@ -140,13 +70,13 @@ namespace accretion.Resolvers
 
         public void VisitFunctionStmt(Stmt.Function stmt)
         {
-            FunType previousFunType = currentFunctionType;
+            AccType previousFunType = currentFunctionReturnType;
 
             DeclareFun(stmt.Name, stmt.Returntype, stmt.Parametertypes);
 
             ResolveFunction(stmt);
 
-            currentFunctionType = previousFunType;
+            currentFunctionReturnType = previousFunType;
             return;
         }
 
@@ -174,18 +104,21 @@ namespace accretion.Resolvers
 
         public void VisitReturnStmt(Stmt.Return stmt)
         {
+            if (Equals(currentFunctionReturnType, ignoreType) || currentFunctionReturnType is not FunType) return;
+
             if (stmt.Value != null)
             {
                 AccType returnType = Resolve(stmt.Value);
-                if (!Equals(returnType, currentFunctionType.ReturnType))
-                {
-                    Accretion.Error(stmt.Keyword, $"Returned value does not match return type ({currentFunctionType.Value})");
-                }
-            } else
+            }
+            else
             {
-                if (!Equals(currentFunctionType.ReturnType, new AccType(AccType.NativeType.VOID)) )
+                AccType returnType = NativeAccTypeFactory.VOID;
+            }
+            {
+                AccType returnType = Resolve(stmt.Value);
+                if (!Equals(returnType, ((FunType)currentFunctionReturnType).ReturnType))
                 {
-                    Accretion.Error(stmt.Keyword, $"Returned value does not match return type {currentFunctionType.Value})");
+                    errors.CompilerError(stmt.Keyword, $"Returned value does not match return type ({currentFunctionReturnType.Value})");
                 }
             }
 
@@ -212,17 +145,22 @@ namespace accretion.Resolvers
         // this is a "get" operation
         public AccType VisitVariableExpr(Expr.Variable expr)
         {
-            return ResolveVar(expr.Name); // will return either var type or function return type
+            AccType varExprType = ResolveVar(expr.Name);
+            if (PropagateIgnore(varExprType)) return ignoreType;
+
+
+            return varExprType;  // will return either var type or function return type
         }
 
         public AccType VisitAssignExpr(Expr.Assign expr)
         {
             AccType varType = ResolveVar(expr.Name);
             AccType valueType = Resolve(expr.Value);
+            if (PropagateIgnore(varType, valueType)) return ignoreType;
 
             if (Equals(varType, valueType)) return valueType;
 
-            Accretion.Error(expr.Name, "Value type does not match declared type.");
+            errors.CompilerError(expr.Name, "Value type does not match declared type");
 
             return valueType;
         }
@@ -232,6 +170,7 @@ namespace accretion.Resolvers
         {
             AccType left = Resolve(expr.Left);
             AccType right = Resolve(expr.Right);
+            if (PropagateIgnore(left, right)) return ignoreType;
 
             switch (expr.Op.Type)
             {
@@ -242,34 +181,34 @@ namespace accretion.Resolvers
                 case TokenType.MINUS:
                 case TokenType.SLASH:
                 case TokenType.STAR:
-                    if (!IsNum(left, right)) Accretion.Error(expr.Op, "Operands must be numbers.");
-                    if (IsDouble(left) || IsDouble(right)) return new AccType(AccType.NativeType.DOUBLE);
-                    else return new AccType(AccType.NativeType.INT);
+                    if (!IsNum(left, right)) errors.CompilerError(expr.Op, "Operands must be numbers");
+                    if (IsDouble(left) || IsDouble(right)) return NativeAccTypeFactory.DOUBLE;
+                    else return NativeAccTypeFactory.INT;
 
                 case TokenType.PLUS:
                     if (IsNum(left, right))
                     {
                         if (IsDouble(left) || IsDouble(right))
                         {
-                            return new AccType(AccType.NativeType.DOUBLE);
+                            return NativeAccTypeFactory.DOUBLE;
                         } else
                         {
-                            return new AccType(AccType.NativeType.INT);
+                            return NativeAccTypeFactory.INT;
                         }
                     }
                     else if (IsString(left) || IsString(right) && IsAlphaNum(left, right))
                     {
-                        return new AccType(AccType.NativeType.STRING);
+                        return NativeAccTypeFactory.STRING;
                     }
                     else
                     {
-                        Accretion.Error(expr.Op, "Operands must be numbers or strings.");
+                        errors.CompilerError(expr.Op, "Operands must be numbers or strings");
                         break;
                     }
 
                 case TokenType.BANG_EQUAL:
                 case TokenType.EQUAL_EQUAL:
-                    return new AccType(AccType.NativeType.BOOL);
+                    return NativeAccTypeFactory.BOOL;
 
                 }
 
@@ -279,24 +218,26 @@ namespace accretion.Resolvers
         public AccType VisitCallExpr(Expr.Call expr)
         {
             AccType calleeType = Resolve(expr.Callee); // remember, callee can be an expression, but (should) resolve to a variable in interpreter
+            if (PropagateIgnore(calleeType)) return ignoreType;
             if (calleeType is not FunType funType)
             {
-                Accretion.Error(expr.Paren, "Cannot call a variable.");
-                return new AccType(AccType.NativeType.VOID);
+                errors.CompilerError(expr.Paren, "Cannot call a variable"); // TODO: add synchronization after errors that can't return a type
+                return NativeAccTypeFactory.VOID;
             }
             if (expr.Arguments.Count != funType.ParamTypes.Count)
             {
-                Accretion.Error(expr.Paren, "Number of arguments does not match.");
+                errors.CompilerError(expr.Paren, "Number of arguments does not match");
                 return funType.ReturnType;
             }
             for (int i = 0; i < expr.Arguments.Count; i++)
             {
                 AccType argType = Resolve(expr.Arguments[i]);
                 AccType paramType = funType.ParamTypes[i];
+                if (PropagateIgnore(argType, paramType)) return ignoreType;
 
                 if (!Equals(argType, paramType))
                 {
-                    Accretion.Error(expr.Argumentnames[i], "Argument type does not match parameter type.");
+                    errors.CompilerError(expr.Argumentnames[i], "Argument type does not match parameter type");
                 }
             }
 
@@ -306,6 +247,8 @@ namespace accretion.Resolvers
         public AccType VisitGroupingExpr(Expr.Grouping expr)
         {
             AccType expressionType = Resolve(expr.Expression);
+            if (PropagateIgnore(expressionType)) return ignoreType;
+
             return expressionType;
         }
 
@@ -313,29 +256,26 @@ namespace accretion.Resolvers
         {
             object value = expr.Value;
 
-            if (value is null) return new AccType(AccType.NativeType.VOID);
-            else if (value is string) return new AccType(AccType.NativeType.STRING);
-            else if (value is double) return new AccType(AccType.NativeType.DOUBLE);
-            else if (value is bool) return new AccType(AccType.NativeType.BOOL);
-
-            throw new NotSupportedException("Weird. You shouldn't be here. How did you get here? Error code 1067.");
+            return NativeAccTypeFactory.AccTypeFromObject(value); // value types should be restricted to native types in the parser
         }
 
         public AccType VisitLogicalExpr(Expr.Logical expr)
         {
-            Resolve(expr.Left);
-            Resolve(expr.Right);
-            return new AccType(AccType.NativeType.BOOL);
+            AccType left = Resolve(expr.Left);
+            AccType right = Resolve(expr.Right);
+            if (PropagateIgnore(left, right)) return ignoreType;
+            return NativeAccTypeFactory.BOOL;
         }
 
         public AccType VisitUnaryExpr(Expr.Unary expr)
         {
             AccType type = Resolve(expr.Right);
+            if (PropagateIgnore(type)) return ignoreType;
 
             switch (expr.Op.Type)
             {
                 case TokenType.BANG:
-                    return new AccType(AccType.NativeType.BOOL);
+                    return NativeAccTypeFactory.BOOL;
                 case TokenType.MINUS:
                     if (IsNum(type))
                     {
@@ -343,7 +283,7 @@ namespace accretion.Resolvers
                     }
                     else
                     {
-                        Accretion.Error(expr.Op, "Operand must be a number.");
+                        errors.CompilerError(expr.Op, "Operand must be a number");
                         return type;
                     }
 
@@ -358,7 +298,9 @@ namespace accretion.Resolvers
             AccType consequentType = Resolve(expr.Consequent);
             AccType alternativeType = Resolve(expr.Alternative);
 
-            if (!Equals(consequentType, alternativeType)) Accretion.Error(expr.Name, "Both branches of the ternary expression must be of the same type.");
+            if (PropagateIgnore(alternativeType, consequentType)) return ignoreType;
+
+            if (!Equals(consequentType, alternativeType)) errors.CompilerError(expr.Name, "Both branches of the ternary expression must be of the same type");
 
             return consequentType;
         }
@@ -368,6 +310,20 @@ namespace accretion.Resolvers
 
 
         // HELPERS
+        /// <summary>
+        ///  helper to check if any of the given types are of ignoreType. if so,
+        ///  the ignore type should be propagated up the expression tree, since part of the expression is corrupted.
+        /// </summary>
+        /// <param name="types"></param>
+        /// <returns></returns>
+        public bool PropagateIgnore(params AccType[] types)
+        {
+            foreach (AccType type in types)
+            {
+                if (Equals(type, ignoreType)) return true;
+            }
+            return false;
+        }
         public void BeginResolve(List<Stmt> statements)
         {
             BeginScope();
@@ -403,23 +359,18 @@ namespace accretion.Resolvers
         }
 
 
-        private void DeclareVar(Token name, Token typeToken)
+        private AccType DeclareVar(Token name, Token typeToken)
         {
-            // make sure var type is a valid type
-            if (scopes.Count == 0) return;
+            if (scopes.Count == 0) throw new ApplicationException("Woah. You shouldn't be here. Error code 0918.");
 
             Dictionary<Token, AccType> scope = scopes.Peek();
 
-            AccType type = new(typeToken);
+            AccType type = new(typeToken.Lexeme);
 
-            if (!validTypes.Contains(type))
-            {
-                Accretion.Error(typeToken, "Unknown type.");
-            }
-            else
-            {
-                scope[name] = type;
-            }
+            AccType validatedType = ValidOrIgnore(type, typeToken);
+
+            scope[name] = validatedType;
+            return validatedType;
         }
 
         private void DeclareFun(Token name, Token returnType, List<Token> paramTypes)
@@ -429,23 +380,38 @@ namespace accretion.Resolvers
             Dictionary<Token, AccType> scope = scopes.Peek();
 
             FunType type = new(returnType, paramTypes);
-            currentFunctionType = type;
 
-            bool failure = false;
+            AccType ignoreCheck = ValidOrIgnore(type.ReturnType, returnType);
 
-            if (!validTypes.Contains(type.ReturnType))
+            AccType verifiedType;
+
+            if (Equals(ignoreCheck, ignoreType))
             {
-                Accretion.Error(returnType, "Unknown type.");
-                failure = true;
+                 verifiedType = ignoreType;
             }
-
+            else
+            {
+                verifiedType = type;
+            }
+            
+            currentFunctionReturnType = verifiedType;
+            scope[name] = verifiedType;
             // paramtypes checked in ResolveFunction
+        }
 
-            if (!failure)
-            {
-                scope[name] = type;
+        /// <summary>
+        /// helper that returns either the given type, if it is valid, or sends an error and returns the ignore type if the type is invalid.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="typeToken"></param>
+        /// <returns></returns>
+        private AccType ValidOrIgnore(AccType type, Token typeToken)
+        {
+            if (!validTypes.Contains(type)) {
+                errors.CompilerError(typeToken, "Unknown type");
+                return ignoreType; 
             }
-
+            else return type;
         }
 
         //private void Define(Token name) // unused
@@ -463,8 +429,17 @@ namespace accretion.Resolvers
                 }
             }
 
+            if (globalTypes.ContainsKey(name.Lexeme))
+            {
+                return globalTypes[name.Lexeme];
+            } else
+            {
+                // we should NOT get here since we fill non-existent types with the ignore type (so all elements should be in scope)
+                throw new ApplicationException("Mismatch between resolver and typer. Error code 6767.");
+            }
+
             // unreachable (if you run normal resolver first)
-            return null;
+            // return null;
         }
 
         private void ResolveFunction(Stmt.Function function)
@@ -487,7 +462,7 @@ namespace accretion.Resolvers
 
         private static bool IsInt(params AccType[] types)
         {
-            AccType intType = new AccType(AccType.NativeType.INT);
+            AccType intType = NativeAccTypeFactory.INT;
             foreach (AccType type in types)
             {
                 if (!Equals(type, intType)) return false;
@@ -498,7 +473,7 @@ namespace accretion.Resolvers
 
         private static bool IsDouble(params AccType[] types)
         {
-            AccType doubleType = new AccType(AccType.NativeType.DOUBLE);
+            AccType doubleType = NativeAccTypeFactory.DOUBLE;
             foreach (AccType type in types)
             {
                 if (!Equals(type, doubleType)) return false;
@@ -509,7 +484,7 @@ namespace accretion.Resolvers
 
         private static bool IsString(params AccType[] types)
         {
-            AccType stringType = new AccType(AccType.NativeType.STRING);
+            AccType stringType = NativeAccTypeFactory.STRING;
             foreach (AccType type in types)
             {
                 if (!Equals(type, stringType)) return false;
@@ -539,6 +514,4 @@ namespace accretion.Resolvers
         }
 
     }
-
-    // next TODO: not here. gotta extend Resolver to accept globals, make it abstract, extend it with ScopeResolver, TypeResolver, HeuristicResolver (heuristic is just a grab bag)
 }

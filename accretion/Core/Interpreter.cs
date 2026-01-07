@@ -1,28 +1,37 @@
 ﻿using accretion.Callables;
+using accretion.Errors;
 using accretion.Exceptions;
-using accretion.Resolvers;
+using accretion.Natives;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace accretion
+namespace accretion.Core
 {
     // tree-walk interpreter
     // need a type check for each cast
     public class Interpreter : Expr.IVisitor<object>, Stmt.IVisitor // remember, object is the return value of the visitor
     {
-        private Environment environment = new();
-        private readonly Dictionary<Expr, int> locals = new();
+        private readonly Logger logger;
+        private readonly ErrorManager errors;
+        
+        private SingleEnvironment globals = new();
+        private LayeredEnvironment environment = new();
+        private readonly Dictionary<Expr, int> locals = new(); // used indirectly (through Resolve() below) by Resolver
+                                                               // (resolves scope of variables, e.g., Expr x is 5 scopes away,
+                                                               // but we know that Expr x (different) is 1 scope away)
+        
 
         // native function
 
-        public Interpreter()
+        public Interpreter(ErrorManager errors, Logger logger)
         {
-            environment.Define("clock", new NativeCallable(NativeFunctions.Clock, new AccType(AccType.NativeType.DOUBLE), null));
-            environment.Define("absd", new NativeCallable(NativeFunctions.Abs, new AccType()))
+            foreach (var native in NativeRegistry.All)
+            {
+                globals.Define(native.Name, native.Value);
+            }
+
+            this.errors = errors;
+            this.logger = logger;
         }
         // PUBLIC API
         public void Interpret(List<Stmt> statements)
@@ -36,7 +45,7 @@ namespace accretion
             }
             catch (RuntimeError e)
             {
-                Accretion.AccretionRuntimeError(e);
+                errors.RuntimeError(e);
             }
         }
 
@@ -64,7 +73,7 @@ namespace accretion
         public void VisitPrintStmt(Stmt.Print stmt)
         {
             object value = Evaluate(stmt.ExpressionValue);
-            Console.WriteLine(Stringify(value));
+            logger.Log(Stringify(value));
             return;
         }
 
@@ -83,7 +92,7 @@ namespace accretion
 
         public void VisitBlockStmt(Stmt.Block stmt)
         {
-            ExecuteBlock(stmt.Statements, new Environment(environment));
+            ExecuteBlock(stmt.Statements, new LayeredEnvironment(environment));
         }
 
         public void VisitIfStmt(Stmt.If stmt)
@@ -198,15 +207,15 @@ namespace accretion
                     }
                     else if (IsInt(left, right))
                     {
-                        return (double)(int)left / (double)(int)right;
+                        return (int)left / (double)(int)right;
                     }
                     else if (IsInt(left) && IsDouble(right))
                     {
-                        return (double)(int)left / (double)right;
+                        return (int)left / (double)right;
                     }
                     else if (IsDouble(left) && IsInt(right))
                     {
-                        return (double)left / (double)(int)right;
+                        return (double)left / (int)right;
                     }
                     else
                     {
@@ -220,15 +229,15 @@ namespace accretion
                     }
                     else if (IsInt(left, right))
                     {
-                        return (double)(int)left * (double)(int)right;
+                        return (int)left * (double)(int)right;
                     }
                     else if (IsInt(left) && IsDouble(right))
                     {
-                        return (double)(int)left * (double)right;
+                        return (int)left * (double)right;
                     }
                     else if (IsDouble(left) && IsInt(right))
                     {
-                        return (double)left * (double)(int)right;
+                        return (double)left * (int)right;
                     }
                     else
                     {
@@ -311,11 +320,14 @@ namespace accretion
             {
                 environment.AssignAt(distance, expr.Name, value);
             }
+            else if (globals.TryGet(expr.Name, out object _))
+            {
+                throw new RuntimeError(expr.Name, "Attempting to assign to a global variable.");
+            }
             else
             {
                 throw new RuntimeError(expr.Name, "Attempting to assign to a variable that does not exist.");
             }
-            environment.Assign(expr.Name, value);
             return value;
         }
 
@@ -348,7 +360,7 @@ namespace accretion
 
             if (!(callee is AccretionCallable))
             {
-                throw new RuntimeError(expr.Paren, "Can only call functions and classes");
+                throw new ApplicationException("Typing should have been caught by the Typer. Error code 67695.");
             }
 
             AccretionCallable function = (AccretionCallable)callee;
@@ -397,15 +409,19 @@ namespace accretion
             {
                 return environment.GetAt(distance, name.Lexeme);
             }
+            else if (globals.TryGet(name, out object value))
+            {
+                return value;
+            }
             else
             {
                 throw new RuntimeError(name, "Attempting to get a variable that does not exist.");
             }
         }
 
-        public void ExecuteBlock(List<Stmt> statements, Environment environment)
+        public void ExecuteBlock(List<Stmt> statements, LayeredEnvironment environment)
         {
-            Environment previous = this.environment;
+            LayeredEnvironment previous = this.environment;
 
             try
             {
@@ -426,7 +442,7 @@ namespace accretion
         {
             if (obj == null) return false;
             if (obj is bool b) return b;
-            if (obj is double d) return d != ((double)0.0);
+            if (obj is double d) return d != (double)0.0;
             if (obj is int i) return i != 0;
             if (obj is string s) return s != "";
             return true;
@@ -483,11 +499,11 @@ namespace accretion
             }
             else if (IsInt(left) && IsDouble(right))
             {
-                return (double)(int)left + (double)right;
+                return (int)left + (double)right;
             }
             else if (IsDouble(left) && IsInt(right))
             {
-                return (double)left + (double)(int)right;
+                return (double)left + (int)right;
             }
             else
             {

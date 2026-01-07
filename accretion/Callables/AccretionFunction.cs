@@ -1,21 +1,17 @@
-﻿using accretion.Exceptions;
-using accretion.Resolvers;
-using System;
+﻿using accretion.Core;
+using accretion.Exceptions;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace accretion.Callables
 {
     public class AccretionFunction : AccretionCallable
     {
         private readonly Stmt.Function declaration;
-        private readonly Environment closure;
+        private readonly LayeredEnvironment closure;
 
         public int Arity { get => declaration.Parameters.Count; }
 
-        public AccretionFunction(Stmt.Function declaration, Environment closure)
+        public AccretionFunction(Stmt.Function declaration, LayeredEnvironment closure)
         {
             this.declaration = declaration;
             this.closure = closure;
@@ -23,7 +19,7 @@ namespace accretion.Callables
 
         public object Call(Interpreter interpreter, List<object> arguments)
         {
-            Environment environment = new Environment(closure);
+            LayeredEnvironment environment = new LayeredEnvironment(closure);
 
             for (int i = 0; i < arguments.Count; i++)
             {

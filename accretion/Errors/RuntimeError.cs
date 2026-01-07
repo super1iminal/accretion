@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace accretion.Exceptions
+namespace accretion.Errors
 {
     public class RuntimeError : Exception
     {
@@ -9,7 +9,7 @@ namespace accretion.Exceptions
 
         public RuntimeError(Token token, string message) : base(message)
         {
-            this.Token = token;
+            Token = token;
         }
     }
 }

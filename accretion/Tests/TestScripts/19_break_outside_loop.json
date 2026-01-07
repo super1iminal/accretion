@@ -1,0 +1,13 @@
+{
+    "name": "Break Outside Loop Error",
+    "description": "Tests that break outside a loop produces a compiler error",
+    "script": "break;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "outside of a loop",
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "trimWhitespace": true,
+    "tags": ["error", "loops"]
+}

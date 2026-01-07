@@ -1,0 +1,13 @@
+{
+    "name": "Return Outside Function Error",
+    "description": "Tests that return outside a function produces a compiler error",
+    "script": "return 5;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "top-level",
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "trimWhitespace": true,
+    "tags": ["error", "return"]
+}
