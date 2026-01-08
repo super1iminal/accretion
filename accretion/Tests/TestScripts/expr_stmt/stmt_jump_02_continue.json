@@ -1,0 +1,9 @@
+{
+    "name": "Jump Statement - Continue",
+    "description": "Tests continue statement skips rest of loop body",
+    "script": "int i = 0;\nwhile (i < 5) {\n    i = i + 1;\n    if (i == 3) {\n        continue;\n    }\n    print i;\n}",
+    "expectedOutput": "1\n2\n4\n5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "jump", "continue", "loop"]
+}

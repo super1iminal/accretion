@@ -1,0 +1,9 @@
+{
+    "name": "Function Statement - Recursion",
+    "description": "Tests recursive function calls",
+    "script": "int factorial(int n) {\n    if (n <= 1) {\n        return 1;\n    }\n    return n * factorial(n - 1);\n}\nprint factorial(5);",
+    "expectedOutput": "120",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "function", "recursion"]
+}

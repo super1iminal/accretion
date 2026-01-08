@@ -1,0 +1,9 @@
+{
+    "name": "Unary Expression - Double Negation",
+    "description": "Tests double negation returns original value",
+    "script": "int a = 42;\nint result = --a;\nprint result;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "unary", "negation", "boundary"]
+}

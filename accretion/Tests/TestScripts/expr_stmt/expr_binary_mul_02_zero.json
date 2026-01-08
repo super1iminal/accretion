@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Multiplication by Zero",
+    "description": "Tests multiplication by zero (boundary value)",
+    "script": "int a = 42;\nint b = 0;\nint result = a * b;\nprint result;",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "arithmetic", "multiplication", "boundary"]
+}

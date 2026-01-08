@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Division by One",
+    "description": "Tests division by one (identity)",
+    "script": "int a = 42;\nint b = 1;\ndouble result = a / b;\nprint result;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "arithmetic", "division", "boundary"]
+}

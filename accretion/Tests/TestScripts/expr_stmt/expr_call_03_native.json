@@ -1,0 +1,9 @@
+{
+    "name": "Call Expression - Native Function",
+    "description": "Tests calling a native function (absi)",
+    "script": "int result = absi(-42);\nprint result;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "call", "native"]
+}

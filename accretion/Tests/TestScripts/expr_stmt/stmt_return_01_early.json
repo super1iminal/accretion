@@ -1,0 +1,9 @@
+{
+    "name": "Return Statement - Early Return",
+    "description": "Tests early return from function",
+    "script": "int check(int n) {\n    if (n < 0) {\n        return -1;\n    }\n    return n * 2;\n}\nprint check(-5);\nprint check(5);",
+    "expectedOutput": "-1\n10",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "return", "function"]
+}

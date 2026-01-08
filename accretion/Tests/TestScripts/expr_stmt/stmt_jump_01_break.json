@@ -1,0 +1,9 @@
+{
+    "name": "Jump Statement - Break",
+    "description": "Tests break statement exits loop",
+    "script": "int i = 0;\nwhile (true) {\n    if (i >= 3) {\n        break;\n    }\n    print i;\n    i = i + 1;\n}\nprint \"done\";",
+    "expectedOutput": "0\n1\n2\ndone",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "jump", "break", "loop"]
+}

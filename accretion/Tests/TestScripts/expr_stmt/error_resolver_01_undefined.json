@@ -1,0 +1,11 @@
+{
+    "name": "Resolver Error - Undefined Variable",
+    "description": "Tests accessing undefined variable produces error",
+    "script": "print x;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "no declared variable",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "resolver", "undefined"]
+}

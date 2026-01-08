@@ -1,0 +1,9 @@
+{
+    "name": "Function Statement - With Return Value",
+    "description": "Tests function with return value",
+    "script": "int square(int n) {\n    return n * n;\n}\nprint square(5);",
+    "expectedOutput": "25",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "function", "return"]
+}

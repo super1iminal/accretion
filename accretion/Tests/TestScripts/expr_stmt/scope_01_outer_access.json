@@ -1,0 +1,9 @@
+{
+    "name": "Scope - Access Outer Variable",
+    "description": "Tests accessing variable from outer scope",
+    "script": "int x = 10;\n{\n    print x;\n}",
+    "expectedOutput": "10",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["scope", "variable", "access"]
+}

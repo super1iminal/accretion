@@ -1,0 +1,9 @@
+{
+    "name": "If Statement - Nested If",
+    "description": "Tests nested if statements",
+    "script": "int x = 10;\nif (x > 5) {\n    if (x > 8) {\n        print \"big\";\n    } else {\n        print \"medium\";\n    }\n} else {\n    print \"small\";\n}",
+    "expectedOutput": "big",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "if", "nested", "control-flow"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Double - Double",
+    "description": "Tests subtraction of two doubles",
+    "script": "double a = 10.5;\ndouble b = 3.2;\ndouble result = a - b;\nprint result;",
+    "expectedOutput": "7.3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "arithmetic", "subtraction", "double"]
+}

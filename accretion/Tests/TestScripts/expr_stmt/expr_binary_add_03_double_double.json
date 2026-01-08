@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Double + Double",
+    "description": "Tests addition of two doubles returns a double",
+    "script": "double a = 2.5;\ndouble b = 3.5;\ndouble result = a + b;\nprint result;",
+    "expectedOutput": "6",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "arithmetic", "addition", "double"]
+}

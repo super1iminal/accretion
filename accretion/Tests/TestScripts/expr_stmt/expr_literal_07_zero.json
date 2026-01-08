@@ -1,0 +1,9 @@
+{
+    "name": "Literal Expression - Zero",
+    "description": "Tests zero literal (boundary value)",
+    "script": "print 0;",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "literal", "int", "boundary"]
+}

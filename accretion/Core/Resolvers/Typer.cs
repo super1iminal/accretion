@@ -4,7 +4,6 @@ using accretion.Natives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 
 namespace accretion.Core.Resolvers
 {
@@ -19,7 +18,7 @@ namespace accretion.Core.Resolvers
         private readonly AccType ignoreType = new("ignore"); // anytime a variable or function is ignored due to non-existent types, it is set to ignore
                                                              // so the user doesn't get flooded with compile errors
 
-        private AccType currentFunctionReturnType = null; // to see if return value matches stated function return value
+        private AccType currentFunctionType = null; // to see if return value matches stated function return value
 
         private readonly ErrorManager errors;
 
@@ -55,10 +54,9 @@ namespace accretion.Core.Resolvers
             }
             AccType varType = DeclareVar(stmt.Name, stmt.Type);
 
-            if (varType == ignoreType)
-            {
-                return;
-            }
+            if (Equals(varType, ignoreType)) return;
+
+            initType = ImplicitCast(initType, varType);
 
             if (initType != null && !Equals(varType, initType))
             {
@@ -71,13 +69,13 @@ namespace accretion.Core.Resolvers
 
         public void VisitFunctionStmt(Stmt.Function stmt)
         {
-            AccType previousFunType = currentFunctionReturnType;
+            AccType previousFunType = currentFunctionType;
 
             DeclareFun(stmt.Name, stmt.Returntype, stmt.Parametertypes);
 
             ResolveFunction(stmt);
 
-            currentFunctionReturnType = previousFunType;
+            currentFunctionType = previousFunType;
             return;
         }
 
@@ -105,22 +103,22 @@ namespace accretion.Core.Resolvers
 
         public void VisitReturnStmt(Stmt.Return stmt)
         {
-            if (Equals(currentFunctionReturnType, ignoreType) || currentFunctionReturnType is not FunType) return;
-
+            AccType returnValueType;
             if (stmt.Value != null)
             {
-                AccType returnType = Resolve(stmt.Value);
+                returnValueType = Resolve(stmt.Value);
             }
             else
             {
-                AccType returnType = NativeAccTypeFactory.VOID;
+                returnValueType = NativeAccTypeFactory.VOID;
             }
+
+            if (Equals(currentFunctionType, ignoreType) || Equals(returnValueType, ignoreType) || (currentFunctionType is not FunType cfReturnType)) return;
+
+            returnValueType = ImplicitCast(returnValueType, cfReturnType.ReturnType);
+            if (!Equals(returnValueType, ((FunType)currentFunctionType).ReturnType))
             {
-                AccType returnType = Resolve(stmt.Value);
-                if (!Equals(returnType, ((FunType)currentFunctionReturnType).ReturnType))
-                {
-                    errors.CompilerError(stmt.Keyword, $"Returned value does not match return type ({currentFunctionReturnType.Value})");
-                }
+                errors.CompilerError(stmt.Keyword, $"Returned value does not match return type ({currentFunctionType.Value})");
             }
 
             return;
@@ -322,7 +320,7 @@ namespace accretion.Core.Resolvers
         public AccType ImplicitCast(AccType valueType, AccType sourceType)
         {
             // hardcoded (native) implicit casts:
-            if ((valueType == NativeAccTypeFactory.INT) && (sourceType == NativeAccTypeFactory.DOUBLE))
+            if (Equals(valueType, NativeAccTypeFactory.INT) && Equals(sourceType, NativeAccTypeFactory.DOUBLE))
             {
                 return NativeAccTypeFactory.DOUBLE;
             }
@@ -416,7 +414,7 @@ namespace accretion.Core.Resolvers
                 verifiedType = type;
             }
             
-            currentFunctionReturnType = verifiedType;
+            currentFunctionType = verifiedType;
             scope[name] = verifiedType;
             // paramtypes checked in ResolveFunction
         }

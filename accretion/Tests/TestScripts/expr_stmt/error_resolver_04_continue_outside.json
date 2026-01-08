@@ -1,0 +1,11 @@
+{
+    "name": "Resolver Error - Continue Outside Loop",
+    "description": "Tests continue outside loop produces error",
+    "script": "continue;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "outside of a loop",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "resolver", "continue"]
+}

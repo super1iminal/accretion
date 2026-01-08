@@ -1,0 +1,11 @@
+{
+    "name": "Type Error - Negate String",
+    "description": "Tests negating string produces error",
+    "script": "string a = \"hello\";\nstring b = -a;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "must be a number",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "type", "unary"]
+}

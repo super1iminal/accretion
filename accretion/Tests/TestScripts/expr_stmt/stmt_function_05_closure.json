@@ -1,0 +1,9 @@
+{
+    "name": "Function Statement - Closure",
+    "description": "Tests function closure captures environment",
+    "script": "int x = 10;\nvoid printX() {\n    print x;\n}\nprintX();\nx = 20;\nprintX();",
+    "expectedOutput": "10\n20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "function", "closure"]
+}

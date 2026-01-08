@@ -1,0 +1,11 @@
+{
+    "name": "Type Error - Bool Assignment Mismatch",
+    "description": "Tests assigning int to bool variable produces error",
+    "script": "bool x = 42;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "type", "assignment"]
+}

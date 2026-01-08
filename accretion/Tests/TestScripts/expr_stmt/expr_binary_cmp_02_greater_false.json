@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Greater Than false",
+    "description": "Tests greater than comparison returning false",
+    "script": "int a = 5;\nint b = 10;\nbool result = a > b;\nprint result;",
+    "expectedOutput": "false",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "comparison", "greater"]
+}

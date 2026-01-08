@@ -1,0 +1,11 @@
+{
+    "name": "Type Error - Call Non-Function",
+    "description": "Tests calling a non-function variable produces error",
+    "script": "int x = 42;\nx();",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "Cannot call a variable",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "type", "call"]
+}

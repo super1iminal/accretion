@@ -1,0 +1,9 @@
+{
+    "name": "Implicit Cast - Int to Double",
+    "description": "Tests implicit casting of int to double in assignment",
+    "script": "double x = 42;\nprint x;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["type", "implicit-cast", "double"]
+}

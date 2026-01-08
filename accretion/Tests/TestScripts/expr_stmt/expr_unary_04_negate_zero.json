@@ -1,0 +1,9 @@
+{
+    "name": "Unary Expression - Negate Zero",
+    "description": "Tests negation of zero",
+    "script": "int a = 0;\nint result = -a;\nprint result;",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "unary", "negation", "boundary"]
+}

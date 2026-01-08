@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Int - Int",
+    "description": "Tests subtraction of two integers returns an integer",
+    "script": "int a = 10;\nint b = 3;\nint result = a - b;\nprint result;",
+    "expectedOutput": "7",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "arithmetic", "subtraction", "int"]
+}

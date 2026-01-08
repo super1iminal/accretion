@@ -1,0 +1,9 @@
+{
+    "name": "If Statement - If-Else true Branch",
+    "description": "Tests if-else with true condition executes if branch",
+    "script": "if (true) {\n    print \"yes\";\n} else {\n    print \"no\";\n}",
+    "expectedOutput": "yes",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "if", "else", "control-flow"]
+}

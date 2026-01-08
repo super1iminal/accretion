@@ -1,0 +1,9 @@
+{
+    "name": "Call Expression - No Arguments",
+    "description": "Tests function call with no arguments",
+    "script": "int getFortyTwo() {\n    return 42;\n}\nint result = getFortyTwo();\nprint result;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "call", "function"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Literal Expression - Empty String",
+    "description": "Tests empty string literal",
+    "script": "string s = \"\";\nprint s;\nprint \"done\";",
+    "expectedOutput": "\ndone",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "literal", "string", "boundary"]
+}

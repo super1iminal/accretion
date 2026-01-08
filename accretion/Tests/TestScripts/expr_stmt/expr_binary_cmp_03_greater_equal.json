@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Greater Than Equal Values",
+    "description": "Tests greater than with equal values (boundary)",
+    "script": "int a = 5;\nint b = 5;\nbool result = a > b;\nprint result;",
+    "expectedOutput": "false",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "comparison", "greater", "boundary"]
+}

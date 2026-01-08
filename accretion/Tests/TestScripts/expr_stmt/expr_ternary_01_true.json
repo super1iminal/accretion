@@ -1,0 +1,9 @@
+{
+    "name": "Ternary Expression - true Condition",
+    "description": "Tests ternary with true condition returns consequent",
+    "script": "int result = true ? 1 : 2;\nprint result;",
+    "expectedOutput": "1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "ternary"]
+}

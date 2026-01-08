@@ -1,0 +1,11 @@
+{
+    "name": "Resolver Error - Self Referencing Initializer",
+    "description": "Tests variable referencing itself in initializer produces error",
+    "script": "int x = x + 1;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "own initializer",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "resolver", "initializer"]
+}

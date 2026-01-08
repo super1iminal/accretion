@@ -3,13 +3,8 @@ using accretion.Domain;
 using accretion.Errors;
 using accretion.Exceptions;
 using accretion.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace accretion.Interpreter
+namespace accretion.Core.InterpreterTools
 {
     public class StmtVisitor : Stmt.IVisitor
     {
@@ -64,7 +59,7 @@ namespace accretion.Interpreter
 
         public void VisitIfStmt(Stmt.If stmt)
         {
-            if (IsTruthy(exprVisitor.Evaluate(stmt.Condition)))
+            if (Utility.IsTruthy(exprVisitor.Evaluate(stmt.Condition)))
             {
                 Execute(stmt.Consequent);
             }
@@ -78,7 +73,7 @@ namespace accretion.Interpreter
 
         public void VisitWhileStmt(Stmt.While stmt)
         {
-            while (IsTruthy(exprVisitor.Evaluate(stmt.Condition)))
+            while (Utility.IsTruthy(exprVisitor.Evaluate(stmt.Condition)))
             {
                 try
                 {

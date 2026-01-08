@@ -4,11 +4,8 @@ using accretion.Errors;
 using accretion.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace accretion.Interpreter
+namespace accretion.Core.InterpreterTools
 {
     public class ExprVisitor : Expr.IVisitor<object>
     {

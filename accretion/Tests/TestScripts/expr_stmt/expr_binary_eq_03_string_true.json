@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Equality String true",
+    "description": "Tests equality of two equal strings",
+    "script": "string a = \"hello\";\nstring b = \"hello\";\nbool result = a == b;\nprint result;",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "equality", "string"]
+}

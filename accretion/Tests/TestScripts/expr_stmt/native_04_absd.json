@@ -1,0 +1,9 @@
+{
+    "name": "Native - Absd Function",
+    "description": "Tests native absd function for absolute value of double",
+    "script": "double result = absd(-3.14);\nprint result;",
+    "expectedOutput": "3.14",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "function", "abs"]
+}

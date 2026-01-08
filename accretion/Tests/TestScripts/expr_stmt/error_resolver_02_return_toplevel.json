@@ -1,0 +1,11 @@
+{
+    "name": "Resolver Error - Return Outside Function",
+    "description": "Tests return outside function produces error",
+    "script": "return 42;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "return from top-level",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "resolver", "return"]
+}

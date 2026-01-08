@@ -1,0 +1,9 @@
+{
+    "name": "Ternary Expression - With Comparison",
+    "description": "Tests ternary with comparison expression as condition",
+    "script": "int a = 5;\nint b = 10;\nint result = a < b ? 100 : 200;\nprint result;",
+    "expectedOutput": "100",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "ternary", "comparison"]
+}

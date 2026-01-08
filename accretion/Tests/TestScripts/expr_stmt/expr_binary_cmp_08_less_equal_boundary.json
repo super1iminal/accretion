@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Less Or Equal Boundary (Equal)",
+    "description": "Tests less or equal when values are equal (boundary)",
+    "script": "int a = 5;\nint b = 5;\nbool result = a <= b;\nprint result;",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "comparison", "less-equal", "boundary"]
+}

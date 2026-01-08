@@ -1,0 +1,9 @@
+{
+    "name": "Var Statement - With Initializer",
+    "description": "Tests variable declaration with initializer",
+    "script": "int x = 42;\nprint x;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "var", "declaration"]
+}

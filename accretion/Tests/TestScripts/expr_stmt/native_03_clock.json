@@ -1,0 +1,9 @@
+{
+    "name": "Native - Clock Function",
+    "description": "Tests native clock function returns a double",
+    "script": "double t = clock();\nbool valid = t > 0.0;\nprint valid;",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "function", "clock"]
+}

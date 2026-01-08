@@ -1,0 +1,9 @@
+{
+    "name": "Literal Expression - Nil",
+    "description": "Tests nil literal evaluation",
+    "script": "print nil;",
+    "expectedOutput": "nil",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "literal", "nil"]
+}

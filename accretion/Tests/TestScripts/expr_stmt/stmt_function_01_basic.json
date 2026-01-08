@@ -1,0 +1,9 @@
+{
+    "name": "Function Statement - Basic Declaration",
+    "description": "Tests basic function declaration and call",
+    "script": "void sayHello() {\n    print \"Hello\";\n}\nsayHello();",
+    "expectedOutput": "Hello",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "function", "declaration"]
+}
