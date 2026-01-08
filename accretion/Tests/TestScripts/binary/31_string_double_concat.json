@@ -1,0 +1,9 @@
+{
+    "name": "String + Double Concatenation",
+    "description": "Tests string concatenation with string and double",
+    "script": "string a = \"Pi is \";\ndouble b = 3.14;\nprint a + b;",
+    "expectedOutput": "Pi is 3.14",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "string", "concatenation", "mixed"]
+}

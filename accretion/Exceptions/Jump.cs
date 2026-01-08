@@ -1,4 +1,5 @@
-﻿using accretion.Errors;
+﻿using accretion.Domain;
+using accretion.Errors;
 
 namespace accretion.Exceptions
 {

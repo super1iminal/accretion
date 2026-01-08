@@ -1,0 +1,9 @@
+{
+    "name": "Chained Int Arithmetic",
+    "description": "Tests chained arithmetic with ints maintains int type",
+    "script": "int a = 10;\nint b = 3;\nint c = 2;\nint result = a + b - c;\nprint result;",
+    "expectedOutput": "11",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "int", "chained"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Int - Double Mixed Subtraction",
+    "description": "Tests subtracting double from int returns double",
+    "script": "int a = 10;\ndouble b = 3.5;\ndouble result = a - b;\nprint result;",
+    "expectedOutput": "6.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "mixed", "subtraction"]
+}

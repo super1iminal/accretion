@@ -1,0 +1,9 @@
+{
+    "name": "String Equality",
+    "description": "Tests string equality comparison",
+    "script": "string a = \"hello\";\nstring b = \"hello\";\nstring c = \"world\";\nprint a == b;\nprint a == c;\nprint a != c;",
+    "expectedOutput": "true\nfalse\ntrue",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "equality", "string"]
+}

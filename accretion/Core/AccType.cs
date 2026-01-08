@@ -1,4 +1,5 @@
-﻿using System;
+﻿using accretion.Domain;
+using System;
 using System.Collections.Generic;
 
 namespace accretion.Core

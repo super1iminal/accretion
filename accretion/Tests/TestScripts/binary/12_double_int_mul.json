@@ -1,0 +1,9 @@
+{
+    "name": "Double * Int Mixed Multiplication",
+    "description": "Tests multiplying double by int returns double",
+    "script": "double a = 3.5;\nint b = 2;\ndouble result = a * b;\nprint result;",
+    "expectedOutput": "7",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "mixed", "multiplication"]
+}

@@ -1,0 +1,10 @@
+{
+    "name": "Int + Bool Error",
+    "description": "Tests that adding int and bool produces a compiler error",
+    "script": "int a = 5;\nbool b = true;\nprint a + b;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "must be",
+    "exactMatch": false,
+    "tags": ["binary", "error", "mixed", "addition"]
+}

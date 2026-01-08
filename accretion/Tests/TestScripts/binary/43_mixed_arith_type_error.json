@@ -1,0 +1,10 @@
+{
+    "name": "Mixed Arithmetic to Int Error",
+    "description": "Tests that assigning int+double result to int produces error",
+    "script": "int a = 5;\ndouble b = 2.5;\nint result = a + b;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "exactMatch": false,
+    "tags": ["binary", "arithmetic", "error", "type", "mixed"]
+}

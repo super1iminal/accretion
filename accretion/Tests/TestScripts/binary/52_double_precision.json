@@ -1,0 +1,10 @@
+{
+    "name": "Double Precision Arithmetic",
+    "description": "Tests arithmetic with doubles requiring precision",
+    "script": "double a = 0.1;\ndouble b = 0.2;\ndouble c = a + b;\nprint c;",
+    "expectedOutput": "0.30000000000000004",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["binary", "arithmetic", "double", "precision"]
+}

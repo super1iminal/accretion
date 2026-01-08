@@ -1,0 +1,10 @@
+{
+    "name": "Comparison to Int Error",
+    "description": "Tests that assigning comparison result to int produces error",
+    "script": "int a = 5;\nint b = 3;\nint result = a > b;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "exactMatch": false,
+    "tags": ["binary", "comparison", "error", "type"]
+}

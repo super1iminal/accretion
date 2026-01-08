@@ -1,0 +1,9 @@
+{
+    "name": "String + Int Concatenation",
+    "description": "Tests string concatenation with string and int",
+    "script": "string a = \"Value: \";\nint b = 42;\nprint a + b;",
+    "expectedOutput": "Value: 42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "string", "concatenation", "mixed"]
+}

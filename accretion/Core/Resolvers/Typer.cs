@@ -1,4 +1,5 @@
-﻿using accretion.Errors;
+﻿using accretion.Domain;
+using accretion.Errors;
 using accretion.Natives;
 using System;
 using System.Collections.Generic;
@@ -156,7 +157,10 @@ namespace accretion.Core.Resolvers
         {
             AccType varType = ResolveVar(expr.Name);
             AccType valueType = Resolve(expr.Value);
+
+            // special typing
             if (PropagateIgnore(varType, valueType)) return ignoreType;
+            valueType = ImplicitCast(valueType, varType);
 
             if (Equals(varType, valueType)) return valueType;
 
@@ -178,13 +182,17 @@ namespace accretion.Core.Resolvers
                 case TokenType.GREATER_EQUAL:
                 case TokenType.LESS:
                 case TokenType.LESS_EQUAL:
-                case TokenType.MINUS:
+                    if (!IsNum(left, right)) errors.CompilerError(expr.Op, "Operands must be numbers");
+                    return NativeAccTypeFactory.BOOL;
                 case TokenType.SLASH:
+                    if (!IsNum(left, right)) errors.CompilerError(expr.Op, "Operands must be numbers");
+                    return NativeAccTypeFactory.DOUBLE;
+                case TokenType.MINUS:
                 case TokenType.STAR:
                     if (!IsNum(left, right)) errors.CompilerError(expr.Op, "Operands must be numbers");
                     if (IsDouble(left) || IsDouble(right)) return NativeAccTypeFactory.DOUBLE;
                     else return NativeAccTypeFactory.INT;
-
+                
                 case TokenType.PLUS:
                     if (IsNum(left, right))
                     {
@@ -310,6 +318,20 @@ namespace accretion.Core.Resolvers
 
 
         // HELPERS
+
+        public AccType ImplicitCast(AccType valueType, AccType sourceType)
+        {
+            // hardcoded (native) implicit casts:
+            if ((valueType == NativeAccTypeFactory.INT) && (sourceType == NativeAccTypeFactory.DOUBLE))
+            {
+                return NativeAccTypeFactory.DOUBLE;
+            }
+
+            // todo: if classes, maybe do implcit casting here?
+
+            return valueType;
+        }
+
         /// <summary>
         ///  helper to check if any of the given types are of ignoreType. if so,
         ///  the ignore type should be propagated up the expression tree, since part of the expression is corrupted.

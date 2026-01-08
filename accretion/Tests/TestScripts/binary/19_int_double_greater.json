@@ -1,0 +1,9 @@
+{
+    "name": "Int > Double Mixed Greater Than",
+    "description": "Tests greater than comparison with int and double",
+    "script": "int a = 5;\ndouble b = 4.5;\ndouble c = 5.5;\nprint a > b;\nprint a > c;",
+    "expectedOutput": "true\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "comparison", "mixed", "greater"]
+}

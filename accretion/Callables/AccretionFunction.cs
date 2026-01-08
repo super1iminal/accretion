@@ -1,4 +1,4 @@
-﻿using accretion.Core;
+﻿using accretion.Domain;
 using accretion.Exceptions;
 using System.Collections.Generic;
 

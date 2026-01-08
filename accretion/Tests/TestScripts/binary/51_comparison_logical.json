@@ -1,0 +1,9 @@
+{
+    "name": "Comparison with Logical Operators",
+    "description": "Tests combining comparisons with and/or",
+    "script": "int a = 5;\nint b = 10;\nint c = 3;\nprint a > c and b > a;\nprint a > b or c < a;\nprint a > b and c < a;",
+    "expectedOutput": "true\ntrue\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "comparison", "logical"]
+}

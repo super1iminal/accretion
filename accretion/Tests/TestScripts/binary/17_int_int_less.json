@@ -1,0 +1,9 @@
+{
+    "name": "Int < Int Less Than",
+    "description": "Tests less than comparison with two ints",
+    "script": "int a = 3;\nint b = 5;\nprint a < b;\nprint b < a;",
+    "expectedOutput": "true\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "comparison", "int", "less"]
+}

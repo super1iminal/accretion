@@ -1,0 +1,9 @@
+{
+    "name": "Int == Int Equality",
+    "description": "Tests equality comparison with two ints",
+    "script": "int a = 5;\nint b = 5;\nint c = 3;\nprint a == b;\nprint a == c;",
+    "expectedOutput": "true\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "equality", "int"]
+}

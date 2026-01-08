@@ -1,0 +1,9 @@
+{
+    "name": "Int + Double Mixed Addition",
+    "description": "Tests adding int to double returns double",
+    "script": "int a = 5;\ndouble b = 2.5;\ndouble result = a + b;\nprint result;",
+    "expectedOutput": "7.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "mixed", "addition"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Double Multiplication and Division",
+    "description": "Tests multiplication and division with doubles",
+    "script": "double a = 6.0;\ndouble b = 2.5;\nprint a * b;\nprint a / b;",
+    "expectedOutput": "15\n2.4",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "double", "multiplication", "division"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Int / Int Division",
+    "description": "Tests division of two integers returns a double",
+    "script": "int a = 10;\nint b = 4;\ndouble result = a / b;\nprint result;",
+    "expectedOutput": "2.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "int", "division"]
+}

@@ -1,0 +1,10 @@
+{
+    "name": "String * String Error",
+    "description": "Tests that multiplying strings produces a compiler error",
+    "script": "string a = \"hello\";\nstring b = \"world\";\nprint a * b;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "must be numbers",
+    "exactMatch": false,
+    "tags": ["binary", "error", "string", "multiplication"]
+}
