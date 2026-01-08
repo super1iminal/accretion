@@ -8,13 +8,17 @@ namespace accretion.Domain
         public readonly string Lexeme;
         public readonly object Literal;
         public readonly int Line;
+        public readonly int Index; // inclusive
+        public readonly int Length;
 
-        public Token(TokenType type, string lexeme, object literal, int line)
+        public Token(TokenType type, string lexeme, object literal, int line, int index, int length)
         {
             this.Type = type;
             this.Lexeme = lexeme;
             this.Literal = literal;
             this.Line = line;
+            this.Index = index;
+            this.Index = length;
         }
 
         override public string ToString()

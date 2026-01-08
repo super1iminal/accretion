@@ -52,7 +52,7 @@ namespace accretion.Core
                 ScanToken();
             }
 
-            tokens.Add(new Token(TokenType.EOF, "", null, line));
+            tokens.Add(new Token(TokenType.EOF, "", null, line, current, 0));
             return tokens;
         }
 
@@ -125,7 +125,7 @@ namespace accretion.Core
                     }
                     else
                     {
-                        errors.CompilerError(line, "Unexpected character.");
+                        errors.CompilerError(line, start, current-start, "Unexpected character.");
                     }
                     break;
             }
@@ -141,7 +141,7 @@ namespace accretion.Core
         private void AddToken(TokenType ttype, object literal)
         {
             string lexeme = source.Substring(start, current - start);
-            tokens.Add(new Token(ttype, lexeme, literal, line));
+            tokens.Add(new Token(ttype, lexeme, literal, line, start, current-start));
         }
 
 
@@ -184,7 +184,7 @@ namespace accretion.Core
 
             if (IsAtEnd())
             {
-                errors.CompilerError(line, "Unterminated string.");
+                errors.CompilerError(line, start, current-start, "Unterminated string.");
                 return;
             }
 

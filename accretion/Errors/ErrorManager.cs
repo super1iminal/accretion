@@ -39,41 +39,41 @@ namespace accretion.Errors
             HasRuntimeError = false;
         }
 
-        public virtual void CompilerError(int line, string message, string where = "")
+        public virtual void CompilerError(int line, int index, int length, string message, string where = "")
         {
-            Report(line, where, message, EType.COMPILER_ERROR);
+            Report(line, index, length, where, message, EType.COMPILER_ERROR);
             HasCompilerError = true;
         }
 
-        public virtual void CompilerWarning(int line, string message, string where = "")
+        public virtual void CompilerWarning(int line, int index, int length, string message, string where = "")
         {
-            Report(line, message, where, EType.COMPILER_WARNING);
+            Report(line, index, length, where, message, EType.COMPILER_WARNING);
             HasCompilerWarning = true;
         }
 
         public virtual void CompilerError(Token token, string message)
         {
-            CompilerError(token.Line, message, Where(token));
+            CompilerError(token.Line, token.Index, token.Length, message, Where(token));
         }
 
         public virtual void CompilerWarning(Token token, string message)
         {
-            CompilerWarning(token.Line, message, Where(token));
+            CompilerWarning(token.Line, token.Index, token.Length, message, Where(token));
         }
 
 
         public virtual void RuntimeError(RuntimeError error)
         {
-            Report(error.Token.Line, error.Message, Where(error.Token), EType.RUNTIME_ERROR);
+            Report(error.Token.Line, error.Token.Index, error.Token.Length, error.Message, Where(error.Token), EType.RUNTIME_ERROR);
             HasRuntimeError = true;
         }
 
 
 
 
-        private void Report(int line, string message, string where, EType level)
+        private void Report(int line, int index, int length, string where, string message, EType level)
         {
-            logger.Log($"[line {line}] {errorNames[level]}: {where}: {message}");
+            logger.Log($"[line {line}] {errorNames[level]} {where}: {message}");
         }
 
         private string Where(Token token)

@@ -29,24 +29,24 @@ namespace accretion.Tests
             _runtimeErrors.Clear();
         }
 
-        public override void CompilerError(int line, string message, string where = "")
+        public override void CompilerError(int line, int index, int length, string message, string where = "")
         {
-            string formattedError = FormatMessage(line, message, where, "Error");
+            string formattedError = FormatMessage(line, index, length, message, where, "Error");
             _compilerErrors.Add(formattedError);
-            base.CompilerError(line, message, where);
+            base.CompilerError(line, index, length, message, where);
         }
 
-        public override void CompilerWarning(int line, string message, string where = "")
+        public override void CompilerWarning(int line, int index, int length, string message, string where = "")
         {
-            string formattedWarning = FormatMessage(line, message, where, "Warning");
+            string formattedWarning = FormatMessage(line, index, length, message, where, "Warning");
             _compilerWarnings.Add(formattedWarning);
-            base.CompilerWarning(line, message, where);
+            base.CompilerWarning(line, index, length, message, where);
         }
 
         public override void CompilerError(Token token, string message)
         {
             string where = Where(token);
-            string formattedError = FormatMessage(token.Line, message, where, "Error");
+            string formattedError = FormatMessage(token.Line, token.Index, token.Length, message, where, "Error");
             _compilerErrors.Add(formattedError);
             base.CompilerError(token, message);
         }
@@ -54,7 +54,7 @@ namespace accretion.Tests
         public override void CompilerWarning(Token token, string message)
         {
             string where = Where(token);
-            string formattedWarning = FormatMessage(token.Line, message, where, "Warning");
+            string formattedWarning = FormatMessage(token.Line, token.Index, token.Length, message, where, "Warning");
             _compilerWarnings.Add(formattedWarning);
             base.CompilerWarning(token, message);
         }
@@ -62,14 +62,14 @@ namespace accretion.Tests
         public override void RuntimeError(RuntimeError error)
         {
             string where = Where(error.Token);
-            string formattedError = FormatMessage(error.Token.Line, error.Message, where, "Runtime error");
+            string formattedError = FormatMessage(error.Token.Line, error.Token.Index, error.Token.Length, error.Message, where, "Runtime error");
             _runtimeErrors.Add(formattedError);
             base.RuntimeError(error);
         }
 
-        private static string FormatMessage(int line, string message, string where, string level)
+        private static string FormatMessage(int line, int index, int length, string message, string where, string level)
         {
-            return $"[line {line}] {level}: {where}: {message}";
+            return $"[line {line}] {level} {where}: {message}";
         }
 
         private static string Where(Token token)
