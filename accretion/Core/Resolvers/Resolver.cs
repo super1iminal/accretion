@@ -270,7 +270,16 @@ namespace accretion.Core.Resolvers
             {
                 foreach (Token token in closedScope.Keys)
                 {
-                    if (!accessedVarsScope.Contains(token)) errors.CompilerWarning(token, "Local variable unused");
+                    string prefix;
+                    if (scopes.Count > 0)
+                    {
+                        prefix = "Local";
+                    }
+                    else
+                    {
+                        prefix = "Global";
+                    }
+                    if (!accessedVarsScope.Contains(token)) errors.CompilerWarning(token, $"{prefix} variable/function is unused. Consider removing it.");
                 }
             }
         }

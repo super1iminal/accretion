@@ -180,14 +180,26 @@ namespace accretion.Core.Resolvers
                 case TokenType.GREATER_EQUAL:
                 case TokenType.LESS:
                 case TokenType.LESS_EQUAL:
-                    if (!IsNum(left, right)) errors.CompilerError(expr.Op, "Operands must be numbers");
+                    if (!IsNum(left, right))
+                    {
+                        errors.CompilerError(expr.Op, "Operands must be numbers");
+                        return ignoreType;
+                    }
                     return NativeAccTypeFactory.BOOL;
                 case TokenType.SLASH:
-                    if (!IsNum(left, right)) errors.CompilerError(expr.Op, "Operands must be numbers");
+                    if (!IsNum(left, right))
+                    {
+                        errors.CompilerError(expr.Op, "Operands must be numbers");
+                        return ignoreType;
+                    }
                     return NativeAccTypeFactory.DOUBLE;
                 case TokenType.MINUS:
                 case TokenType.STAR:
-                    if (!IsNum(left, right)) errors.CompilerError(expr.Op, "Operands must be numbers");
+                    if (!IsNum(left, right))
+                    {
+                        errors.CompilerError(expr.Op, "Operands must be numbers");
+                        return ignoreType;
+                    }
                     if (IsDouble(left) || IsDouble(right)) return NativeAccTypeFactory.DOUBLE;
                     else return NativeAccTypeFactory.INT;
                 
@@ -209,7 +221,7 @@ namespace accretion.Core.Resolvers
                     else
                     {
                         errors.CompilerError(expr.Op, "Operands must be numbers or strings");
-                        break;
+                        return ignoreType;
                     }
 
                 case TokenType.BANG_EQUAL:
@@ -218,7 +230,7 @@ namespace accretion.Core.Resolvers
 
                 }
 
-            return null; // unreachable, but required to satisfy all paths must return a value
+            throw new NotImplementedException("Binary expr case unhandled. Error code 1231312.");
         }
 
         public AccType VisitCallExpr(Expr.Call expr)
