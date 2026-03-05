@@ -207,7 +207,7 @@ namespace accretion.Core.Resolvers
                 errors.CompilerError(expr.Name, "Can't use a variable before it's defined.");
             }
 
-            AccType varExprType = ResolveVar(expr.Name);
+            AccType varExprType = ResolveVar(expr, expr.Name);
             if (PropagateIgnore(varExprType)) return ignoreType;
 
 
@@ -216,7 +216,7 @@ namespace accretion.Core.Resolvers
 
         public AccType VisitAssignExpr(Expr.Assign expr)
         {
-            AccType varType = ResolveVar(expr.Name);
+            AccType varType = ResolveVar(expr, expr.Name);
             AccType valueType = Resolve(expr.Value);
 
             notDefinedYet.Peek().Remove(expr.Name); // add every time var is called. maybe optimizable?
@@ -557,12 +557,13 @@ namespace accretion.Core.Resolvers
             notDefinedYet.Peek().Remove(name);
         }
 
-        private AccType ResolveVar(Token name)
+        private AccType ResolveVar(Expr expr, Token name)
         {
             for (int i = 0; i < scopes.Count; i++)
             {
                 if (scopes.ElementAt(i).Any(k => k.Identifier == name.Lexeme))
                 {
+                    interpreter.Resolve(expr, i);
                     notAccessedYet.Peek().Remove(name);
                     return scopes.ElementAt(i).Single(k => (k.Identifier == name.Lexeme) && (k.AType is not FunType)).AType; // throws error if more than one non-function variable with same name. intended.
                 }
