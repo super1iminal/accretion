@@ -31,7 +31,7 @@ namespace accretion.Domain
             if (obj == null) return false;
             if (obj is Token tother)
             {
-                return (Type ==tother.Type && Equals(Literal, tother.Literal) && Equals(Lexeme, tother.Lexeme)); // don't compare lines
+                return (Type == tother.Type && Equals(Literal, tother.Literal) && Equals(Lexeme, tother.Lexeme)); // don't compare lines
             }
             return false;
         }

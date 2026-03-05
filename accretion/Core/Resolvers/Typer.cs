@@ -4,34 +4,71 @@ using accretion.Natives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace accretion.Core.Resolvers
 {
     // todo: treat ints as doubles in initializer and assignment if the type of var is double
-    
+
     public class Typer : Expr.IVisitor<AccType>, Stmt.IVisitor
     {
-        private readonly Stack<Dictionary<Token, AccType>> scopes = new();
-        private readonly Dictionary<string, AccType> globalTypes = new();
+        // typer stuff
+        private struct Signature // todo
+        {
+            public Token SToken;
+            public string Identifier; // todo I don't like relying on tokens
+            public AccType AType;
 
-        private readonly HashSet<AccType> validTypes = new();
+            public Signature(string identifier, AccType AType)
+            {
+                this.Identifier = identifier;
+                this.AType = AType;
+                this.SToken = null;
+            }
+
+            public Signature(Token token, AccType AType)
+            {
+                this.SToken = token;
+                this.AType = AType;
+                this.Identifier = token.Lexeme;
+            }
+        }
+
+        private readonly Stack<HashSet<Signature>> scopes = new(); // 
+
+        private readonly HashSet<AccType> validTypes = NativeAccTypeFactory.nativeAccTypes;
         private readonly AccType ignoreType = new("ignore"); // anytime a variable or function is ignored due to non-existent types, it is set to ignore
                                                              // so the user doesn't get flooded with compile errors
 
         private AccType currentFunctionType = null; // to see if return value matches stated function return value
 
+        // resolver stuff
+        private readonly Interpreter interpreter;
+
+
+        // heuristic stuff
+        private Stack<HashSet<Token>> notAccessedYet = new(); // check whether all vars in a scope have been used
+        private Stack<HashSet<Token>> notDefinedYet = new(); // check whether var is defined yet
+        private bool inFunction = false; // to see whether we're returning outside of a function
+        private bool inloop = false;
+
+
+        // shared stuff
         private readonly ErrorManager errors;
 
-        public Typer(ErrorManager errors)
+        public Typer(Interpreter interpreter, ErrorManager errors)
         {
-            validTypes.UnionWith(NativeAccTypeFactory.nativeAccTypes);
-
             foreach (var native in NativeRegistry.All)
             {
-                globalTypes[native.Name] = native.Type;
+                scopes.Push(
+                    new() {
+                        new Signature(native.Name, native.Type),  // true because it's already been defined, obv
+                    }
+                );
             }
 
             this.errors = errors;
+            this.interpreter = interpreter;
         }
 
 
@@ -47,13 +84,19 @@ namespace accretion.Core.Resolvers
         // variable declaration
         public void VisitVarStmt(Stmt.Var stmt)
         {
+            // var stuff
             AccType initType = null;
+            bool defined = false;
             if (stmt.Initializer != null)
             {
                 initType = Resolve(stmt.Initializer);
+                defined = true;
             }
             AccType varType = DeclareVar(stmt.Name, stmt.Type);
+            if (defined) Define(stmt.Name);
 
+
+            // init stuff
             if (Equals(varType, ignoreType)) return;
 
             initType = ImplicitCast(initType, varType);
@@ -72,6 +115,7 @@ namespace accretion.Core.Resolvers
             AccType previousFunType = currentFunctionType;
 
             DeclareFun(stmt.Name, stmt.Returntype, stmt.Parametertypes);
+            // Define(stmt.Name); // unecessary, since DeclareFun does not add fun name to undeclared vars
 
             ResolveFunction(stmt);
 
@@ -103,6 +147,11 @@ namespace accretion.Core.Resolvers
 
         public void VisitReturnStmt(Stmt.Return stmt)
         {
+            if (!inFunction)
+            {
+                errors.CompilerError(stmt.Keyword, "Can't return from top-level code");
+            }
+
             AccType returnValueType;
             if (stmt.Value != null)
             {
@@ -113,6 +162,8 @@ namespace accretion.Core.Resolvers
                 returnValueType = NativeAccTypeFactory.VOID;
             }
 
+
+            // return stuff
             if (Equals(currentFunctionType, ignoreType) || Equals(returnValueType, ignoreType) || (currentFunctionType is not FunType cfReturnType)) return;
 
             returnValueType = ImplicitCast(returnValueType, cfReturnType.ReturnType);
@@ -126,13 +177,19 @@ namespace accretion.Core.Resolvers
 
         public void VisitWhileStmt(Stmt.While stmt)
         {
+            bool enclosingLoop = inloop;
+            inloop = true;
+
             Resolve(stmt.Condition);
             Resolve(stmt.Body);
+
+            inloop = enclosingLoop;
             return;
         }
 
         public void VisitJumpStmt(Stmt.Jump stmt)
         {
+            if (!inloop) errors.CompilerError(stmt.Label, "Can't jump outside of a loop.");
             return;
         }
 
@@ -142,8 +199,14 @@ namespace accretion.Core.Resolvers
 
         // expressions
         // this is a "get" operation
+        // can be a function or a var
         public AccType VisitVariableExpr(Expr.Variable expr)
         {
+            if (scopes.Count > 1 && scopes.Peek().Any(k => k.Identifier == expr.Name.Lexeme))
+            {
+                errors.CompilerError(expr.Name, "Can't use a variable before it's defined.");
+            }
+
             AccType varExprType = ResolveVar(expr.Name);
             if (PropagateIgnore(varExprType)) return ignoreType;
 
@@ -155,6 +218,8 @@ namespace accretion.Core.Resolvers
         {
             AccType varType = ResolveVar(expr.Name);
             AccType valueType = Resolve(expr.Value);
+
+            notDefinedYet.Peek().Remove(expr.Name); // add every time var is called. maybe optimizable?
 
             // special typing
             if (PropagateIgnore(varType, valueType)) return ignoreType;
@@ -202,7 +267,7 @@ namespace accretion.Core.Resolvers
                     }
                     if (IsDouble(left) || IsDouble(right)) return NativeAccTypeFactory.DOUBLE;
                     else return NativeAccTypeFactory.INT;
-                
+
                 case TokenType.PLUS:
                     if (IsNum(left, right))
                     {
@@ -228,20 +293,23 @@ namespace accretion.Core.Resolvers
                 case TokenType.EQUAL_EQUAL:
                     return NativeAccTypeFactory.BOOL;
 
-                }
+            }
 
             throw new NotImplementedException("Binary expr case unhandled. Error code 1231312.");
         }
 
         public AccType VisitCallExpr(Expr.Call expr)
         {
-            AccType calleeType = Resolve(expr.Callee); // remember, callee can be an expression, but (should) resolve to a variable in interpreter
+            AccType calleeType = Resolve(expr.Callee); // remember, callee can be an expression (so we need to resolve it), but (should) resolve to a *variable* in interpreter
             if (PropagateIgnore(calleeType)) return ignoreType;
+
+
             if (calleeType is not FunType funType)
             {
-                errors.CompilerError(expr.Paren, "Cannot call a variable"); // TODO: add synchronization after errors that can't return a type
-                return NativeAccTypeFactory.VOID;
+                errors.CompilerError(expr.Paren, "Cannot call a variable"); // TODO: add synchronization after errors that can't return a type. resolved with ignoreType?
+                return ignoreType;
             }
+
             if (expr.Arguments.Count != funType.ParamTypes.Count)
             {
                 errors.CompilerError(expr.Paren, "Number of arguments does not match");
@@ -327,6 +395,8 @@ namespace accretion.Core.Resolvers
 
 
 
+
+
         // HELPERS
 
         public AccType ImplicitCast(AccType valueType, AccType sourceType)
@@ -382,12 +452,19 @@ namespace accretion.Core.Resolvers
 
         private void BeginScope()
         {
-            scopes.Push(new Dictionary<Token, AccType>());
+            scopes.Push(new());
+            notAccessedYet.Push(new HashSet<Token>());
+            notDefinedYet.Push(new HashSet<Token>());
         }
 
         private void EndScope()
         {
-            scopes.Pop();
+            HashSet<Signature> closedScope = scopes.Pop();
+            HashSet<Token> varsNotAccessedYet = notAccessedYet.Pop();
+            HashSet<Token> varsNotDefinedYet = notDefinedYet.Pop();
+
+            foreach (Token token in varsNotAccessedYet) errors.CompilerWarning(token, "Variable/Function is never used");
+            foreach (Token token in varsNotDefinedYet) errors.CompilerWarning(token, "Variable is declared but never assigned a value");
         }
 
 
@@ -395,13 +472,25 @@ namespace accretion.Core.Resolvers
         {
             if (scopes.Count == 0) throw new ApplicationException("Woah. You shouldn't be here. Error code 0918.");
 
-            Dictionary<Token, AccType> scope = scopes.Peek();
+            HashSet<Signature> scope = scopes.Peek();
+
 
             AccType type = new(typeToken.Lexeme);
-
             AccType validatedType = ValidOrIgnore(type, typeToken);
 
-            scope[name] = validatedType;
+            // check for existence (name comparison)
+            if (scope.Any(k => k.Identifier == name.Lexeme))
+            {
+                errors.CompilerError(name, "Already a variable or function declared with this name in this scope");
+                return validatedType;
+            }
+
+
+            Signature sig = new(name, validatedType);
+            
+            notAccessedYet.Peek().Add(name);
+            notDefinedYet.Peek().Add(name);
+            scope.Add(sig); // not defined yet
             return validatedType;
         }
 
@@ -409,26 +498,43 @@ namespace accretion.Core.Resolvers
         {
             if (scopes.Count == 0) return;
 
-            Dictionary<Token, AccType> scope = scopes.Peek();
+            HashSet<Signature> scope = scopes.Peek();
 
             FunType type = new(returnType, paramTypes);
-
             AccType ignoreCheck = ValidOrIgnore(type.ReturnType, returnType);
+            AccType verifiedType = Equals(ignoreCheck, ignoreType) ? ignoreType : type;
 
-            AccType verifiedType;
 
-            if (Equals(ignoreCheck, ignoreType))
+            // if existing other var w/ same name, should fail
+            // if existing other fun w/ same name but diff param types, should pass
+            // else, fail
+
+
+            foreach (Signature match in scope.Where(k => k.Identifier == name.Lexeme))
             {
-                 verifiedType = ignoreType;
+                // todo: what to do with ignore types here?
+                if (match.AType is not FunType otherType)
+                {
+                    errors.CompilerError(name, "Already a variable declared with this name in this scope");
+                    return;
+                }
+                else
+                {
+                    if (Equals(type, otherType))
+                    {
+                        errors.CompilerError(name, "Already a function declared with the same signature in this scope");
+                    }
+                }
             }
-            else
-            {
-                verifiedType = type;
-            }
-            
+
+
             currentFunctionType = verifiedType;
-            scope[name] = verifiedType;
-            // paramtypes checked in ResolveFunction
+
+            Signature sig = new(name, verifiedType);
+
+            notAccessedYet.Peek().Add(name);
+            scope.Add(sig);
+            // todo: paramtypes checked in ResolveFunction
         }
 
         /// <summary>
@@ -446,34 +552,26 @@ namespace accretion.Core.Resolvers
             else return type;
         }
 
-        //private void Define(Token name) // unused
-        //{
-        //    if (scopes.Count == 0) return;
-        //}
+        private void Define(Token name) // unused
+        {
+            notDefinedYet.Peek().Remove(name);
+        }
 
         private AccType ResolveVar(Token name)
         {
             for (int i = 0; i < scopes.Count; i++)
             {
-                if (scopes.ElementAt(i).ContainsKey(name))
+                if (scopes.ElementAt(i).Any(k => k.Identifier == name.Lexeme))
                 {
-                    return scopes.ElementAt(i)[name];
+                    notAccessedYet.Peek().Remove(name);
+                    return scopes.ElementAt(i).Single(k => (k.Identifier == name.Lexeme) && (k.AType is not FunType)).AType; // throws error if more than one non-function variable with same name. intended.
                 }
             }
-
-            if (globalTypes.ContainsKey(name.Lexeme))
-            {
-                return globalTypes[name.Lexeme];
-            } else
-            {
-                // we should NOT get here since we fill non-existent types with the ignore type (so all elements should be in scope)
-                throw new ApplicationException("Mismatch between resolver and typer. Error code 6767.");
-            }
-
-            // unreachable (if you run normal resolver first)
-            // return null;
+            errors.CompilerError(name, "There is no declared variable or function with this name");
+            return ignoreType;
         }
 
+        // resolve fun is diff from resolvevar. resolvefun resolves the inside of a function. resolvevar finds the var/fun assocaited with a token
         private void ResolveFunction(Stmt.Function function)
         {
             // make sure function return type is a valid type
@@ -484,6 +582,7 @@ namespace accretion.Core.Resolvers
                 Token paramType = function.Parametertypes[i];
 
                 DeclareVar(param, paramType);
+                Define(param);
             }
 
             Resolve(function.Body); // different from how interepreter handles function declarations
@@ -547,3 +646,5 @@ namespace accretion.Core.Resolvers
 
     }
 }
+
+// todo: combination of resolver and type mostly complete. still need to integrate interpreter and typer tho for resolutions
