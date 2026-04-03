@@ -120,7 +120,7 @@ namespace accretion.Core.InterpreterTools
 
             if (interpreter.Locals.TryGetValue(expr, out int distance))
             {
-                interpreter.Environment.AssignAt(distance, expr.Name, value);
+                interpreter.Env.AssignAt(distance, expr.Name, value);
             }
             else if (interpreter.Globals.TryGet(expr.Name, out object _))
             {
@@ -194,7 +194,7 @@ namespace accretion.Core.InterpreterTools
         {
             if (interpreter.Locals.TryGetValue(expr, out int distance))
             {
-                return interpreter.Environment.GetAt(distance, name.Lexeme);
+                return interpreter.Env.GetAt(distance, name.Lexeme);
             }
             else if (interpreter.Globals.TryGet(name, out object value))
             {

@@ -8,15 +8,14 @@ using System.Xml.Linq;
 
 namespace accretion.Core.Resolvers
 {
-    // todo: treat ints as doubles in initializer and assignment if the type of var is double
 
     public class Typer : Expr.IVisitor<AccType>, Stmt.IVisitor
     {
         // typer stuff
-        private struct Signature // todo
+        private struct Signature 
         {
             public Token SToken;
-            public string Identifier; // todo I don't like relying on tokens
+            public string Identifier; 
             public AccType AType;
 
             public Signature(string identifier, AccType AType)
@@ -47,6 +46,7 @@ namespace accretion.Core.Resolvers
 
 
         // heuristic stuff
+        // also, tokens w/ same lexeme are diff, so no worries about overloaded funcs here
         private Stack<HashSet<Token>> notAccessedYet = new(); // check whether all vars in a scope have been used
         private Stack<HashSet<Token>> notDefinedYet = new(); // check whether var is defined yet
         private bool inFunction = false; // to see whether we're returning outside of a function
@@ -219,7 +219,7 @@ namespace accretion.Core.Resolvers
             AccType varType = ResolveVar(expr, expr.Name);
             AccType valueType = Resolve(expr.Value);
 
-            notDefinedYet.Peek().Remove(expr.Name); // add every time var is called. maybe optimizable?
+            Define(expr.Name);
 
             // special typing
             if (PropagateIgnore(varType, valueType)) return ignoreType;
@@ -489,7 +489,7 @@ namespace accretion.Core.Resolvers
             Signature sig = new(name, validatedType);
             
             notAccessedYet.Peek().Add(name);
-            notDefinedYet.Peek().Add(name);
+            notDefinedYet.Peek().Add(name); // add every time var is called. maybe optimizable?
             scope.Add(sig); // not defined yet
             return validatedType;
         }
@@ -563,7 +563,7 @@ namespace accretion.Core.Resolvers
             {
                 if (scopes.ElementAt(i).Any(k => k.Identifier == name.Lexeme))
                 {
-                    interpreter.Resolve(expr, i);
+                    interpreter.Resolve(expr, i); // todo important: have to tell the interpreter which one it is (overloaded functions). for variables this should be okay (lowk could improve by prediction), but for functions we may need type info in call
                     notAccessedYet.Peek().Remove(name);
                     return scopes.ElementAt(i).Single(k => (k.Identifier == name.Lexeme) && (k.AType is not FunType)).AType; // throws error if more than one non-function variable with same name. intended.
                 }

@@ -13,8 +13,7 @@ namespace accretion
     {
         private readonly ErrorManager errors;
         
-        public SingleEnvironment Globals { get; } = new();
-        public LayeredEnvironment Environment { get; private set; } = new();
+        public LayeredEnvironment Env { get; private set; } = new(); 
         public Dictionary<Expr, int> Locals { get; } = new(); // used indirectly (through Resolve() below) by Resolver
                                                               // (resolves scope of variables, e.g., Expr x is 5 scopes away,
                                                               // but we know that Expr x (different) is 1 scope away)
@@ -27,8 +26,10 @@ namespace accretion
         {
             foreach (var native in NativeRegistry.All)
             {
-                Globals.Define(native.Name, native.Value);
+                Env.Define(native.Name, native.Value);
             }
+
+            Env = new(Env); // this is the same setup as we do in the typer, where we have a "global" base scope and then begin resolving with a new layered scope, except here we do it in constructor.
 
             stmtVisitor = new(this, logger, errors);
 
@@ -61,11 +62,11 @@ namespace accretion
 
         public void ExecuteBlock(List<Stmt> statements, LayeredEnvironment environment)
         {
-            LayeredEnvironment previous = this.Environment;
+            LayeredEnvironment previous = this.Env;
 
             try
             {
-                this.Environment = environment;
+                this.Env = environment;
 
                 foreach (Stmt statement in statements)
                 {
@@ -74,7 +75,7 @@ namespace accretion
             }
             finally
             {
-                this.Environment = previous;
+                this.Env = previous;
             }
         }
     }
