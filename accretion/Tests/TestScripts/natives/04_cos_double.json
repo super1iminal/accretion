@@ -1,0 +1,9 @@
+{
+    "name": "cos(double)",
+    "description": "Tests cos with a double argument (cos(0) = 1)",
+    "script": "double x = cos(0.0);\nprint x;",
+    "expectedOutput": "1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "trig", "cos"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "pow(int, int) overload",
+    "description": "Tests pow with int arguments returns double",
+    "script": "double x = pow(3, 3);\nprint x;",
+    "expectedOutput": "27",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "pow", "overload", "int"]
+}

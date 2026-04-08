@@ -1,9 +1,11 @@
-﻿using accretion.Core.InterpreterTools;
+﻿using accretion.Core;
+using accretion.Core.InterpreterTools;
 using accretion.Domain;
 using accretion.Errors;
 using accretion.Natives;
 using accretion.Utilities;
 using System.Collections.Generic;
+using static accretion.Core.Resolvers.Typer;
 using static accretion.Domain.Environment;
 
 namespace accretion
@@ -26,12 +28,7 @@ namespace accretion
 
         public Interpreter(ErrorManager errors, Logger logger)
         {
-            foreach (var native in NativeRegistry.All)
-            {
-                Env.Define(native.Name, native.Value);
-            }
-
-            Env = new(Env); // this is the same setup as we do in the typer, where we have a "global" base scope and then begin resolving with a new layered scope, except here we do it in constructor.
+            SetupNatives();
 
             stmtVisitor = new(this, logger, errors);
 
@@ -79,6 +76,23 @@ namespace accretion
             {
                 this.Env = previous;
             }
+        }
+
+        private void SetupNatives()
+        {
+            foreach (Native native in NativeRegistry.All)
+            {
+                string name = native.Name;
+                if (native is NativeFunction nf)
+                {
+                    FunType funType = (FunType)nf.Type;
+                    name = MangleName(nf.Name, funType.ParamTypes);
+                }
+
+                Env.Define(name, native.Value);
+            }
+
+            Env = new(Env); // this is the same setup as we do in the typer, where we have a "global" base scope and then begin resolving with a new layered scope, except here we do it in constructor.
         }
     }
 }

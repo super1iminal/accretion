@@ -1,0 +1,9 @@
+{
+    "name": "abs(double)",
+    "description": "Tests abs with a negative double argument",
+    "script": "double x = abs(-3.14);\nprint x;",
+    "expectedOutput": "3.14",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "abs", "double"]
+}

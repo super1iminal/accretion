@@ -1,0 +1,9 @@
+{
+    "name": "Assign double-returning native to double var",
+    "description": "Tests that a native returning double can be stored in a double variable",
+    "script": "double x = sqrt(2.0);\ndouble y = x * x;\nint z = round(y);\nprint z;",
+    "expectedOutput": "2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "types", "mixed"]
+}

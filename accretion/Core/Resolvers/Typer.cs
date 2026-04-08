@@ -58,8 +58,8 @@ namespace accretion.Core.Resolvers
 
         // heuristic stuff
         // also, tokens w/ same lexeme are diff, so no worries about overloaded funcs here
-        private Stack<HashSet<Token>> notAccessedYet = new(); // check whether all vars in a scope have been used
-        private Stack<HashSet<Token>> notDefinedYet = new(); // check whether var is defined yet
+        private Stack<Dictionary<string, Token>> notAccessedYet = new(); // check whether all vars in a scope have been used (key: lexeme for vars, mangled name for funs)
+        // private Stack<HashSet<Token>> notDefinedYet = new(); // check whether var is defined yet
         private bool inFunction = false; // to see whether we're returning outside of a function
         private bool inloop = false;
         private AccType currentFunctionType = null; // to see if return value matches stated function return value
@@ -70,15 +70,8 @@ namespace accretion.Core.Resolvers
 
         public Typer(Interpreter interpreter, ErrorManager errors)
         {
-            foreach (var native in NativeRegistry.All)
-            {
-                scopes.Push(
-                    new() {
-                        new Signature(native.Name, native.Type),  // true because it's already been defined, obv
-                    }
-                );
-            }
-
+            BeginScope();
+            SetupNatives();
             this.errors = errors;
             this.interpreter = interpreter;
         }
@@ -214,10 +207,10 @@ namespace accretion.Core.Resolvers
         // cannot be a function; is only a variable; functions identifiers (variables) are handled else WHERE
         public AccType VisitVariableExpr(Expr.Variable expr)
         {
-            if (scopes.Count > 1 && notDefinedYet.Peek().Any(k => k.Lexeme == expr.Name.Lexeme))
-            {
-                errors.CompilerError(expr.Name, "Can't use a variable before it's defined.");
-            }
+            // if (scopes.Count > 1 && notDefinedYet.Peek().Any(k => k.Lexeme == expr.Name.Lexeme))
+            // {
+            //     errors.CompilerError(expr.Name, "Can't use a variable before it's defined.");
+            // }
 
             AccType varExprType = ResolveVar(expr, expr.Name);
             if (PropagateIgnore(varExprType)) return ignoreType;
@@ -486,18 +479,18 @@ namespace accretion.Core.Resolvers
         private void BeginScope()
         {
             scopes.Push(new());
-            notAccessedYet.Push(new HashSet<Token>());
-            notDefinedYet.Push(new HashSet<Token>());
+            notAccessedYet.Push(new Dictionary<string, Token>());
+            // notDefinedYet.Push(new HashSet<Token>());
         }
 
         private void EndScope()
         {
             HashSet<Signature> closedScope = scopes.Pop();
-            HashSet<Token> varsNotAccessedYet = notAccessedYet.Pop();
-            HashSet<Token> varsNotDefinedYet = notDefinedYet.Pop();
+            Dictionary<string, Token> varsNotAccessedYet = notAccessedYet.Pop();
+            // HashSet<Token> varsNotDefinedYet = notDefinedYet.Pop();
 
-            foreach (Token token in varsNotAccessedYet) errors.CompilerWarning(token, "Variable/Function is never used");
-            foreach (Token token in varsNotDefinedYet) errors.CompilerWarning(token, "Variable is declared but never assigned a value");
+            foreach (Token token in varsNotAccessedYet.Values) errors.CompilerWarning(token, "Variable/Function is never used");
+            // foreach (Token token in varsNotDefinedYet) errors.CompilerWarning(token, "Variable is declared but never assigned a value");
         }
 
 
@@ -521,8 +514,8 @@ namespace accretion.Core.Resolvers
 
             Signature sig = new(name, validatedType);
             
-            notAccessedYet.Peek().Add(name);
-            notDefinedYet.Peek().Add(name); // add every time var is called. maybe optimizable?
+            notAccessedYet.Peek()[name.Lexeme] = name;
+            // notDefinedYet.Peek().Add(name); // add every time var is called. maybe optimizable?
             scope.Add(sig); // not defined yet
             return validatedType;
         }
@@ -565,7 +558,9 @@ namespace accretion.Core.Resolvers
 
             Signature sig = new(name, verifiedType);
 
-            notAccessedYet.Peek().Add(name);
+            FunType funType = verifiedType as FunType;
+            string key = funType != null ? MangleName(name.Lexeme, funType.ParamTypes) : name.Lexeme;
+            notAccessedYet.Peek()[key] = name;
             scope.Add(sig);
             // todo: paramtypes checked in ResolveFunction
         }
@@ -587,7 +582,7 @@ namespace accretion.Core.Resolvers
 
         private void Define(Token name) // unused
         {
-            notDefinedYet.Peek().Remove(name);
+            // notDefinedYet.Peek().Remove(name);
         }
 
         // ok, ResolveVar is called directly when we access a *variable* (not a function) to figure out what variable we want
@@ -598,7 +593,7 @@ namespace accretion.Core.Resolvers
                 if (scopes.ElementAt(i).Any(k => k.Identifier == name.Lexeme))
                 {
                     interpreter.Resolve(expr, i, name.Lexeme); // todo important: variables are refered to by their normal names
-                    if (i > 0)  notAccessedYet.ElementAt(i).Remove(name);
+                    if ((i + 1)!= scopes.Count) notAccessedYet.ElementAt(i).Remove(name.Lexeme);
                     return scopes.ElementAt(i).Single(k => (k.Identifier == name.Lexeme) && (k.AType is not FunType)).AType; // throws error if more than one non-function variable with same name. intended.
                 }
             }
@@ -645,7 +640,7 @@ namespace accretion.Core.Resolvers
                     if (match)
                     {
                         interpreter.Resolve(expr.Callee, i, MangleName(name.Lexeme, possibleFunc.ParamTypes)); // todo: since environemnts now use both depth and mangled name, we need to add that to the locals dict in interpreter
-                        if (i > 0) notAccessedYet.ElementAt(i).Remove(name);
+                        if ((i + 1) != scopes.Count) notAccessedYet.ElementAt(i).Remove(MangleName(name.Lexeme, possibleFunc.ParamTypes));
                         return possibleFunc;
                     }
                 }
@@ -738,7 +733,7 @@ namespace accretion.Core.Resolvers
             return true;
         }
 
-        private static string MangleName(string name, List<AccType> paramTypes)
+        public static string MangleName(string name, List<AccType> paramTypes)
         {
             StringBuilder sb = new();
             sb.Append(name);
@@ -750,7 +745,13 @@ namespace accretion.Core.Resolvers
             return sb.ToString();
         }
 
-
+        private void SetupNatives()
+        {
+            foreach (var native in NativeRegistry.All)
+            {
+                scopes.Peek().Add(new Signature(native.Name, native.Type));  // true because it's already been defined, obv
+            }
+        }
     }
 }
 

@@ -1,0 +1,9 @@
+{
+    "name": "Type error: sqrt result to int",
+    "description": "Tests that assigning a double-returning native to an int variable causes a type error",
+    "script": "int x = sqrt(4.0);",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "types", "error"]
+}

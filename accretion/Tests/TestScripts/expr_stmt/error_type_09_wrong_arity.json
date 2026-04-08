@@ -4,7 +4,7 @@
     "script": "int add(int a, int b) {\n    return a + b;\n}\nadd(1);",
     "expectedOutput": "",
     "expectCompilerError": true,
-    "expectedCompilerError": "does not match",
+    "expectedCompilerError": "No matching function found",
     "expectRuntimeError": false,
     "exactMatch": false,
     "tags": ["error", "type", "function", "arity"]

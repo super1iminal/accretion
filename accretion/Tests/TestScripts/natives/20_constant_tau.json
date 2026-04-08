@@ -1,0 +1,9 @@
+{
+    "name": "TAU constant",
+    "description": "Tests that TAU equals 2 * PI",
+    "script": "double tau = TAU;\ndouble twopi = 2.0 * PI;\nprint tau == twopi;",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "constants", "tau"]
+}

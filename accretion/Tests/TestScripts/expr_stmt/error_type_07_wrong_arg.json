@@ -4,7 +4,7 @@
     "script": "int double(int n) {\n    return n * 2;\n}\ndouble(\"hello\");",
     "expectedOutput": "",
     "expectCompilerError": true,
-    "expectedCompilerError": "does not match parameter",
+    "expectedCompilerError": "No matching function found",
     "expectRuntimeError": false,
     "exactMatch": false,
     "tags": ["error", "type", "function", "argument"]

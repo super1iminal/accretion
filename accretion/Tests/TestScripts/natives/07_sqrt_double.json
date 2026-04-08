@@ -1,0 +1,9 @@
+{
+    "name": "sqrt(double)",
+    "description": "Tests sqrt with a double argument",
+    "script": "double x = sqrt(9.0);\nprint x;",
+    "expectedOutput": "3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "sqrt", "double"]
+}

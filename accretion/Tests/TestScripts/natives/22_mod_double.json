@@ -1,0 +1,9 @@
+{
+    "name": "mod(double, double)",
+    "description": "Tests double modulo",
+    "script": "double x = mod(5.5, 2.0);\nprint x;",
+    "expectedOutput": "1.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "mod", "double"]
+}

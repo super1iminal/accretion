@@ -1,0 +1,9 @@
+{
+    "name": "min/max double",
+    "description": "Tests min and max with double arguments",
+    "script": "double a = min(2.5, 7.1);\ndouble b = max(2.5, 7.1);\nprint a;\nprint b;",
+    "expectedOutput": "2.5\n7.1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "min", "max", "double"]
+}

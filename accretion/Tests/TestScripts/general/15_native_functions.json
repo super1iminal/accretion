@@ -1,7 +1,7 @@
 {
     "name": "Native Functions",
-    "description": "Tests native functions like absd and constants like PI",
-    "script": "double pi = PI;\npi = -pi;\npi = absd(pi);\nprint pi;",
+    "description": "Tests native functions like abs and constants like PI",
+    "script": "double pi = PI;\npi = -pi;\npi = abs(pi);\nprint pi;",
     "expectedOutput": "3.141592653589793",
     "expectCompilerError": false,
     "expectCompilerWarning": false,
