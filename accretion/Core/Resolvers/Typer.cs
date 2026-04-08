@@ -214,7 +214,7 @@ namespace accretion.Core.Resolvers
         // cannot be a function; is only a variable; functions identifiers (variables) are handled else WHERE
         public AccType VisitVariableExpr(Expr.Variable expr)
         {
-            if (scopes.Count > 1 && scopes.Peek().Any(k => k.Identifier == expr.Name.Lexeme))
+            if (scopes.Count > 1 && notDefinedYet.Peek().Any(k => k.Lexeme == expr.Name.Lexeme))
             {
                 errors.CompilerError(expr.Name, "Can't use a variable before it's defined.");
             }
@@ -598,7 +598,7 @@ namespace accretion.Core.Resolvers
                 if (scopes.ElementAt(i).Any(k => k.Identifier == name.Lexeme))
                 {
                     interpreter.Resolve(expr, i, name.Lexeme); // todo important: variables are refered to by their normal names
-                    notAccessedYet.Peek().Remove(name);
+                    if (i > 0)  notAccessedYet.ElementAt(i).Remove(name);
                     return scopes.ElementAt(i).Single(k => (k.Identifier == name.Lexeme) && (k.AType is not FunType)).AType; // throws error if more than one non-function variable with same name. intended.
                 }
             }
@@ -614,7 +614,7 @@ namespace accretion.Core.Resolvers
         /// <param name="name">Name of the expr</param>
         /// <param name="argTypes">resolved ArgTypes of the call expression</param>
         /// <returns></returns>
-        private AccType ResolveFun(Expr expr, Token name, List<AccType> argTypes)
+        private AccType ResolveFun(Expr.Call expr, Token name, List<AccType> argTypes)
         {
             for (int i=0; i < scopes.Count; i++)
             {
@@ -644,8 +644,8 @@ namespace accretion.Core.Resolvers
 
                     if (match)
                     {
-                        interpreter.Resolve(expr, i, MangleName(name.Lexeme, possibleFunc.ParamTypes)); // todo: since environemnts now use both depth and mangled name, we need to add that to the locals dict in interpreter
-                        notAccessedYet.Peek().Remove(name);
+                        interpreter.Resolve(expr.Callee, i, MangleName(name.Lexeme, possibleFunc.ParamTypes)); // todo: since environemnts now use both depth and mangled name, we need to add that to the locals dict in interpreter
+                        if (i > 0) notAccessedYet.ElementAt(i).Remove(name);
                         return possibleFunc;
                     }
                 }
@@ -665,6 +665,8 @@ namespace accretion.Core.Resolvers
         private void ResolveFunction(Stmt.Function function)
         {
             // make sure function return type is a valid type
+            bool enclosingFunction = inFunction;
+            inFunction = true;
             BeginScope();
             for (int i = 0; i < function.Parameters.Count; i++)
             {
@@ -679,6 +681,8 @@ namespace accretion.Core.Resolvers
                                     // at runtime, declaring a function doesn't do anything with function body
                                     // in static analysis, we traverse body
             EndScope();
+
+            inFunction = enclosingFunction;
         }
 
         private static bool IsInt(params AccType[] types)
