@@ -1,0 +1,10 @@
+{
+    "name": "Bool + String Concat Error",
+    "description": "Tests that bool + string with bool on left produces a type error (bool is not alphanumeric)",
+    "script": "print true + \" story\";",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "must be numbers or strings",
+    "exactMatch": false,
+    "tags": ["binary", "string", "concat", "error", "type"]
+}

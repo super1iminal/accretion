@@ -1,0 +1,9 @@
+{
+    "name": "Scope - Inner Shadow Doesn't Affect Outer",
+    "description": "Tests that a shadowed variable in inner scope doesn't change the outer variable",
+    "script": "int x = 1;\n{\n    int x = 99;\n    print x;\n}\nprint x;",
+    "expectedOutput": "99\n1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["scope", "shadow"]
+}

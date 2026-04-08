@@ -1,0 +1,10 @@
+{
+    "name": "Ternary - Mismatched Branch Types Error",
+    "description": "Tests that ternary with int and double branches produces a type error (branches must match)",
+    "script": "print true ? 1 : 2.0;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "same type",
+    "exactMatch": false,
+    "tags": ["ternary", "type", "error"]
+}

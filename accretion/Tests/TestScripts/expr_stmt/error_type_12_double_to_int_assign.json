@@ -1,0 +1,10 @@
+{
+    "name": "Type Error - Double to Int Assignment",
+    "description": "Tests that assigning a double to an int variable produces a type error (no implicit narrowing)",
+    "script": "int x = 3.14;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "exactMatch": false,
+    "tags": ["error", "type", "implicit-cast", "assignment"]
+}

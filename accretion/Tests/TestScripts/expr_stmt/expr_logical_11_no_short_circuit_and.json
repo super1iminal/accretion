@@ -1,0 +1,9 @@
+{
+    "name": "Logical - AND Evaluates RHS When LHS True",
+    "description": "Tests that true AND expr does evaluate the right side",
+    "script": "bool sideEffect() {\n    print \"evaluated\";\n    return true;\n}\nbool result = true and sideEffect();\nprint \"done\";",
+    "expectedOutput": "evaluated\ndone",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["logical", "short-circuit", "and"]
+}

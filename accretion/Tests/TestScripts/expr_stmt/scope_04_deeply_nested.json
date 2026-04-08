@@ -1,0 +1,9 @@
+{
+    "name": "Scope - Deeply Nested Access",
+    "description": "Tests variable access through multiple levels of nested blocks",
+    "script": "int x = 1;\n{\n    {\n        {\n            print x;\n        }\n    }\n}",
+    "expectedOutput": "1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["scope", "nested"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Negative Division",
+    "description": "Tests that negative division returns negative result",
+    "script": "print -7.0 / 2.0;",
+    "expectedOutput": "-3.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "division"]
+}

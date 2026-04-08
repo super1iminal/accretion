@@ -1,0 +1,9 @@
+{
+    "name": "Ternary - As Function Argument",
+    "description": "Tests ternary expression used as a function argument",
+    "script": "int identity(int n) {\n    return n;\n}\nprint identity(true ? 10 : 20);",
+    "expectedOutput": "10",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["ternary", "function", "argument"]
+}

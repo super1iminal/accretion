@@ -1,0 +1,9 @@
+{
+    "name": "Logical - Short Circuit OR Skips RHS",
+    "description": "Tests that true OR expr does not evaluate the right side (verified by no side effect print)",
+    "script": "bool sideEffect() {\n    print \"evaluated\";\n    return false;\n}\nbool result = true or sideEffect();\nprint \"done\";",
+    "expectedOutput": "done",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["logical", "short-circuit", "or"]
+}

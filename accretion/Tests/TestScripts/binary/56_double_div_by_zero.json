@@ -1,0 +1,10 @@
+{
+    "name": "Double Division By Zero",
+    "description": "Tests that 1.0 / 0.0 produces Infinity",
+    "script": "print 1.0 / 0.0;",
+    "expectedOutput": "Infinity",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["binary", "arithmetic", "division", "edge"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Function Overload - Different Return Types",
+    "description": "Tests overloaded functions can have different return types",
+    "script": "int identity(int n) {\n    return n;\n}\ndouble identity(double n) {\n    return n;\n}\nprint identity(5);\nprint identity(5.5);",
+    "expectedOutput": "5\n5.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["function", "overload", "return-type"]
+}

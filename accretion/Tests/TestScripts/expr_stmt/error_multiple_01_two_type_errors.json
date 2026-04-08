@@ -1,0 +1,10 @@
+{
+    "name": "Multiple Errors - Two Type Errors Reported",
+    "description": "Tests that the compiler reports multiple type errors in the same program",
+    "script": "int x = \"hello\";\nint y = \"world\";",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "exactMatch": false,
+    "tags": ["error", "type", "multiple"]
+}
