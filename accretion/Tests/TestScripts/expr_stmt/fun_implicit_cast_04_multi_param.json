@@ -1,0 +1,9 @@
+{
+    "name": "Function Implicit Cast - Multiple Parameters",
+    "description": "Tests implicit casting with multiple parameters where some need casting",
+    "script": "double add(double a, double b) {\n    return a + b;\n}\nprint add(3, 4);",
+    "expectedOutput": "7",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["function", "implicit-cast", "parameters"]
+}

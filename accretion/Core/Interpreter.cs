@@ -5,7 +5,7 @@ using accretion.Errors;
 using accretion.Natives;
 using accretion.Utilities;
 using System.Collections.Generic;
-using static accretion.Core.Resolvers.Typer;
+using static accretion.Core.Typer;
 using static accretion.Domain.Environment;
 
 namespace accretion

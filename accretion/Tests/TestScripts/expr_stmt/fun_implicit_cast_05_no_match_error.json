@@ -1,0 +1,9 @@
+{
+    "name": "Function Implicit Cast - No Match Even With Implicit Cast",
+    "description": "Tests that a string argument does not implicitly cast to int or double, producing a compiler error",
+    "script": "int foo(int n) {\n    return n;\n}\nprint foo(\"hello\");",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectRuntimeError": false,
+    "tags": ["function", "implicit-cast", "error"]
+}
