@@ -18,12 +18,12 @@ namespace accretion.Domain
             this.Literal = literal;
             this.Line = line;
             this.Index = index;
-            this.Index = length;
+            this.Length = length;
         }
 
         override public string ToString()
         {
-            return Type + " " + Lexeme + " " + Literal;
+            return Lexeme;
         }
 
         public override bool Equals(object obj)

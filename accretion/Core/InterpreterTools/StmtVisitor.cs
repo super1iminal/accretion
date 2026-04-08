@@ -103,7 +103,7 @@ namespace accretion.Core.InterpreterTools
         public void VisitFunctionStmt(Stmt.Function stmt)
         {
             AccretionFunction function = new(stmt, interpreter.Env); // capture current environment when function is *declared* (different from env during call)
-            interpreter.Env.Define(stmt.Name.Lexeme, function);
+            interpreter.Env.Define(stmt.MangledName, function);
             return;
         }
 

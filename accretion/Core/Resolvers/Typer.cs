@@ -4,6 +4,7 @@ using accretion.Natives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 
 namespace accretion.Core.Resolvers
@@ -14,8 +15,8 @@ namespace accretion.Core.Resolvers
         // typer stuff
         private struct Signature 
         {
-            public Token SToken;
-            public string Identifier; 
+            public Token SToken; // token is used for error reporting purposes
+            public string Identifier; // used as canon ID
             public AccType AType;
 
             public Signature(string identifier, AccType AType)
@@ -31,15 +32,25 @@ namespace accretion.Core.Resolvers
                 this.AType = AType;
                 this.Identifier = token.Lexeme;
             }
+
+            public override bool Equals(object obj)
+            {
+                if (obj is not Signature otherSig) return false;
+                return Equals(Identifier, otherSig.Identifier) && Equals(AType, otherSig.AType);
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(Identifier, AType.GetHashCode());
+            }
         }
 
         private readonly Stack<HashSet<Signature>> scopes = new(); // 
 
+
         private readonly HashSet<AccType> validTypes = NativeAccTypeFactory.nativeAccTypes;
         private readonly AccType ignoreType = new("ignore"); // anytime a variable or function is ignored due to non-existent types, it is set to ignore
                                                              // so the user doesn't get flooded with compile errors
-
-        private AccType currentFunctionType = null; // to see if return value matches stated function return value
 
         // resolver stuff
         private readonly Interpreter interpreter;
@@ -51,6 +62,7 @@ namespace accretion.Core.Resolvers
         private Stack<HashSet<Token>> notDefinedYet = new(); // check whether var is defined yet
         private bool inFunction = false; // to see whether we're returning outside of a function
         private bool inloop = false;
+        private AccType currentFunctionType = null; // to see if return value matches stated function return value
 
 
         // shared stuff
@@ -199,7 +211,7 @@ namespace accretion.Core.Resolvers
 
         // expressions
         // this is a "get" operation
-        // can be a function or a var
+        // cannot be a function; is only a variable; functions identifiers (variables) are handled else WHERE
         public AccType VisitVariableExpr(Expr.Variable expr)
         {
             if (scopes.Count > 1 && scopes.Peek().Any(k => k.Identifier == expr.Name.Lexeme))
@@ -211,7 +223,7 @@ namespace accretion.Core.Resolvers
             if (PropagateIgnore(varExprType)) return ignoreType;
 
 
-            return varExprType;  // will return either var type or function return type
+            return varExprType; 
         }
 
         public AccType VisitAssignExpr(Expr.Assign expr)
@@ -300,25 +312,46 @@ namespace accretion.Core.Resolvers
 
         public AccType VisitCallExpr(Expr.Call expr)
         {
-            AccType calleeType = Resolve(expr.Callee); // remember, callee can be an expression (so we need to resolve it), but (should) resolve to a *variable* in interpreter
+            // AccType calleeType = Resolve(expr.Callee); // remember, callee can be an expression (so we need to resolve it), but (should) resolve to a *variable* in interpreter
+            // we are no longer *starting* with an automatic resolution of calleeType. If it's a variable (function identifier), we handle it manually. if it's a function that returns another func, we allow it.
+
+            // we start by checking the arguments
+            List<AccType> argTypes = new();
+            foreach (Expr arg in expr.Arguments)
+            {
+                AccType argType = Resolve(arg);
+                if (PropagateIgnore(argType)) return ignoreType;
+                argTypes.Add(argType);
+            }
+
+            if (expr.Callee is Expr.Variable varExpr)
+            {
+                // we handle the direct case (e.g., ->foo<-(x)) manually
+                AccType retType = ResolveFun(expr, varExpr.Name, argTypes);
+                if (PropagateIgnore(retType) || (retType is not FunType funType)) return ignoreType;
+
+                return funType.ReturnType;
+            }
+
+            // if not a direct case (e.g., ->foo(x)<-(1), resolve normally, since foo(x) will only resolve to a single type
+            AccType calleeType = Resolve(expr.Callee);
             if (PropagateIgnore(calleeType)) return ignoreType;
 
-
-            if (calleeType is not FunType funType)
+            if (calleeType is not FunType exprFunType)
             {
-                errors.CompilerError(expr.Paren, "Cannot call a variable"); // TODO: add synchronization after errors that can't return a type. resolved with ignoreType?
+                errors.CompilerError(expr.Paren, "Cannot call a variable");
                 return ignoreType;
             }
 
-            if (expr.Arguments.Count != funType.ParamTypes.Count)
+            if (expr.Arguments.Count != exprFunType.ParamTypes.Count)
             {
                 errors.CompilerError(expr.Paren, "Number of arguments does not match");
-                return funType.ReturnType;
+                return exprFunType.ReturnType;
             }
             for (int i = 0; i < expr.Arguments.Count; i++)
             {
                 AccType argType = Resolve(expr.Arguments[i]);
-                AccType paramType = funType.ParamTypes[i];
+                AccType paramType = exprFunType.ParamTypes[i];
                 if (PropagateIgnore(argType, paramType)) return ignoreType;
 
                 if (!Equals(argType, paramType))
@@ -327,7 +360,7 @@ namespace accretion.Core.Resolvers
                 }
             }
 
-            return funType.ReturnType;
+            return exprFunType.ReturnType;
         }
 
         public AccType VisitGroupingExpr(Expr.Grouping expr)
@@ -557,18 +590,74 @@ namespace accretion.Core.Resolvers
             notDefinedYet.Peek().Remove(name);
         }
 
+        // ok, ResolveVar is called directly when we access a *variable* (not a function) to figure out what variable we want
         private AccType ResolveVar(Expr expr, Token name)
         {
             for (int i = 0; i < scopes.Count; i++)
             {
                 if (scopes.ElementAt(i).Any(k => k.Identifier == name.Lexeme))
                 {
-                    interpreter.Resolve(expr, i); // todo important: have to tell the interpreter which one it is (overloaded functions). for variables this should be okay (lowk could improve by prediction), but for functions we may need type info in call
+                    interpreter.Resolve(expr, i, name.Lexeme); // todo important: variables are refered to by their normal names
                     notAccessedYet.Peek().Remove(name);
                     return scopes.ElementAt(i).Single(k => (k.Identifier == name.Lexeme) && (k.AType is not FunType)).AType; // throws error if more than one non-function variable with same name. intended.
                 }
             }
-            errors.CompilerError(name, "There is no declared variable or function with this name");
+            errors.CompilerError(name, "There is no declared variable with this name");
+            return ignoreType;
+        }
+
+        // ok, 
+        /// <summary>
+        /// ResolveFun is called directly when we call a function to figure out what function we called, and also registers it in the interpreter
+        /// </summary>
+        /// <param name="expr">Is the call expression, owner of "name" and necessary to pass to interpreter to register expr->function connection</param>
+        /// <param name="name">Name of the expr</param>
+        /// <param name="argTypes">resolved ArgTypes of the call expression</param>
+        /// <returns></returns>
+        private AccType ResolveFun(Expr expr, Token name, List<AccType> argTypes)
+        {
+            for (int i=0; i < scopes.Count; i++)
+            {
+                List<FunType> possibleFuncs = scopes.ElementAt(i)
+                    .Where(k => k.Identifier == name.Lexeme && k.AType is FunType)
+                    .Select(k => (FunType)k.AType)
+                    .ToList();
+
+                if (possibleFuncs.Count == 0) continue;
+
+                foreach (FunType possibleFunc in possibleFuncs)
+                {
+                    if (possibleFunc.ParamTypes.Count != argTypes.Count) continue;
+
+                    // duplicate code in VisitCallExpr
+                    bool match = true;
+                    for (int j = 0; j < argTypes.Count; j++)
+                    {
+                        if ((!Equals(argTypes[j], possibleFunc.ParamTypes[j])) 
+                            && (!Equals(possibleFunc.ParamTypes[j], ignoreType))
+                            && (!Equals(argTypes[j], ignoreType)))
+                        {
+                            match = false;
+                            break;
+                        }
+                    }
+
+                    if (match)
+                    {
+                        interpreter.Resolve(expr, i, MangleName(name.Lexeme, possibleFunc.ParamTypes)); // todo: since environemnts now use both depth and mangled name, we need to add that to the locals dict in interpreter
+                        notAccessedYet.Peek().Remove(name);
+                        return possibleFunc;
+                    }
+                }
+
+                // we keep going if we haven't found a match, all the way up the list of scopes
+
+                // todo: we could try again with implicit casts, but would have to be done after so we don't greedily select the incorrect function
+            }
+
+
+
+            errors.CompilerError(name, "No matching function found for the given name and arguments");
             return ignoreType;
         }
 
@@ -644,6 +733,19 @@ namespace accretion.Core.Resolvers
 
             return true;
         }
+
+        private static string MangleName(string name, List<AccType> paramTypes)
+        {
+            StringBuilder sb = new();
+            sb.Append(name);
+            foreach (AccType pType in paramTypes)
+            {
+                sb.Append(pType.Value);
+            }
+
+            return sb.ToString();
+        }
+
 
     }
 }

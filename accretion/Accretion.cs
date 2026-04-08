@@ -28,12 +28,12 @@ namespace accretion
 
             if (errors.HasCompilerError) return;
 
-            Resolver resolver = new Resolver(interpreter, errors);
-            resolver.BeginResolve(statements);
+            //Resolver resolver = new Resolver(interpreter, errors);
+            //resolver.BeginResolve(statements);
 
-            if (errors.HasCompilerError) return;
+            //if (errors.HasCompilerError) return;
 
-            Typer typer = new Typer(errors);
+            Typer typer = new Typer(interpreter, errors);
             typer.BeginResolve(statements);
 
             if (errors.HasCompilerError) return;

@@ -4,6 +4,7 @@ using accretion.Errors;
 using accretion.Natives;
 using accretion.Utilities;
 using System.Collections.Generic;
+using static accretion.Domain.Environment;
 
 namespace accretion
 {
@@ -14,7 +15,8 @@ namespace accretion
         private readonly ErrorManager errors;
         
         public LayeredEnvironment Env { get; private set; } = new(); 
-        public Dictionary<Expr, int> Locals { get; } = new(); // used indirectly (through Resolve() below) by Resolver
+
+        public Dictionary<Expr, VarLocation> ResolutionMap { get; } = new(); // used indirectly (through Resolve() below) by Resolver
                                                               // (resolves scope of variables, e.g., Expr x is 5 scopes away,
                                                               // but we know that Expr x (different) is 1 scope away)
 
@@ -54,9 +56,9 @@ namespace accretion
 
         // ======== HELPERS ======== 
         // recursively evaluates an expression and returns the result
-        public void Resolve(Expr expr, int depth)
+        public void Resolve(Expr expr, int depth, string name)
         {
-            Locals[expr] = depth;
+            ResolutionMap[expr] = new(depth, name);
             // since we're using expr and not name, the difference between vars (if multiple of same name) is builtin to our locals dict
         }
 
