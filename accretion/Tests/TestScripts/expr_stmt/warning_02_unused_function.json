@@ -1,0 +1,12 @@
+{
+    "name": "Warning - Unused Function",
+    "description": "Tests that declaring a function that is never called produces a warning",
+    "script": "void unused() {\n    print 1;\n}\nprint \"done\";",
+    "expectedOutput": "done",
+    "expectCompilerError": false,
+    "expectCompilerWarning": true,
+    "expectedCompilerWarning": "never used",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["warning", "unused", "function"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Native - Sqrt with Int Argument",
+    "description": "Tests calling sqrt with an int argument (implicit cast to double if only double overload exists)",
+    "script": "print sqrt(4);",
+    "expectedOutput": "2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "sqrt", "implicit-cast"]
+}

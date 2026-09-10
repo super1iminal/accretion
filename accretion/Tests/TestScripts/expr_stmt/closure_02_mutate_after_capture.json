@@ -1,0 +1,9 @@
+{
+    "name": "Closure - Mutation After Capture",
+    "description": "Tests closure sees updated value when captured variable is mutated after function declaration",
+    "script": "int x = 10;\nvoid show() {\n    print x;\n}\nx = 20;\nshow();",
+    "expectedOutput": "20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["closure", "mutation", "scope"]
+}

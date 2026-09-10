@@ -1,0 +1,9 @@
+{
+    "name": "floor with negative double",
+    "description": "Tests that floor(-2.3) = -3 (rounds toward negative infinity)",
+    "script": "int x = floor(-2.3);\nprint x;",
+    "expectedOutput": "-3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "floor", "negative"]
+}

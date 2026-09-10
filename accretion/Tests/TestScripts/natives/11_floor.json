@@ -1,0 +1,9 @@
+{
+    "name": "floor(double)",
+    "description": "Tests floor returns int rounded down",
+    "script": "int x = floor(3.7);\nprint x;",
+    "expectedOutput": "3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "floor", "rounding"]
+}

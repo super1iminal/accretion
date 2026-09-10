@@ -1,0 +1,7 @@
+void doSomething() {
+    print a;
+}
+
+int a = 5;
+
+doSomething();

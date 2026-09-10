@@ -1,0 +1,11 @@
+void printA() {
+	print "a";
+}
+
+void printB() {
+	print "b";
+}
+
+printA = printB;
+
+printA();

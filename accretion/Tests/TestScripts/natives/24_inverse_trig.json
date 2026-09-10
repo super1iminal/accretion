@@ -1,0 +1,9 @@
+{
+    "name": "asin, acos, atan",
+    "description": "Tests inverse trig functions at known values",
+    "script": "double a = asin(0.0);\ndouble b = acos(1.0);\ndouble c = atan(0.0);\nprint a;\nprint b;\nprint c;",
+    "expectedOutput": "0\n0\n0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "trig", "inverse"]
+}

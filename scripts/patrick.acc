@@ -1,0 +1,11 @@
+int fuckthis(int x) {
+	print x;
+}
+
+int fuckthis(double x) {
+	print x;
+}
+
+fuckthis(2);
+
+fuckthis(5.5);

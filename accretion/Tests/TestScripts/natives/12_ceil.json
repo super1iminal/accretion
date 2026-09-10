@@ -1,0 +1,9 @@
+{
+    "name": "ceil(double)",
+    "description": "Tests ceil returns int rounded up",
+    "script": "int x = ceil(3.2);\nprint x;",
+    "expectedOutput": "4",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "ceil", "rounding"]
+}

@@ -1,5 +1,4 @@
 using accretion.Core;
-using accretion.Core.Resolvers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -182,13 +181,13 @@ namespace accretion.Tests
             var interpreter = new Interpreter(errors, logger);
 
             // Resolve
-            var resolver = new Resolver(interpreter, errors);
-            resolver.BeginResolve(statements);
+            //var resolver = new Resolver(interpreter, errors);
+            //resolver.BeginResolve(statements);
 
-            if (errors.HasCompilerError) return;
+            //if (errors.HasCompilerError) return;
 
             // Type check
-            var typer = new Typer(errors);
+            var typer = new Typer(interpreter, errors);
             typer.BeginResolve(statements);
 
             if (errors.HasCompilerError) return;

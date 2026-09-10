@@ -62,6 +62,7 @@ namespace accretion.Domain
                 this.Parametertypes = parameterTypes;
                 this.Body = body;
                 this.Returntype = returnType;
+                this.MangledName = Mangle();
             }
 
             public override void Accept(IVisitor visitor)
@@ -74,6 +75,19 @@ namespace accretion.Domain
             public readonly List<Token> Parametertypes;
             public readonly List<Stmt> Body;
             public readonly Token Returntype;
+            public readonly string MangledName;
+
+
+            private string Mangle() // for name manging. contains only info relevant to mangling.
+            {
+                string conglomParamTypes = "";
+                foreach (Token param in Parametertypes)
+                {
+                    conglomParamTypes += param.ToString();
+                }
+
+                return Name.Lexeme + conglomParamTypes;
+            }
         }
 
 

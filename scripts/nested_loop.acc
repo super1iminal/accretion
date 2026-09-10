@@ -1,0 +1,13 @@
+double a = 1;
+double b = 1;
+msg msg = "";
+
+while (a < 5) {
+	while (b < 5) {
+		msg = "a = " + a + "\nb = " + b;
+		print msg;
+		b = b + 1;
+	}
+	b = 1;
+	a = a + 1;
+}

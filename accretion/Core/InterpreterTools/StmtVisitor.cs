@@ -48,13 +48,13 @@ namespace accretion.Core.InterpreterTools
                 value = exprVisitor.Evaluate(stmt.Initializer);
             }
 
-            interpreter.Environment.Define(stmt.Name.Lexeme, value);
+            interpreter.Env.Define(stmt.Name.Lexeme, value);
             return;
         }
 
         public void VisitBlockStmt(Stmt.Block stmt)
         {
-            interpreter.ExecuteBlock(stmt.Statements, new LayeredEnvironment(interpreter.Environment));
+            interpreter.ExecuteBlock(stmt.Statements, new LayeredEnvironment(interpreter.Env));
         }
 
         public void VisitIfStmt(Stmt.If stmt)
@@ -102,8 +102,8 @@ namespace accretion.Core.InterpreterTools
 
         public void VisitFunctionStmt(Stmt.Function stmt)
         {
-            AccretionFunction function = new(stmt, interpreter.Environment); // capture current environment when function is *declared* (different from env during call)
-            interpreter.Environment.Define(stmt.Name.Lexeme, function);
+            AccretionFunction function = new(stmt, interpreter.Env); // capture current environment when function is *declared* (different from env during call)
+            interpreter.Env.Define(stmt.MangledName, function);
             return;
         }
 

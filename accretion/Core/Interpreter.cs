@@ -1,9 +1,12 @@
-﻿using accretion.Core.InterpreterTools;
+﻿using accretion.Core;
+using accretion.Core.InterpreterTools;
 using accretion.Domain;
 using accretion.Errors;
 using accretion.Natives;
 using accretion.Utilities;
 using System.Collections.Generic;
+using static accretion.Core.Typer;
+using static accretion.Domain.Environment;
 
 namespace accretion
 {
@@ -13,9 +16,9 @@ namespace accretion
     {
         private readonly ErrorManager errors;
         
-        public SingleEnvironment Globals { get; } = new();
-        public LayeredEnvironment Environment { get; private set; } = new();
-        public Dictionary<Expr, int> Locals { get; } = new(); // used indirectly (through Resolve() below) by Resolver
+        public LayeredEnvironment Env { get; private set; } = new(); 
+
+        public Dictionary<Expr, VarLocation> ResolutionMap { get; } = new(); // used indirectly (through Resolve() below) by Resolver
                                                               // (resolves scope of variables, e.g., Expr x is 5 scopes away,
                                                               // but we know that Expr x (different) is 1 scope away)
 
@@ -25,10 +28,7 @@ namespace accretion
 
         public Interpreter(ErrorManager errors, Logger logger)
         {
-            foreach (var native in NativeRegistry.All)
-            {
-                Globals.Define(native.Name, native.Value);
-            }
+            SetupNatives();
 
             stmtVisitor = new(this, logger, errors);
 
@@ -53,19 +53,19 @@ namespace accretion
 
         // ======== HELPERS ======== 
         // recursively evaluates an expression and returns the result
-        public void Resolve(Expr expr, int depth)
+        public void Resolve(Expr expr, int depth, string name)
         {
-            Locals[expr] = depth;
+            ResolutionMap[expr] = new(depth, name);
             // since we're using expr and not name, the difference between vars (if multiple of same name) is builtin to our locals dict
         }
 
         public void ExecuteBlock(List<Stmt> statements, LayeredEnvironment environment)
         {
-            LayeredEnvironment previous = this.Environment;
+            LayeredEnvironment previous = this.Env;
 
             try
             {
-                this.Environment = environment;
+                this.Env = environment;
 
                 foreach (Stmt statement in statements)
                 {
@@ -74,8 +74,25 @@ namespace accretion
             }
             finally
             {
-                this.Environment = previous;
+                this.Env = previous;
             }
+        }
+
+        private void SetupNatives()
+        {
+            foreach (Native native in NativeRegistry.All)
+            {
+                string name = native.Name;
+                if (native is NativeFunction nf)
+                {
+                    FunType funType = (FunType)nf.Type;
+                    name = MangleName(nf.Name, funType.ParamTypes);
+                }
+
+                Env.Define(name, native.Value);
+            }
+
+            Env = new(Env); // this is the same setup as we do in the typer, where we have a "global" base scope and then begin resolving with a new layered scope, except here we do it in constructor.
         }
     }
 }

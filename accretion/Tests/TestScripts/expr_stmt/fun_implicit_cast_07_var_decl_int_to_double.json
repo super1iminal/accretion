@@ -1,0 +1,9 @@
+{
+    "name": "Implicit Cast - Int Literal to Double Variable",
+    "description": "Tests that declaring a double variable with an int literal works via implicit cast",
+    "script": "double x = 42;\nprint x;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["implicit-cast", "variable", "declaration"]
+}

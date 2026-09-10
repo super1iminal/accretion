@@ -4,7 +4,7 @@
     "script": "int x = 42;\nx();",
     "expectedOutput": "",
     "expectCompilerError": true,
-    "expectedCompilerError": "Cannot call a variable",
+    "expectedCompilerError": "No matching function found",
     "expectRuntimeError": false,
     "exactMatch": false,
     "tags": ["error", "type", "call"]

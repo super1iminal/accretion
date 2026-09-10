@@ -1,0 +1,9 @@
+{
+    "name": "Function Overload - Three Overloads",
+    "description": "Tests resolution among three overloads with different parameter types",
+    "script": "string describe(int n) {\n    return \"int\";\n}\nstring describe(double n) {\n    return \"double\";\n}\nstring describe(string s) {\n    return \"string\";\n}\nprint describe(1);\nprint describe(1.0);\nprint describe(\"hi\");",
+    "expectedOutput": "int\ndouble\nstring",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["function", "overload"]
+}

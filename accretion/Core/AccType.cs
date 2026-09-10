@@ -75,21 +75,22 @@ namespace accretion.Core
             }
         }
 
+        // checks for equality of signatures (not return type)
         public override bool Equals(object obj)
         {
-            if (!(obj is FunType type)) return false;
+            if (!(obj is FunType otherType)) return false;
             if (obj == null) return false;
 
-            if (!Equals(ReturnType, type.ReturnType)) return false;
-            if (ParamTypes.Count != type.ParamTypes.Count) return false;
+            if (ParamTypes.Count != otherType.ParamTypes.Count) return false;
 
             for (int i = 0; i < ParamTypes.Count; i++)
             {
-                if (!Equals(ParamTypes[i], type.ParamTypes[i])) return false;
+                if (!Equals(ParamTypes[i], otherType.ParamTypes[i])) return false;
             }
 
             return true;
         }
+
 
         public override int GetHashCode()
         {

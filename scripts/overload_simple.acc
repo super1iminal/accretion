@@ -1,0 +1,15 @@
+double add(double a, double b) {
+  return PI + b;
+}
+
+int add(int a, int b) {
+  return a + b;
+}
+
+string add(string a, string b) {
+  return a + b;
+}
+
+print add(1.5, 2.5);
+print add(3, 4);
+print add("hello ", "world");

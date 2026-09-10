@@ -1,5 +1,0 @@
-C:\Users\asher\Documents\Coding\accretion\accretion\accretion.console\obj\Debug\net5.0\accretion.console.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\asher\Documents\Coding\accretion\accretion\accretion.console\obj\Debug\net5.0\accretion.console.AssemblyInfoInputs.cache
-C:\Users\asher\Documents\Coding\accretion\accretion\accretion.console\obj\Debug\net5.0\accretion.console.AssemblyInfo.cs
-C:\Users\asher\Documents\Coding\accretion\accretion\accretion.console\obj\Debug\net5.0\accretion.console.csproj.CoreCompileInputs.cache
-C:\Users\asher\Documents\Coding\accretion\accretion\accretion.console\obj\Debug\net5.0\accretion.console.sourcelink.json

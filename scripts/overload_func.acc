@@ -1,0 +1,7 @@
+void printA(int a) {
+	print a;
+}
+
+void printA(double a) {
+	print a;
+}

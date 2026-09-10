@@ -8,32 +8,32 @@ namespace accretion.Tests
     /// </summary>
     public static class TestProgram
     {
-        public static int Main(string[] args)
-        {
-            string testDirectory = GetTestDirectory(args);
-            bool verbose = Array.Exists(args, arg => arg == "-v" || arg == "--verbose");
-            string tagFilter = GetTagFilter(args);
+        //public static int Main(string[] args)
+        //{
+        //    string testDirectory = GetTestDirectory(args);
+        //    bool verbose = Array.Exists(args, arg => arg == "-v" || arg == "--verbose");
+        //    string tagFilter = GetTagFilter(args);
 
-            Console.WriteLine("Accretion Test Runner");
-            Console.WriteLine($"Test Directory: {testDirectory}");
-            Console.WriteLine();
+        //    Console.WriteLine("Accretion Test Runner");
+        //    Console.WriteLine($"Test Directory: {testDirectory}");
+        //    Console.WriteLine();
 
-            var runner = new TestRunner(testDirectory, verbose);
-            TestSummary summary;
+        //    var runner = new TestRunner(testDirectory, verbose);
+        //    TestSummary summary;
 
-            if (!string.IsNullOrEmpty(tagFilter))
-            {
-                Console.WriteLine($"Running tests with tag: {tagFilter}");
-                summary = runner.RunTestsByTag(tagFilter);
-            }
-            else
-            {
-                summary = runner.RunAllTests();
-            }
+        //    if (!string.IsNullOrEmpty(tagFilter))
+        //    {
+        //        Console.WriteLine($"Running tests with tag: {tagFilter}");
+        //        summary = runner.RunTestsByTag(tagFilter);
+        //    }
+        //    else
+        //    {
+        //        summary = runner.RunAllTests();
+        //    }
 
-            // Return non-zero exit code if any tests failed
-            return summary.FailedTests > 0 ? 1 : 0;
-        }
+        //    // Return non-zero exit code if any tests failed
+        //    return summary.FailedTests > 0 ? 1 : 0;
+        //}
 
         private static string GetTestDirectory(string[] args)
         {

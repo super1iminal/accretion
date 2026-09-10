@@ -7,6 +7,18 @@ namespace accretion.Domain
     public class Environment
     {
 
+        public class VarLocation
+        {
+            public int Distance;
+            public string Identifier;
+
+            public VarLocation(int distance, string identifier)
+            {
+                Distance = distance;
+                Identifier = identifier;
+            }
+        }
+
         protected readonly Dictionary<string, object> values = new();
 
         public Environment()
@@ -77,9 +89,9 @@ namespace accretion.Domain
             return environment;
         }
 
-        public object GetAt(int distance, string name)
+        public object GetAt(VarLocation loc)
         {
-            return Ancestor(distance).values[name]; // don't even need to check to make sure var is here, we know it is because of our static pass
+            return Ancestor(loc.Distance).values[loc.Identifier]; // don't even need to check to make sure var is here, we know it is because of our static pass
             // the reason we don't walk up ancestors is: (example)
             // we define global "a"
             // we define function showA that prints global a
@@ -89,9 +101,9 @@ namespace accretion.Domain
             // we need this to call the global "a", but it calls the local "a" if we do dynamic walk up. we need it baked in
         }
 
-        public void AssignAt(int distance, Token name, object value)
+        public void AssignAt(VarLocation loc, object value)
         {
-            Ancestor(distance).values[name.Lexeme] = value; // no need to check, we know it exists
+            Ancestor(loc.Distance).values[loc.Identifier] = value; // no need to check, we know it exists
         }
     }
 }

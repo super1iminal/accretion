@@ -4,6 +4,7 @@ using accretion.Errors;
 using accretion.Utilities;
 using System;
 using System.Collections.Generic;
+using static accretion.Domain.Environment;
 
 namespace accretion.Core.InterpreterTools
 {
@@ -118,14 +119,11 @@ namespace accretion.Core.InterpreterTools
         {
             object value = Evaluate(expr.Value);
 
-            if (interpreter.Locals.TryGetValue(expr, out int distance))
+            if (interpreter.ResolutionMap.TryGetValue(expr, out VarLocation loc))
             {
-                interpreter.Environment.AssignAt(distance, expr.Name, value);
+                interpreter.Env.AssignAt(loc, value);
             }
-            else if (interpreter.Globals.TryGet(expr.Name, out object _))
-            {
-                throw new RuntimeError(expr.Name, "Attempting to assign to a global variable.");
-            }
+            // todo: stop from assigning to a global (native) variable, could do thisby introducing constants
             else
             {
                 throw new RuntimeError(expr.Name, "Attempting to assign to a variable that does not exist.");
@@ -192,13 +190,9 @@ namespace accretion.Core.InterpreterTools
 
         public object LookupVariable(Token name, Expr expr)
         {
-            if (interpreter.Locals.TryGetValue(expr, out int distance))
+            if (interpreter.ResolutionMap.TryGetValue(expr, out VarLocation loc))
             {
-                return interpreter.Environment.GetAt(distance, name.Lexeme);
-            }
-            else if (interpreter.Globals.TryGet(name, out object value))
-            {
-                return value;
+                return interpreter.Env.GetAt(loc);
             }
             else
             {
