@@ -1,5 +1,0 @@
-void jarredFuckingSucks(int howMuchHeSucks) {
-	print "Jarred Fucking Sucks This Much: " + howMuchHeSucks;
-}
-
-jarredFuckingSucks(50000);

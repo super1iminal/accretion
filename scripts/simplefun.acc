@@ -1,7 +1,0 @@
-// this is a comment
-
-void sayHi(string first, string last) {
-  print "Hi, " + first + " " + last + "!";
-}
-
-sayHi("Dear", "Reader");
