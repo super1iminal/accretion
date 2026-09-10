@@ -35,15 +35,25 @@ namespace accretion
         private static void RunPrePrompt()
         {
 
-            Console.WriteLine("Path:");
+            Console.WriteLine("Script name (e.g., abstest.acc):");
             string path = Console.ReadLine();
             if (path != null)
             {
-                RunFile("C:\\Users\\asher\\Documents\\Coding\\accretion\\scripts\\" + path);
+                RunFile(FindScriptsDir() + "/" + path);
             }
 
 
             Console.WriteLine("Quitting...");
+        }
+
+        private static string FindScriptsDir()
+        {
+            for (var dir = new DirectoryInfo(AppContext.BaseDirectory); dir != null; dir = dir.Parent)
+            {
+                string candidate = Path.Combine(dir.FullName, "scripts");
+                if (Directory.Exists(candidate)) return candidate;
+            }
+            throw new DirectoryNotFoundException("No 'scripts' folder found above " + AppContext.BaseDirectory);
         }
 
         private static void RunFile(string path)

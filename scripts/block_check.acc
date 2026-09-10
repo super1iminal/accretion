@@ -1,0 +1,19 @@
+string a = "global a";
+string b = "global b";
+string c = "global c";
+{
+  string a = "outer a";
+  string b = "outer b";
+  {
+    string a = "inner a";
+    print a;
+    print b;
+    print c;
+  }
+  print a;
+  print b;
+  print c;
+}
+print a;
+print b;
+print c;

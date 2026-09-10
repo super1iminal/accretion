@@ -1,0 +1,7 @@
+int doSomething() {
+	return 5;
+}
+
+doSomething = 5;
+
+print doSomething;

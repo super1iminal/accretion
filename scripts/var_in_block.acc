@@ -1,0 +1,6 @@
+int a = 1;
+
+for (;a < 10; a = a + 1) {
+	int msg = a;
+	print msg;
+}
