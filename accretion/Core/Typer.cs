@@ -99,6 +99,10 @@ namespace accretion.Core
                 return NativeAccTypeFactory.DOUBLE;
             }
 
+            // todo critical: technically, ints, doubles and strings should be able to be cast to bools. 
+
+            // todo critical: warn about implicit casts
+
             // todo: if classes, maybe do implcit casting here?
 
             return valueType;
@@ -130,7 +134,7 @@ namespace accretion.Core
             Dictionary<string, Token> varsNotAccessedYet = notAccessedYet.Pop();
             // HashSet<Token> varsNotDefinedYet = notDefinedYet.Pop();
 
-            foreach (Token token in varsNotAccessedYet.Values) errors.CompilerWarning(token, "Variable/Function is never used");
+            foreach (Token token in varsNotAccessedYet.Values) errors.CompilerWarning(token, "Variable/function is never used");
             // foreach (Token token in varsNotDefinedYet) errors.CompilerWarning(token, "Variable is declared but never assigned a value");
         }
 

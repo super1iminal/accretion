@@ -73,7 +73,9 @@ namespace accretion.Core
                 case ',': AddToken(TokenType.COMMA); break;
                 case '.': AddToken(TokenType.DOT); break;
                 case '-': AddToken(TokenType.MINUS); break;
+                    // TODO: add support for -- and -=
                 case '+': AddToken(TokenType.PLUS); break;
+                    // TOOD: add support for ++ and +=
                 case ';': AddToken(TokenType.SEMICOLON); break;
                 case '*': AddToken(TokenType.STAR); break;
                 case '?': AddToken(TokenType.QUESTION); break;

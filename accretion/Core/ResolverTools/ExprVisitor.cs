@@ -98,7 +98,7 @@ namespace accretion.Core.ResolverTools
                             return NativeAccTypeFactory.INT;
                         }
                     }
-                    else if (IsString(left) || IsString(right) && IsAlphaNum(left, right))
+                    else if ((IsString(left) || IsString(right)) && IsAlphaNum(left, right))
                     {
                         return NativeAccTypeFactory.STRING;
                     }
@@ -243,8 +243,8 @@ namespace accretion.Core.ResolverTools
             {
                 if (typer.scopes.ElementAt(i).Any(k => k.Identifier == name.Lexeme))
                 {
-                    typer.interpreter.Resolve(expr, i, name.Lexeme); // todo important: variables are refered to by their normal names
-                    if ((i + 1)!= typer.scopes.Count) typer.notAccessedYet.ElementAt(i).Remove(name.Lexeme);
+                    typer.interpreter.Resolve(expr, i, name.Lexeme); // make sure interpreter knows what scope the variable lives in // ??todo important: variables are refered to by their normal names??
+                    if ((i + 1)!= typer.scopes.Count) typer.notAccessedYet.ElementAt(i).Remove(name.Lexeme); // don't need to check for global (native) scope
                     return typer.scopes.ElementAt(i).Single(k => (k.Identifier == name.Lexeme) && (k.AType is not FunType)).AType; // throws error if more than one non-function variable with same name. intended.
                 }
             }
@@ -293,13 +293,14 @@ namespace accretion.Core.ResolverTools
                 if (possibleFuncs.Count == 0) continue;
 
                 // try exact match first, then fall back to implicit casts
+                // todo CRITICAL: allowing implicit casts may unintentionally shadow an oustide func with exact matching args. do this after the loop if no funcs found IMO
                 FunType? matched = FindMatchingOverload(possibleFuncs, argTypes, allowImplicitCasts: false)
                     ?? FindMatchingOverload(possibleFuncs, argTypes, allowImplicitCasts: true);
 
                 if (matched != null)
                 {
                     typer.interpreter.Resolve(expr.Callee, i, Typer.MangleName(name.Lexeme, matched.ParamTypes)); // todo: since environemnts now use both depth and mangled name, we need to add that to the locals dict in interpreter
-                    if ((i + 1) != typer.scopes.Count) typer.notAccessedYet.ElementAt(i).Remove(Typer.MangleName(name.Lexeme, matched.ParamTypes));
+                    if ((i + 1) != typer.scopes.Count) typer.notAccessedYet.ElementAt(i).Remove(Typer.MangleName(name.Lexeme, matched.ParamTypes)); // todo: split var/func not accessed yet warnings
                     return matched;
                 }
 

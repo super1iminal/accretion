@@ -1,15 +1,15 @@
-double add(double a, double b) {
-  return PI + b;
+void foo(int a) {
+  print a;
 }
 
-int add(int a, int b) {
-  return a + b;
+void foo(string a) {
+  print a + "!";
 }
 
-string add(string a, string b) {
-  return a + b;
+void foo(double b) {
+  print b * 2;
 }
 
-print add(1.5, 2.5);
-print add(3, 4);
-print add("hello ", "world");
+foo(5);
+foo("5");
+foo(5.0);

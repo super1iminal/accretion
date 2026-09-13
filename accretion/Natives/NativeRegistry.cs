@@ -258,14 +258,14 @@ namespace accretion.Natives
             ),
 
             new NativeValue(
-                "TAU",
-                Math.Tau,
+                "INF",
+                double.PositiveInfinity,
                 NativeAccTypeFactory.DOUBLE
             ),
 
             new NativeValue(
-                "INF",
-                double.PositiveInfinity,
+                "NINF",
+                double.NegativeInfinity,
                 NativeAccTypeFactory.DOUBLE
             ),
         };

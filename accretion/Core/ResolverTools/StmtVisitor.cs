@@ -46,7 +46,7 @@ namespace accretion.Core.ResolverTools
 
             initType = typer.ImplicitCast(initType, varType);
 
-            if (initType != null && !Equals(varType, initType))
+            if (initType != null && !Equals(varType, initType)) // this is after implicit cast (promotion)
             {
                 typer.errors.CompilerError(stmt.Type, "Variable initializer does not match variable type"); // todo: move this to the initializer resolution to use initializer token,
                                                                                                       // or implicitly split variable initialization into declaration and assignment to avoid this
