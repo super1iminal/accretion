@@ -2,7 +2,7 @@
 > The process of growth or enlargement by a gradual buildup
 
 
-Accretion is a user-first, statically typed, interpreted functional programming language designed for use in C# education and game applications. Accretion is a statically typed language. You may not even know what a type is. That's okay. I forgive you. You probably *like* not knowing. A friend of mine once said that they hated Python for the sole reason that it wasn't typed. 
+Accretion is a user-first, statically typed, interpreted programming language designed for use in C# education and game applications. Accretion is a statically typed language. You may not even know what a type is. That's okay. I forgive you. You probably *like* not knowing. A friend of mine once said that they hated Python for the sole reason that it wasn't typed. 
 
 ## Language Features/Support
 - Static typing
