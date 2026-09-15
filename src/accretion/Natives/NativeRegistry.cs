@@ -157,7 +157,7 @@ namespace accretion.Natives
                 "log2",
                 NativeAccTypeFactory.DOUBLE,
                 new List<AccType>() {NativeAccTypeFactory.DOUBLE},
-                args => (double)Math.Log2((double)args[0])
+                args => (double)Math.Log((double)args[0], 2)
             ),
 
             // rounding
