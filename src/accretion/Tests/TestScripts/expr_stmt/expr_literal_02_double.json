@@ -1,0 +1,9 @@
+{
+    "name": "Literal Expression - Double",
+    "description": "Tests double literal evaluation",
+    "script": "print 3.14159;",
+    "expectedOutput": "3.14159",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "literal", "double"]
+}

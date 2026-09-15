@@ -1,0 +1,9 @@
+{
+    "name": "Assignment Expression - Returns Value",
+    "description": "Tests assignment expression returns assigned value",
+    "script": "int a = 0;\nint b = 0;\nb = a = 5;\nprint a;\nprint b;",
+    "expectedOutput": "5\n5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "assignment", "value"]
+}

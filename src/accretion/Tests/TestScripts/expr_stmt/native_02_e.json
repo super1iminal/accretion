@@ -1,0 +1,10 @@
+{
+    "name": "Native - E Constant",
+    "description": "Tests native E constant access",
+    "script": "print E;",
+    "expectedOutput": "2.71828",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["native", "constant"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "sqrt(int) overload",
+    "description": "Tests sqrt called with an int argument returns double",
+    "script": "double x = sqrt(16);\nprint x;",
+    "expectedOutput": "4",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "sqrt", "overload", "int"]
+}

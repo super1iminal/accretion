@@ -1,0 +1,9 @@
+{
+    "name": "tan(double)",
+    "description": "Tests tan with a double argument (tan(0) = 0)",
+    "script": "double x = tan(0.0);\nprint x;",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "trig", "tan"]
+}

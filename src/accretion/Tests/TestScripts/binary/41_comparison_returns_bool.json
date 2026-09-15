@@ -1,0 +1,9 @@
+{
+    "name": "Comparison Returns Bool",
+    "description": "Tests that comparison operations return bool type",
+    "script": "int a = 5;\nint b = 3;\nbool result = a > b;\nprint result;\nbool result2 = a < b;\nprint result2;",
+    "expectedOutput": "true\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "comparison", "bool", "type"]
+}

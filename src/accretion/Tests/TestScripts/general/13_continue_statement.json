@@ -1,0 +1,12 @@
+{
+    "name": "Continue Statement",
+    "description": "Tests continue statement in while loop",
+    "script": "int i = 0;\nwhile (i < 5) {\n  i = i + 1;\n  if (i == 3) {\n    continue;\n  }\n  print i;\n}",
+    "expectedOutput": "1\n2\n4\n5",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["loops", "continue"]
+}

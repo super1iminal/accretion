@@ -38,10 +38,12 @@ bar();
 
 ## Language Specification
 ### Primitives
-The language cosists of several basic primitive types.
+The language consists of several basic primitive types.
 * `int` (4 bytes)
 * `double` (8 bytes)
 * `string`
+* `bool`
+* `void`
 
 ### Builtins
 #### Functions
@@ -161,7 +163,7 @@ PrimaryRule     -> IDENTIFIER | NUMBER | STRING | "true" | "false" | "void" | "(
 * `UnaryRule` is interesting, as it is the only rule that matches its own operators before falling through. This is to avoid collisions with `FactorRule`. Therefore, `-x - y` results in `(-x) - y`
 * The value of an assignment is the assigned value (e.g., `2 == (x = 2)`)
 * The maximum number of parameters a function can have is 255
-* `if`, `for`, and `while` statements allow for a direct follow-up statement (i.e., `if (x < 3) if (y > 5) for (int i = 0; i < 5; i+++) x = x + 1;` is a valid statement)
+* `if`, `for`, and `while` statements allow for a direct follow-up statement (i.e., `if (x < 3) if (y > 5) for (int i = 0; i < 5; i = i + 1) x = x + 1;` is a valid statement)
 * In practice, a `for` statement desugars into a `while` statement
 
 ### Function Declaration
@@ -194,7 +196,7 @@ bool t1 = bool t2 = !5; // t1 == t2 == false
 int y;
 y = 41;
 
-int z = 23.1; // this works
+float z = 23; // this works
 ```
 #### First-Class Functions
 Accretion does not currently support first-class functions (i.e., you cannot assign a function to a variable), but I am definitely exploring the idea. It wouldn't require too much detangling to allow function signatures to be declared as types, and to add lambdas. I do like the idea.
@@ -305,7 +307,7 @@ Both variables and functions are limited to the scope they are created in, and t
   }
 }
 
-foo(); // would cause a compiler error
+foo(); // would cause a interpreter error
 ```
 
 Additionally, if a global variable is defined *after* a function, that function cannot reference that global variable. For example,
@@ -317,7 +319,7 @@ void foo() {
 
 string a = "hello world";
 
-foo(); // would return a compiler error ('a' does no exist from foo's perspective)
+foo(); // would return a interpreter error ('a' does not exist from foo's perspective)
 ```
 However,
 ```
@@ -327,7 +329,7 @@ void bar() {
   print b;
 }
 
-bar(); // this would pass compiler checks
+bar(); // this would pass interpreter checks
 
 ```
 
@@ -376,7 +378,7 @@ int foo(int a) { return a; }
 
 void bar() {
     int foo(int a) { return a * 2; } // shadows global foo
-    print foo(5.0) * PI;
+    print foo(5) * PI;
 }
 
 bar(); // prints 31.4159.. (inner foo) instead of 15.707.. (global foo)
@@ -397,11 +399,11 @@ bar(10); // prints 10
 There's a lot of ground to cover here, so I'm going to assume you have some baseline knowledge of how interpreters work[^1]. An interpreter is split into several phases, and one of them is *also* called an interpreter. I know, it's dumb and it can be a little confusing. I'll explain the codebase in the phases of the interpreter pipeline (scanning, parsing, resolving/typing), referencing the Appendix for details on miscellaneous files and code. 
 
 ### Scanner
-To start, you have the **scanner**. The scanner takes as input a raw text file, and spits out tokens, which are matched pieces of that text file that contain one or more characters. For example, in Accretion, `(` is a token, `print` is a token, and so are `and`, `while`, `for`, `{`, `void`, `"hello world"`, `true`, `*`, `+`, `=`, and `\\`. The scanner needs to be good at its job, because it creates the basement-level foundation that we build a strucutred representation of the code upon. It can catch basic errors, such as token sequences that start but never terminate in an expected way (e.g., `"hello world [...] EOF`), and unexpected characters, but not much more. Its job is to be robust. 
+To start, you have the **scanner**. The scanner takes as input a raw text file, and spits out tokens, which are matched pieces of that text file that contain one or more characters. For example, in Accretion, `(` is a token, `print` is a token, and so are `and`, `while`, `for`, `{`, `void`, `"hello world"`, `true`, `*`, `+`, `=`, and `\\`. The scanner needs to be good at its job, because it creates the basement-level foundation that we build a structured representation of the code upon. It can catch basic errors, such as token sequences that start but never terminate in an expected way (e.g., `"hello world [...] EOF`), and unexpected characters, but not much more. Its job is to be robust. 
 
 
 ### Parser
-The **parser** is the next step, and it's a big one. You ever see those videos of cool geometric bismuth crystals being pulled out of a flat plane of liquid bizmuth? That's basicically what a parser does. It takes the one-dimensional sequence of tokens that the scanner gave us, combines it with a grammar definition, and builds from them a tree structure called an Abstract Syntax Tree (AST). 
+The **parser** is the next step, and it's a big one. You ever see those videos of cool geometric bismuth crystals being pulled out of a flat plane of liquid bismuth? That's basically what a parser does. It takes the one-dimensional sequence of tokens that the scanner gave us, combines it with a grammar definition, and builds from them a tree structure called an Abstract Syntax Tree (AST). 
 
 Take a look at Accretion's grammar I defined above. `program` is the highest-level node of the tree, and it's comprised of several `declaration`s. Our `declaration` rule is comprised of variable and function declarations, and `statements`. You can image the grammar forms a tree downward to the very bottom `PrimaryRule`. However, the AST is not a tree representing the grammar. It's a tree using the grammar rules as, well, rules on how to build it. Below is a basic program with a corresponding `AST`. Note that I'm not going to go into much further detail on the basics of interpreters, but you need to know this if you are to understand the rest of this README.
 

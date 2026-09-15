@@ -1,0 +1,9 @@
+{
+    "name": "Double == Double Equality",
+    "description": "Tests equality comparison with two doubles",
+    "script": "double a = 3.14;\ndouble b = 3.14;\ndouble c = 3.15;\nprint a == b;\nprint a == c;",
+    "expectedOutput": "true\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "equality", "double"]
+}

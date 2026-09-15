@@ -1,0 +1,12 @@
+{
+    "name": "While Loop",
+    "description": "Tests basic while loop",
+    "script": "int i = 0;\nwhile (i < 3) {\n  print i;\n  i = i + 1;\n}",
+    "expectedOutput": "0\n1\n2",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["loops", "while"]
+}

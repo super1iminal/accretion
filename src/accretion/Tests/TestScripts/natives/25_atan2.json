@@ -1,0 +1,9 @@
+{
+    "name": "atan2(double, double)",
+    "description": "Tests atan2(0, 1) = 0 and atan2(1, 0) = PI/2",
+    "script": "double a = atan2(0.0, 1.0);\nprint a;",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "trig", "atan2"]
+}

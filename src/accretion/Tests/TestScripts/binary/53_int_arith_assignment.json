@@ -1,0 +1,9 @@
+{
+    "name": "Int Arithmetic Result Assignment",
+    "description": "Tests that int arithmetic can be assigned to int",
+    "script": "int a = 10;\nint b = 3;\nint sum = a + b;\nint diff = a - b;\nint prod = a * b;\nprint sum;\nprint diff;\nprint prod;",
+    "expectedOutput": "13\n7\n30",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "int", "assignment"]
+}

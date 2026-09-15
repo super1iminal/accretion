@@ -1,0 +1,9 @@
+{
+    "name": "Logical Expression - Or true true",
+    "description": "Tests logical or with both operands true (short circuit)",
+    "script": "bool result = true or true;\nprint result;",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "logical", "or", "short-circuit"]
+}

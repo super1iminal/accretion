@@ -1,0 +1,9 @@
+{
+    "name": "Literal Expression - Integer",
+    "description": "Tests integer literal evaluation",
+    "script": "print 42;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "literal", "int"]
+}

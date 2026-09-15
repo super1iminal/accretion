@@ -1,0 +1,11 @@
+{
+    "name": "Type Error - Subtract String",
+    "description": "Tests subtracting strings produces error",
+    "script": "string a = \"hello\";\nstring b = \"world\";\nstring c = a - b;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "must be numbers",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "type", "arithmetic"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Function Overload - Recursive with Overload",
+    "description": "Tests recursive function that also has an overloaded variant",
+    "script": "int factorial(int n) {\n    if (n <= 1) {\n        return 1;\n    }\n    return n * factorial(n - 1);\n}\ndouble factorial(double n) {\n    return n * 100.0;\n}\nprint factorial(5);\nprint factorial(2.0);",
+    "expectedOutput": "120\n200",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["function", "overload", "recursion"]
+}

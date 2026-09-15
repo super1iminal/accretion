@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Subtraction Negative Result",
+    "description": "Tests subtraction resulting in negative number",
+    "script": "int a = 3;\nint b = 10;\nint result = a - b;\nprint result;",
+    "expectedOutput": "-7",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "arithmetic", "subtraction", "boundary"]
+}

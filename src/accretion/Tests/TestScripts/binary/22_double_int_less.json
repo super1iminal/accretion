@@ -1,0 +1,9 @@
+{
+    "name": "Double < Int Mixed Less Than",
+    "description": "Tests less than comparison with double and int",
+    "script": "double a = 4.5;\nint b = 5;\nint c = 4;\nprint a < b;\nprint a < c;",
+    "expectedOutput": "true\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "comparison", "mixed", "less"]
+}

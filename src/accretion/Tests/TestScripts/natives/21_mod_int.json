@@ -1,0 +1,9 @@
+{
+    "name": "mod(int, int)",
+    "description": "Tests integer modulo",
+    "script": "int x = mod(17, 5);\nprint x;",
+    "expectedOutput": "2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "mod", "int"]
+}

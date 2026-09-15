@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Exact Division",
+    "description": "Tests exact integer division",
+    "script": "int a = 10;\nint b = 2;\ndouble result = a / b;\nprint result;",
+    "expectedOutput": "5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "arithmetic", "division"]
+}

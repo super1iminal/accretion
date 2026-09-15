@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Multiplication by One",
+    "description": "Tests multiplication by one (identity property)",
+    "script": "int a = 42;\nint b = 1;\nint result = a * b;\nprint result;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "arithmetic", "multiplication", "boundary"]
+}

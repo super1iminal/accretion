@@ -1,0 +1,9 @@
+{
+    "name": "pow(double, double)",
+    "description": "Tests pow with double arguments",
+    "script": "double x = pow(2.0, 10.0);\nprint x;",
+    "expectedOutput": "1024",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "pow", "double"]
+}

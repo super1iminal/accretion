@@ -1,0 +1,13 @@
+{
+    "name": "Undefined Variable Error",
+    "description": "Tests that using undefined variable produces compiler error",
+    "script": "print undefinedVar;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "no declared variable",
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "trimWhitespace": true,
+    "tags": ["variables", "error"]
+}

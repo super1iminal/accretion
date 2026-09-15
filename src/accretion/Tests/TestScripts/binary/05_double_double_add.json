@@ -1,0 +1,9 @@
+{
+    "name": "Double + Double Addition",
+    "description": "Tests addition of two doubles",
+    "script": "double a = 3.5;\ndouble b = 2.5;\nprint a + b;",
+    "expectedOutput": "6",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "double", "addition"]
+}

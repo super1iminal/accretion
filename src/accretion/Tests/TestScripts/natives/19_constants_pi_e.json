@@ -1,0 +1,9 @@
+{
+    "name": "PI and E constants",
+    "description": "Tests that PI and E are accessible and have expected values",
+    "script": "double pi = PI;\ndouble e = E;\nprint pi;\nprint e;",
+    "expectedOutput": "3.141592653589793\n2.718281828459045",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "constants"]
+}

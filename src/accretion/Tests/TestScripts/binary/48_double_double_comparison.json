@@ -1,0 +1,9 @@
+{
+    "name": "Double Double Comparison",
+    "description": "Tests comparison operators with two doubles",
+    "script": "double a = 3.14;\ndouble b = 2.71;\nprint a > b;\nprint a < b;\nprint a >= b;\nprint a <= b;",
+    "expectedOutput": "true\nfalse\ntrue\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "comparison", "double"]
+}

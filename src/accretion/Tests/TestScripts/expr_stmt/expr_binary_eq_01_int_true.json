@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Equality Int true",
+    "description": "Tests equality of two equal integers",
+    "script": "int a = 42;\nint b = 42;\nbool result = a == b;\nprint result;",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "equality"]
+}

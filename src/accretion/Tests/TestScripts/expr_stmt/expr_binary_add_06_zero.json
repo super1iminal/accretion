@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Addition with Zero",
+    "description": "Tests addition with zero (boundary value - identity)",
+    "script": "int a = 42;\nint b = 0;\nint result = a + b;\nprint result;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "arithmetic", "addition", "boundary"]
+}

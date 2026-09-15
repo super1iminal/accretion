@@ -1,0 +1,10 @@
+{
+    "name": "Resolver Error - Shadow Function Name with Variable",
+    "description": "Tests that declaring a variable with the same name as a function in the same scope produces an error",
+    "script": "void foo() {\n    print 1;\n}\nint foo = 5;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "Already a",
+    "exactMatch": false,
+    "tags": ["error", "resolver", "scope", "shadow"]
+}

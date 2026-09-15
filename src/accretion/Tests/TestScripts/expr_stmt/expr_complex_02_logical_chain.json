@@ -1,0 +1,9 @@
+{
+    "name": "Complex Expression - Logical Chain",
+    "description": "Tests complex logical expression chain",
+    "script": "bool result = true and false or true and true;\nprint result;",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "complex", "logical"]
+}

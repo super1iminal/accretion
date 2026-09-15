@@ -1,0 +1,9 @@
+{
+    "name": "round(double)",
+    "description": "Tests round returns nearest int",
+    "script": "int x = round(3.6);\nint y = round(3.4);\nprint x;\nprint y;",
+    "expectedOutput": "4\n3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "round", "rounding"]
+}

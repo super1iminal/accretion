@@ -1,0 +1,12 @@
+{
+    "name": "Recursive Fibonacci",
+    "description": "Tests recursive function with fibonacci",
+    "script": "double fib(double n) {\n  if (n <= 1) return n;\n  return fib(n - 2) + fib(n - 1);\n}\n\nfor (double i = 0.0; i < 6; i = i + 1) {\n  print fib(i);\n}",
+    "expectedOutput": "0\n1\n1\n2\n3\n5",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["functions", "recursion"]
+}

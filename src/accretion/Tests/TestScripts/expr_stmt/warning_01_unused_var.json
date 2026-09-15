@@ -1,0 +1,12 @@
+{
+    "name": "Warning - Unused Variable",
+    "description": "Tests compiler warning for unused local variable",
+    "script": "{\n    int unused = 42;\n}\nprint \"done\";",
+    "expectedOutput": "done",
+    "expectCompilerError": false,
+    "expectCompilerWarning": true,
+    "expectedCompilerWarning": "unused",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["warning", "unused", "variable"]
+}

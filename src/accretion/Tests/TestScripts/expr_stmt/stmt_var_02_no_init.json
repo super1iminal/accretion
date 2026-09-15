@@ -1,0 +1,9 @@
+{
+    "name": "Var Statement - Without Initializer",
+    "description": "Tests variable declaration without initializer (nil default)",
+    "script": "int x;\nx = 42;\nprint x;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "var", "declaration"]
+}

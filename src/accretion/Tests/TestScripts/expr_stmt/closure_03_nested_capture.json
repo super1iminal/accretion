@@ -1,0 +1,9 @@
+{
+    "name": "Closure - Nested Capture",
+    "description": "Tests closure captures variable through multiple levels of nesting",
+    "script": "int x = 1;\nvoid outer() {\n    void inner() {\n        print x;\n    }\n    inner();\n}\nouter();",
+    "expectedOutput": "1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["closure", "nested", "scope"]
+}

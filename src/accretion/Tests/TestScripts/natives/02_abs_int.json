@@ -1,0 +1,9 @@
+{
+    "name": "abs(int)",
+    "description": "Tests abs with a negative int argument",
+    "script": "int x = abs(-7);\nprint x;",
+    "expectedOutput": "7",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "abs", "int"]
+}

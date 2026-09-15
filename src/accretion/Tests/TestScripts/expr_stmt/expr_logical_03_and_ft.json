@@ -1,0 +1,9 @@
+{
+    "name": "Logical Expression - And false true",
+    "description": "Tests logical and with false and true (short circuit)",
+    "script": "bool result = false and true;\nprint result;",
+    "expectedOutput": "false",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "logical", "and", "short-circuit"]
+}

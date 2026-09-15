@@ -1,0 +1,9 @@
+{
+    "name": "For Statement - Basic",
+    "description": "Tests basic for loop",
+    "script": "for (int i = 0; i < 3; i = i + 1) {\n    print i;\n}",
+    "expectedOutput": "0\n1\n2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "for", "loop"]
+}

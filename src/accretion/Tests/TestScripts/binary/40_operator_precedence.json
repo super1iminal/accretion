@@ -1,0 +1,9 @@
+{
+    "name": "Operator Precedence",
+    "description": "Tests that multiplication has higher precedence than addition",
+    "script": "int a = 2;\nint b = 3;\nint c = 4;\nprint a + b * c;\nprint (a + b) * c;",
+    "expectedOutput": "14\n20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "precedence"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Block Statement - Scoping",
+    "description": "Tests block statement creates new scope",
+    "script": "int x = 10;\n{\n    int x = 20;\n    print x;\n}\nprint x;",
+    "expectedOutput": "20\n10",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "block", "scope"]
+}

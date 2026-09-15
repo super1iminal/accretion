@@ -1,0 +1,11 @@
+{
+    "name": "Resolver Error - Duplicate Variable",
+    "description": "Tests declaring duplicate variable in same scope produces error",
+    "script": "int x = 1;\nint x = 2;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "Already a variable",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "resolver", "duplicate"]
+}

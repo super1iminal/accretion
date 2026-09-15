@@ -1,0 +1,9 @@
+{
+    "name": "Ternary Expression - Nested",
+    "description": "Tests nested ternary expressions",
+    "script": "int a = 2;\nint result = a == 1 ? 10 : a == 2 ? 20 : 30;\nprint result;",
+    "expectedOutput": "20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "ternary", "nested"]
+}

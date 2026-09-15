@@ -1,0 +1,9 @@
+{
+    "name": "If Statement - Else-If Chain",
+    "description": "Tests else-if chain",
+    "script": "int x = 5;\nif (x == 1) {\n    print \"one\";\n} else if (x == 5) {\n    print \"five\";\n} else {\n    print \"other\";\n}",
+    "expectedOutput": "five",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "if", "else-if", "control-flow"]
+}

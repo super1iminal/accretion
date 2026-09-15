@@ -1,0 +1,9 @@
+{
+    "name": "Unary Expression - Negate Int",
+    "description": "Tests negation of positive integer",
+    "script": "int a = 42;\nint result = -a;\nprint result;",
+    "expectedOutput": "-42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "unary", "negation", "int"]
+}

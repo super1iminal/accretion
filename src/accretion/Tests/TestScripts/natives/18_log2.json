@@ -1,0 +1,9 @@
+{
+    "name": "log2(double)",
+    "description": "Tests log2(8) = 3",
+    "script": "double x = log2(8.0);\nprint x;",
+    "expectedOutput": "3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "log2"]
+}

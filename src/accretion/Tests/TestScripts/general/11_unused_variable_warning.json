@@ -1,0 +1,13 @@
+{
+    "name": "Unused Variable Warning",
+    "description": "Tests that declaring but not using a variable produces a warning",
+    "script": "{\n  int unused = 42;\n}\nprint \"done\";",
+    "expectedOutput": "done",
+    "expectCompilerError": false,
+    "expectCompilerWarning": true,
+    "expectedCompilerWarning": "unused",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "trimWhitespace": true,
+    "tags": ["warnings", "variables"]
+}

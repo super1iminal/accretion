@@ -1,0 +1,9 @@
+{
+    "name": "Print Statement - Multiple Types",
+    "description": "Tests print statement with various types",
+    "script": "print 42;\nprint 3.14;\nprint \"hello\";\nprint true;\nprint false;",
+    "expectedOutput": "42\n3.14\nhello\ntrue\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "print"]
+}

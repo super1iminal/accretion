@@ -1,0 +1,11 @@
+{
+    "name": "Type Error - Ternary Branch Mismatch",
+    "description": "Tests ternary with different branch types produces error",
+    "script": "int x = true ? 1 : \"hello\";",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "same type",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "type", "ternary"]
+}

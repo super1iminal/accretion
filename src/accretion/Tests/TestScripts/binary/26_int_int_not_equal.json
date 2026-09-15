@@ -1,0 +1,9 @@
+{
+    "name": "Int != Int Inequality",
+    "description": "Tests inequality comparison with two ints",
+    "script": "int a = 5;\nint b = 5;\nint c = 3;\nprint a != b;\nprint a != c;",
+    "expectedOutput": "false\ntrue",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "equality", "int"]
+}

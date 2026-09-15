@@ -1,0 +1,9 @@
+{
+    "name": "String + String Concatenation",
+    "description": "Tests string concatenation with two strings",
+    "script": "string a = \"Hello\";\nstring b = \" World\";\nprint a + b;",
+    "expectedOutput": "Hello World",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "string", "concatenation"]
+}

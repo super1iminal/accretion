@@ -1,0 +1,9 @@
+{
+    "name": "String + Double Concatenation",
+    "description": "Tests that string + double produces string concatenation",
+    "script": "print \"pi is \" + 3.14;",
+    "expectedOutput": "pi is 3.14",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "string", "concat", "coercion"]
+}

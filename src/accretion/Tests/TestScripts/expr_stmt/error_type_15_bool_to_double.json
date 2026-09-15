@@ -1,0 +1,10 @@
+{
+    "name": "Type Error - Bool to Double Assignment",
+    "description": "Tests that assigning a bool to a double variable produces a type error",
+    "script": "double x = true;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "exactMatch": false,
+    "tags": ["error", "type", "assignment"]
+}

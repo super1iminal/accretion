@@ -1,0 +1,12 @@
+{
+    "name": "Simple Function",
+    "description": "Tests function definition and calling",
+    "script": "void sayHi(string name) {\n  print \"Hello, \" + name + \"!\";\n}\n\nsayHi(\"World\");",
+    "expectedOutput": "Hello, World!",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["functions"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Int * Int Multiplication",
+    "description": "Tests multiplication of two integers",
+    "script": "int a = 4;\nint b = 5;\nprint a * b;",
+    "expectedOutput": "20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "int", "multiplication"]
+}

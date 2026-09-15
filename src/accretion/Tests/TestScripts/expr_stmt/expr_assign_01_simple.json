@@ -1,0 +1,9 @@
+{
+    "name": "Assignment Expression - Simple",
+    "description": "Tests simple variable assignment",
+    "script": "int x = 10;\nx = 20;\nprint x;",
+    "expectedOutput": "20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "assignment"]
+}

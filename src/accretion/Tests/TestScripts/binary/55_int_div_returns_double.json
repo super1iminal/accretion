@@ -1,0 +1,9 @@
+{
+    "name": "Int Division Returns Double",
+    "description": "Tests that int / int produces a double result (5 / 2 = 2.5)",
+    "script": "double result = 5 / 2;\nprint result;",
+    "expectedOutput": "2.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "division", "type"]
+}

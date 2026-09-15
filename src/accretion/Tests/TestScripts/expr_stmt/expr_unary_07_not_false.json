@@ -1,0 +1,9 @@
+{
+    "name": "Unary Expression - Not false",
+    "description": "Tests logical not of false",
+    "script": "bool a = false;\nbool result = !a;\nprint result;",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "unary", "logical", "not"]
+}

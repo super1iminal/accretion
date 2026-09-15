@@ -1,4 +1,8 @@
 <Solution>
-  <Project Path="accretion.console/accretion.console.csproj" />
-  <Project Path="accretion/accretion.csproj" />
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="src/accretion/accretion.csproj" />
 </Solution>

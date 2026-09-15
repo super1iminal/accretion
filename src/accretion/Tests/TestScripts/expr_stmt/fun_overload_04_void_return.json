@@ -1,0 +1,9 @@
+{
+    "name": "Function Overload - Void Return",
+    "description": "Tests overloaded function with void return type",
+    "script": "void greet(int n) {\n    print \"int\";\n}\nvoid greet(string s) {\n    print \"string\";\n}\ngreet(1);\ngreet(\"hi\");",
+    "expectedOutput": "int\nstring",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["function", "overload", "void"]
+}

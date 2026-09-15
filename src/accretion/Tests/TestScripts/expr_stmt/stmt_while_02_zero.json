@@ -1,0 +1,9 @@
+{
+    "name": "While Statement - Zero Iterations",
+    "description": "Tests while loop with false condition (zero iterations)",
+    "script": "while (false) {\n    print \"never\";\n}\nprint \"done\";",
+    "expectedOutput": "done",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "while", "loop", "boundary"]
+}

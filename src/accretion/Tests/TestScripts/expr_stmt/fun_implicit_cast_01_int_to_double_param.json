@@ -1,0 +1,9 @@
+{
+    "name": "Function Implicit Cast - Int Arg to Double Param",
+    "description": "Tests that an int argument is implicitly cast to double when calling a function with a double parameter",
+    "script": "double square(double n) {\n    return n * n;\n}\nprint square(5);",
+    "expectedOutput": "25",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["function", "implicit-cast", "overload"]
+}

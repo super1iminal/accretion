@@ -1,0 +1,9 @@
+{
+    "name": "Literal Expression - Negative Integer",
+    "description": "Tests negative integer literal (unary minus on literal)",
+    "script": "print -42;",
+    "expectedOutput": "-42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "literal", "int", "unary"]
+}

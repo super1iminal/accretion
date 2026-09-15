@@ -1,0 +1,9 @@
+{
+    "name": "If Statement - true Condition",
+    "description": "Tests if statement with true condition",
+    "script": "if (true) {\n    print \"yes\";\n}",
+    "expectedOutput": "yes",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "if", "control-flow"]
+}

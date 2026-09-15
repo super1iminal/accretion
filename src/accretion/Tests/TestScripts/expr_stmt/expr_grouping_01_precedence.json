@@ -1,0 +1,9 @@
+{
+    "name": "Grouping Expression - Precedence Override",
+    "description": "Tests grouping changes operator precedence",
+    "script": "int result = (2 + 3) * 4;\nprint result;",
+    "expectedOutput": "20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "grouping", "precedence"]
+}

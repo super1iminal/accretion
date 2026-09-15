@@ -1,0 +1,9 @@
+{
+    "name": "Chained native calls",
+    "description": "Tests nesting native function calls",
+    "script": "int x = abs(floor(-3.7));\nprint x;",
+    "expectedOutput": "4",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "chained"]
+}

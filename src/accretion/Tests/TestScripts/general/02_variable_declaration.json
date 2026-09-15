@@ -1,0 +1,12 @@
+{
+    "name": "Variable Declaration",
+    "description": "Tests variable declaration and printing",
+    "script": "int x = 42;\nprint x;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["variables", "print"]
+}

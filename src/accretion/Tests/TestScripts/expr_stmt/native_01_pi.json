@@ -1,0 +1,10 @@
+{
+    "name": "Native - PI Constant",
+    "description": "Tests native PI constant access",
+    "script": "print PI;",
+    "expectedOutput": "3.14159",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["native", "constant"]
+}

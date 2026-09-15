@@ -1,0 +1,9 @@
+{
+    "name": "Assignment Expression - Chained",
+    "description": "Tests chained assignment (a = b = value)",
+    "script": "int a = 0;\nint b = 0;\na = b = 42;\nprint a;\nprint b;",
+    "expectedOutput": "42\n42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "assignment", "chained"]
+}

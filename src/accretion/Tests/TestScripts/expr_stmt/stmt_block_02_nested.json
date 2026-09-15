@@ -1,0 +1,9 @@
+{
+    "name": "Block Statement - Nested Scopes",
+    "description": "Tests nested block statements and scope resolution",
+    "script": "int x = 1;\n{\n    int x = 2;\n    {\n        int x = 3;\n        print x;\n    }\n    print x;\n}\nprint x;",
+    "expectedOutput": "3\n2\n1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "block", "scope", "nested"]
+}

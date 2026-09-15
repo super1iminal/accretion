@@ -1,0 +1,12 @@
+{
+    "name": "Function With Return",
+    "description": "Tests function that returns a value",
+    "script": "int add(int a, int b) {\n  return a + b;\n}\n\nprint add(3, 4);",
+    "expectedOutput": "7",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["functions", "return"]
+}

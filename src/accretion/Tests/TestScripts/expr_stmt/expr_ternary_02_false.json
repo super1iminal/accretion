@@ -1,0 +1,9 @@
+{
+    "name": "Ternary Expression - false Condition",
+    "description": "Tests ternary with false condition returns alternative",
+    "script": "int result = false ? 1 : 2;\nprint result;",
+    "expectedOutput": "2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "ternary"]
+}

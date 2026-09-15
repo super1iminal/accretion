@@ -1,0 +1,10 @@
+{
+    "name": "Warning - Used Variable No Warning",
+    "description": "Tests that a variable that is used does not produce a warning",
+    "script": "int x = 5;\nprint x;",
+    "expectedOutput": "5",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "tags": ["warning", "used", "variable"]
+}

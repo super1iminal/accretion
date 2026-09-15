@@ -1,0 +1,9 @@
+{
+    "name": "Type error: string arg to math native",
+    "description": "Tests that passing a string to a math native is a type error",
+    "script": "double x = abs(\"hello\");",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "types", "error"]
+}

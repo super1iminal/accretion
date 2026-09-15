@@ -1,0 +1,11 @@
+{
+    "name": "Type Error - Int Assignment Mismatch",
+    "description": "Tests assigning string to int variable produces error",
+    "script": "int x = \"hello\";",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "type", "assignment"]
+}

@@ -1,0 +1,11 @@
+{
+    "name": "Resolver Error - Break Outside Loop",
+    "description": "Tests break outside loop produces error",
+    "script": "break;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "outside of a loop",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["error", "resolver", "break"]
+}

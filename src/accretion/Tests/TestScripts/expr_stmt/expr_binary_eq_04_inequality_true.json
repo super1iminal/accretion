@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Inequality true",
+    "description": "Tests inequality of two different integers",
+    "script": "int a = 42;\nint b = 43;\nbool result = a != b;\nprint result;",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "inequality"]
+}

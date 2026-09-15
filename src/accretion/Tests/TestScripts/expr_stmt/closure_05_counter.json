@@ -1,0 +1,9 @@
+{
+    "name": "Closure - Counter Pattern",
+    "description": "Tests closure that modifies a captured variable across multiple calls",
+    "script": "int count = 0;\nvoid increment() {\n    count = count + 1;\n    print count;\n}\nincrement();\nincrement();\nincrement();",
+    "expectedOutput": "1\n2\n3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["closure", "mutation", "scope"]
+}

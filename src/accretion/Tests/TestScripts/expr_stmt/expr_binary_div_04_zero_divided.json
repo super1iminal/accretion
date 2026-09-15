@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Zero Divided",
+    "description": "Tests zero divided by a number",
+    "script": "int a = 0;\nint b = 5;\ndouble result = a / b;\nprint result;",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "arithmetic", "division", "boundary"]
+}

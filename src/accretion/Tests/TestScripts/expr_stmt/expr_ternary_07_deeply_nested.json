@@ -1,0 +1,9 @@
+{
+    "name": "Ternary - Deeply Nested",
+    "description": "Tests triple-nested ternary expression",
+    "script": "int x = 3;\nprint x == 1 ? \"one\" : x == 2 ? \"two\" : x == 3 ? \"three\" : \"other\";",
+    "expectedOutput": "three",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["ternary", "nested"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Function Statement - Multiple Parameters",
+    "description": "Tests function with multiple parameters",
+    "script": "int add(int a, int b, int c) {\n    return a + b + c;\n}\nprint add(1, 2, 3);",
+    "expectedOutput": "6",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "function", "parameters"]
+}

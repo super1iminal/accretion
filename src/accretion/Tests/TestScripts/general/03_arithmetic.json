@@ -1,0 +1,12 @@
+{
+    "name": "Arithmetic Operations",
+    "description": "Tests basic arithmetic operations",
+    "script": "int a = 10;\nint b = 3;\nprint a + b;\nprint a - b;\nprint a * b;",
+    "expectedOutput": "13\n7\n30",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["arithmetic", "operators"]
+}

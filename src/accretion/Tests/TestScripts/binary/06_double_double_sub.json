@@ -1,0 +1,9 @@
+{
+    "name": "Double - Double Subtraction",
+    "description": "Tests subtraction of two doubles",
+    "script": "double a = 5.5;\ndouble b = 2.3;\nprint a - b;",
+    "expectedOutput": "3.2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "double", "subtraction"]
+}

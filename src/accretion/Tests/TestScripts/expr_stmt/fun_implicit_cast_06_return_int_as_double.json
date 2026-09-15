@@ -1,0 +1,9 @@
+{
+    "name": "Function Implicit Cast - Return Int from Double Function",
+    "description": "Tests that returning an int from a function declared to return double is allowed via implicit cast",
+    "script": "double toDouble(int n) {\n    return n;\n}\nprint toDouble(42);",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["function", "implicit-cast", "return"]
+}

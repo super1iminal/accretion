@@ -1,0 +1,9 @@
+{
+    "name": "sin(double)",
+    "description": "Tests sin with a double argument (sin(0) = 0)",
+    "script": "double x = sin(0.0);\nprint x;",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "trig", "sin"]
+}

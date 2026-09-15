@@ -1,0 +1,9 @@
+{
+    "name": "Closure - Variable Shadowing Resolution",
+    "description": "Tests closure resolves correct variable when shadowed",
+    "script": "int a = 1;\nvoid printA() {\n    print a;\n}\n{\n    int a = 2;\n    printA();\n}",
+    "expectedOutput": "1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["closure", "scope", "shadow"]
+}

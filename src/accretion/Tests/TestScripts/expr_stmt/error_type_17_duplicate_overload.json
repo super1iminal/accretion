@@ -1,0 +1,10 @@
+{
+    "name": "Type Error - Duplicate Function Signature",
+    "description": "Tests that declaring two functions with identical parameter types produces a compile error",
+    "script": "int foo(int n) {\n    return n;\n}\nint foo(int n) {\n    return n + 1;\n}",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "same signature",
+    "exactMatch": false,
+    "tags": ["error", "function", "overload", "duplicate"]
+}

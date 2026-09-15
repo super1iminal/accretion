@@ -1,0 +1,9 @@
+{
+    "name": "Int >= Int Greater Equal",
+    "description": "Tests greater than or equal comparison with two ints",
+    "script": "int a = 5;\nint b = 5;\nint c = 3;\nprint a >= b;\nprint a >= c;\nprint c >= a;",
+    "expectedOutput": "true\ntrue\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "comparison", "int", "greater_equal"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Less Than true",
+    "description": "Tests less than comparison returning true",
+    "script": "int a = 5;\nint b = 10;\nbool result = a < b;\nprint result;",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "comparison", "less"]
+}

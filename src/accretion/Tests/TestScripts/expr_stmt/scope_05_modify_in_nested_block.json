@@ -1,0 +1,9 @@
+{
+    "name": "Scope - Modify Outer from Deep Nesting",
+    "description": "Tests modifying an outer variable from deeply nested blocks",
+    "script": "int x = 0;\n{\n    {\n        x = 42;\n    }\n}\nprint x;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["scope", "nested", "mutation"]
+}

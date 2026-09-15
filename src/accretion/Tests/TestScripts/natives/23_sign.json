@@ -1,0 +1,9 @@
+{
+    "name": "sign(double) and sign(int)",
+    "description": "Tests sign returns -1, 0, or 1",
+    "script": "int a = sign(-42.5);\nint b = sign(0.0);\nint c = sign(100.0);\nint d = sign(-3);\nprint a;\nprint b;\nprint c;\nprint d;",
+    "expectedOutput": "-1\n0\n1\n-1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "sign"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Native in arithmetic expression",
+    "description": "Tests using native functions inside larger expressions",
+    "script": "double x = sqrt(4.0) + pow(2.0, 3.0);\nprint x;",
+    "expectedOutput": "10",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "expression"]
+}

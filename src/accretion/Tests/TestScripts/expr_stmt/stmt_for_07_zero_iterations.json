@@ -1,0 +1,9 @@
+{
+    "name": "For Statement - Zero Iterations",
+    "description": "Tests for loop with false condition never executes body",
+    "script": "for (int i = 10; i < 5; i = i + 1) {\n    print i;\n}\nprint \"done\";",
+    "expectedOutput": "done",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "for", "loop", "edge"]
+}

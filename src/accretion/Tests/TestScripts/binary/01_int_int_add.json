@@ -1,0 +1,9 @@
+{
+    "name": "Int + Int Addition",
+    "description": "Tests addition of two integers returns an integer",
+    "script": "int a = 5;\nint b = 3;\nint result = a + b;\nprint result;",
+    "expectedOutput": "8",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["binary", "arithmetic", "int", "addition"]
+}

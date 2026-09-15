@@ -1,0 +1,12 @@
+{
+    "name": "Block Scoping",
+    "description": "Tests variable scoping with nested blocks",
+    "script": "string a = \"global a\";\nstring b = \"global b\";\n{\n  string a = \"outer a\";\n  {\n    string a = \"inner a\";\n    print a;\n    print b;\n  }\n  print a;\n}\nprint a;",
+    "expectedOutput": "inner a\nglobal b\nouter a\nglobal a",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["scope", "variables"]
+}

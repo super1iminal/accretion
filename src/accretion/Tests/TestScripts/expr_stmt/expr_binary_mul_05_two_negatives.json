@@ -1,0 +1,9 @@
+{
+    "name": "Binary Expression - Two Negatives Multiplication",
+    "description": "Tests multiplication of two negative numbers yields positive",
+    "script": "int a = -6;\nint b = -7;\nint result = a * b;\nprint result;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "binary", "arithmetic", "multiplication", "negative"]
+}

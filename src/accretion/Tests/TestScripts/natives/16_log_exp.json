@@ -1,0 +1,9 @@
+{
+    "name": "log and exp",
+    "description": "Tests that exp(log(x)) round-trips back to x",
+    "script": "double x = log(exp(1.0));\nprint x;",
+    "expectedOutput": "1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "log", "exp"]
+}

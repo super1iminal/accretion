@@ -1,0 +1,9 @@
+{
+    "name": "Unary Expression - Negate Double",
+    "description": "Tests negation of double",
+    "script": "double a = 3.14;\ndouble result = -a;\nprint result;",
+    "expectedOutput": "-3.14",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "unary", "negation", "double"]
+}

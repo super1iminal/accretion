@@ -1,0 +1,9 @@
+{
+    "name": "min/max int",
+    "description": "Tests min and max with int arguments",
+    "script": "int a = min(10, 3);\nint b = max(10, 3);\nprint a;\nprint b;",
+    "expectedOutput": "3\n10",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["native", "math", "min", "max", "int"]
+}

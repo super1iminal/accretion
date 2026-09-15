@@ -1,0 +1,10 @@
+{
+    "name": "Complex Mixed Expression",
+    "description": "Tests complex expression with multiple types and operators",
+    "script": "int a = 10;\ndouble b = 2.5;\nint c = 3;\ndouble result = (a + b) * c - b / c;\nprint result;",
+    "expectedOutput": "36.666666666666664",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": ["binary", "arithmetic", "mixed", "complex"]
+}

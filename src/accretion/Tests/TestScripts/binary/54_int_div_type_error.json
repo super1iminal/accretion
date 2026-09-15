@@ -1,0 +1,10 @@
+{
+    "name": "Int Division to Int Error",
+    "description": "Tests that int/int division result cannot be assigned to int (result is double)",
+    "script": "int a = 10;\nint b = 3;\nint result = a / b;",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "exactMatch": false,
+    "tags": ["binary", "arithmetic", "division", "error", "type"]
+}

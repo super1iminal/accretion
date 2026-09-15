@@ -1,0 +1,9 @@
+{
+    "name": "Variable Expression - Simple Access",
+    "description": "Tests simple variable access",
+    "script": "int x = 42;\nprint x;",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["expression", "variable", "access"]
+}

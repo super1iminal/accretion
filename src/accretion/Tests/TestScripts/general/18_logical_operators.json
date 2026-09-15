@@ -1,0 +1,12 @@
+{
+    "name": "Logical Operators",
+    "description": "Tests and/or logical operators",
+    "script": "bool t = true;\nbool f = false;\nprint t and t;\nprint t and f;\nprint t or f;\nprint f or f;",
+    "expectedOutput": "true\nfalse\ntrue\nfalse",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": ["operators", "logical"]
+}

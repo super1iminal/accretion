@@ -1,0 +1,9 @@
+{
+    "name": "For Statement - Break Only Inner",
+    "description": "Tests break in nested loop only exits inner loop",
+    "script": "for (int i = 0; i < 3; i = i + 1) {\n    for (int j = 0; j < 3; j = j + 1) {\n        if (j == 1) {\n            break;\n        }\n        print i * 10 + j;\n    }\n}",
+    "expectedOutput": "0\n10\n20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["statement", "for", "break", "nested", "loop"]
+}

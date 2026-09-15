@@ -1,0 +1,9 @@
+{
+    "name": "Closure - Capture in Loop",
+    "description": "Tests closure inside a loop captures updated loop variable",
+    "script": "int i = 0;\nwhile (i < 3) {\n    void show() {\n        print i;\n    }\n    show();\n    i = i + 1;\n}",
+    "expectedOutput": "0\n1\n2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": ["closure", "loop", "scope"]
+}
