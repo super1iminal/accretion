@@ -1,0 +1,13 @@
+{
+    "name": "Unary Expression - Not true",
+    "description": "Tests logical not of true",
+    "expectedOutput": "false",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "unary",
+        "logical",
+        "not"
+    ]
+}

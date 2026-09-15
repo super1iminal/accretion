@@ -1,0 +1,13 @@
+{
+    "name": "If Statement - If-Else false Branch",
+    "description": "Tests if-else with false condition executes else branch",
+    "expectedOutput": "no",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "if",
+        "else",
+        "control-flow"
+    ]
+}

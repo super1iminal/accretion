@@ -1,0 +1,14 @@
+{
+    "name": "Division By Zero",
+    "description": "Tests division by zero produces infinity (not error)",
+    "expectedOutput": "Infinity",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "division",
+        "edge"
+    ]
+}

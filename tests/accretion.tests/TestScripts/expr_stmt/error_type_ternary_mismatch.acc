@@ -1,0 +1,1 @@
+int x = true ? 1 : "hello";

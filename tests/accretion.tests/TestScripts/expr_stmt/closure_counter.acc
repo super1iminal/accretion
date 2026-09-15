@@ -1,0 +1,8 @@
+int count = 0;
+void increment() {
+    count = count + 1;
+    print count;
+}
+increment();
+increment();
+increment();

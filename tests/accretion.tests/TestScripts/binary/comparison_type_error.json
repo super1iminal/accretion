@@ -1,0 +1,14 @@
+{
+    "name": "Comparison to Int Error",
+    "description": "Tests that assigning comparison result to int produces error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "exactMatch": false,
+    "tags": [
+        "binary",
+        "comparison",
+        "error",
+        "type"
+    ]
+}

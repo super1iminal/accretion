@@ -1,0 +1,14 @@
+{
+    "name": "sin(int) overload",
+    "description": "Tests that sin can be called with an int argument",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "trig",
+        "overload",
+        "int"
+    ]
+}

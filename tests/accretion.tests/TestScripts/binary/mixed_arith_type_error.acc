@@ -1,0 +1,3 @@
+int a = 5;
+double b = 2.5;
+int result = a + b;

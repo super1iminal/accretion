@@ -1,0 +1,3 @@
+double t = clock();
+bool valid = t > 0.0;
+print valid;

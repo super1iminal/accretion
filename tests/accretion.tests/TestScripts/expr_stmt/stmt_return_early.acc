@@ -1,0 +1,8 @@
+int check(int n) {
+    if (n < 0) {
+        return -1;
+    }
+    return n * 2;
+}
+print check(-5);
+print check(5);

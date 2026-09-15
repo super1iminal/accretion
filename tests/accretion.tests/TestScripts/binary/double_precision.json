@@ -1,0 +1,14 @@
+{
+    "name": "Double Precision Arithmetic",
+    "description": "Tests arithmetic with doubles requiring precision",
+    "expectedOutput": "0.30000000000000004",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "double",
+        "precision"
+    ]
+}

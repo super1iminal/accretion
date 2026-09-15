@@ -1,0 +1,14 @@
+{
+    "name": "Logical Operators",
+    "description": "Tests and/or logical operators",
+    "expectedOutput": "true\nfalse\ntrue\nfalse",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "operators",
+        "logical"
+    ]
+}

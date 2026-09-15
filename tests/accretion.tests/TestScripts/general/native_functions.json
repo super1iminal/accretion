@@ -1,0 +1,14 @@
+{
+    "name": "Native Functions",
+    "description": "Tests native functions like abs and constants like PI",
+    "expectedOutput": "3.141592653589793",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "native",
+        "functions"
+    ]
+}

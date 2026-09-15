@@ -1,0 +1,15 @@
+{
+    "name": "Mixed Arithmetic to Int Error",
+    "description": "Tests that assigning int+double result to int produces error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "exactMatch": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "error",
+        "type",
+        "mixed"
+    ]
+}

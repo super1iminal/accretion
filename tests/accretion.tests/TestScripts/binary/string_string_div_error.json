@@ -1,0 +1,14 @@
+{
+    "name": "String / String Error",
+    "description": "Tests that dividing strings produces a compiler error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "must be numbers",
+    "exactMatch": false,
+    "tags": [
+        "binary",
+        "error",
+        "string",
+        "division"
+    ]
+}

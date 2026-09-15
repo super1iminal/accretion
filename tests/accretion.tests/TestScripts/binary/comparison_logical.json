@@ -1,0 +1,12 @@
+{
+    "name": "Comparison with Logical Operators",
+    "description": "Tests combining comparisons with and/or",
+    "expectedOutput": "true\ntrue\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "comparison",
+        "logical"
+    ]
+}

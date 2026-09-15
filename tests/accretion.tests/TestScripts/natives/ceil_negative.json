@@ -1,0 +1,13 @@
+{
+    "name": "ceil with negative double",
+    "description": "Tests that ceil(-2.7) = -2 (rounds toward positive infinity)",
+    "expectedOutput": "-2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "ceil",
+        "negative"
+    ]
+}

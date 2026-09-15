@@ -1,0 +1,13 @@
+{
+    "name": "round(double)",
+    "description": "Tests round returns nearest int",
+    "expectedOutput": "4\n3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "round",
+        "rounding"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "name": "Warning - Unused Function Parameter",
+    "description": "Tests that an unused function parameter produces a warning",
+    "expectedOutput": "5",
+    "expectCompilerError": false,
+    "expectCompilerWarning": true,
+    "expectedCompilerWarning": "never used",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "warning",
+        "unused",
+        "parameter"
+    ]
+}

@@ -1,0 +1,4 @@
+int a = 4;
+double b = 2.5;
+double result = a * b;
+print result;

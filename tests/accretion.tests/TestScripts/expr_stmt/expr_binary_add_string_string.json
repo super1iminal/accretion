@@ -1,0 +1,13 @@
+{
+    "name": "Binary Expression - String + String",
+    "description": "Tests string concatenation",
+    "expectedOutput": "hello world",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "string",
+        "concatenation"
+    ]
+}

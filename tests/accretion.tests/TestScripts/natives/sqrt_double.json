@@ -1,0 +1,13 @@
+{
+    "name": "sqrt(double)",
+    "description": "Tests sqrt with a double argument",
+    "expectedOutput": "3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "sqrt",
+        "double"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "name": "Type Error - Double to Int Reassignment",
+    "description": "Tests that reassigning a double value to an int variable produces a type error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "exactMatch": false,
+    "tags": [
+        "error",
+        "type",
+        "implicit-cast",
+        "assignment"
+    ]
+}

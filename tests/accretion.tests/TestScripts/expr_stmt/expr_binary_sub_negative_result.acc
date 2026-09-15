@@ -1,0 +1,4 @@
+int a = 3;
+int b = 10;
+int result = a - b;
+print result;

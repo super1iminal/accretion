@@ -1,0 +1,14 @@
+{
+    "name": "Binary Expression - String + Int",
+    "description": "Tests string and int concatenation",
+    "expectedOutput": "value: 42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "string",
+        "concatenation",
+        "mixed-types"
+    ]
+}

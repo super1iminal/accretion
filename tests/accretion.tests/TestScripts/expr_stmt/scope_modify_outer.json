@@ -1,0 +1,12 @@
+{
+    "name": "Scope - Modify Outer Variable",
+    "description": "Tests modifying variable from outer scope",
+    "expectedOutput": "20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "scope",
+        "variable",
+        "assignment"
+    ]
+}

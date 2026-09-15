@@ -1,0 +1,5 @@
+int a = 10;
+double b = 2.5;
+int c = 3;
+double result = (a + b) * c - b / c;
+print result;

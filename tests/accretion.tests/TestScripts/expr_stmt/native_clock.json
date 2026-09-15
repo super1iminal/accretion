@@ -1,0 +1,12 @@
+{
+    "name": "Native - Clock Function",
+    "description": "Tests native clock function returns a double",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "function",
+        "clock"
+    ]
+}

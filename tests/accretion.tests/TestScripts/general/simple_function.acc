@@ -1,0 +1,5 @@
+void sayHi(string name) {
+  print "Hello, " + name + "!";
+}
+
+sayHi("World");

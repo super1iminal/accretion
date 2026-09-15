@@ -1,0 +1,15 @@
+{
+    "name": "Warning - Unused Variable",
+    "description": "Tests compiler warning for unused local variable",
+    "expectedOutput": "done",
+    "expectCompilerError": false,
+    "expectCompilerWarning": true,
+    "expectedCompilerWarning": "unused",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "warning",
+        "unused",
+        "variable"
+    ]
+}

@@ -1,0 +1,6 @@
+double a = asin(0.0);
+double b = acos(1.0);
+double c = atan(0.0);
+print a;
+print b;
+print c;

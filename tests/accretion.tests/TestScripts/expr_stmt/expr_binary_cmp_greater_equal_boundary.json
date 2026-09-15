@@ -1,0 +1,14 @@
+{
+    "name": "Binary Expression - Greater Or Equal Boundary (Equal)",
+    "description": "Tests greater or equal when values are equal (boundary)",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "comparison",
+        "greater-equal",
+        "boundary"
+    ]
+}

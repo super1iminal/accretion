@@ -1,0 +1,13 @@
+{
+    "name": "Binary Expression - Exact Division",
+    "description": "Tests exact integer division",
+    "expectedOutput": "5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "arithmetic",
+        "division"
+    ]
+}

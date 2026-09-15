@@ -1,0 +1,14 @@
+{
+    "name": "Type Error - Call Non-Function",
+    "description": "Tests calling a non-function variable produces error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "No matching function found",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "error",
+        "type",
+        "call"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "name": "Closure - Capture in Loop",
+    "description": "Tests closure inside a loop captures updated loop variable",
+    "expectedOutput": "0\n1\n2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "closure",
+        "loop",
+        "scope"
+    ]
+}

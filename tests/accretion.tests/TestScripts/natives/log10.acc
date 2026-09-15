@@ -1,0 +1,2 @@
+double x = log10(1000.0);
+print x;

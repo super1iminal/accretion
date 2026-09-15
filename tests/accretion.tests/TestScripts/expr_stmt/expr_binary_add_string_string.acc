@@ -1,0 +1,4 @@
+string a = "hello ";
+string b = "world";
+string result = a + b;
+print result;

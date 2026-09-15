@@ -1,0 +1,4 @@
+int a = 42;
+int b = 1;
+double result = a / b;
+print result;

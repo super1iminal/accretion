@@ -1,0 +1,14 @@
+{
+    "name": "Type Error - Subtract String",
+    "description": "Tests subtracting strings produces error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "must be numbers",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "error",
+        "type",
+        "arithmetic"
+    ]
+}

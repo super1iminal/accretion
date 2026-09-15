@@ -1,0 +1,14 @@
+{
+    "name": "If-Else Statement",
+    "description": "Tests if-else branching",
+    "expectedOutput": "greater",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "conditionals",
+        "if"
+    ]
+}

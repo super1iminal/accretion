@@ -1,0 +1,4 @@
+void foo() {
+    print 1;
+}
+int foo = 5;

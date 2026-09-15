@@ -1,0 +1,14 @@
+{
+    "name": "Ternary Operator",
+    "description": "Tests ternary conditional operator",
+    "expectedOutput": "big",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "operators",
+        "ternary"
+    ]
+}

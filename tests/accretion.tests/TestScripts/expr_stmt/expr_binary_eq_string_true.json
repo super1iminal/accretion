@@ -1,0 +1,13 @@
+{
+    "name": "Binary Expression - Equality String true",
+    "description": "Tests equality of two equal strings",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "equality",
+        "string"
+    ]
+}

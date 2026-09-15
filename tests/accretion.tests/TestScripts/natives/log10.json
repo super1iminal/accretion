@@ -1,0 +1,12 @@
+{
+    "name": "log10(double)",
+    "description": "Tests log10(1000) = 3",
+    "expectedOutput": "3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "log10"
+    ]
+}

@@ -1,0 +1,4 @@
+{
+    int unused = 42;
+}
+print "done";

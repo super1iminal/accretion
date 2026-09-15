@@ -1,0 +1,14 @@
+{
+    "name": "Unary Expression - Double Not",
+    "description": "Tests double logical not returns original",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "unary",
+        "logical",
+        "not",
+        "boundary"
+    ]
+}

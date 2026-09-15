@@ -1,0 +1,13 @@
+{
+    "name": "Unary Expression - Negate Negative Int",
+    "description": "Tests negation of negative integer becomes positive",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "unary",
+        "negation",
+        "int"
+    ]
+}

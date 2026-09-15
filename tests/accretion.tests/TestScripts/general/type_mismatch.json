@@ -1,0 +1,15 @@
+{
+    "name": "Type Mismatch Error",
+    "description": "Tests that assigning wrong type produces compiler error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match",
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "trimWhitespace": true,
+    "tags": [
+        "types",
+        "error"
+    ]
+}

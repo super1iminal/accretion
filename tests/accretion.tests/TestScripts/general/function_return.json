@@ -1,0 +1,14 @@
+{
+    "name": "Function With Return",
+    "description": "Tests function that returns a value",
+    "expectedOutput": "7",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "functions",
+        "return"
+    ]
+}

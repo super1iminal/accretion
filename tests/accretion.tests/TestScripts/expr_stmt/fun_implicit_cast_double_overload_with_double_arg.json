@@ -1,0 +1,12 @@
+{
+    "name": "Function Implicit Cast - Double Arg Selects Double Overload",
+    "description": "Tests that a double argument selects the double overload exactly, not the int overload",
+    "expectedOutput": "2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "function",
+        "implicit-cast",
+        "overload"
+    ]
+}

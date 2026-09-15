@@ -1,0 +1,14 @@
+{
+    "name": "min/max int",
+    "description": "Tests min and max with int arguments",
+    "expectedOutput": "3\n10",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "min",
+        "max",
+        "int"
+    ]
+}

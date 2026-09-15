@@ -1,0 +1,14 @@
+{
+    "name": "Double Multiplication and Division",
+    "description": "Tests multiplication and division with doubles",
+    "expectedOutput": "15\n2.4",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "double",
+        "multiplication",
+        "division"
+    ]
+}

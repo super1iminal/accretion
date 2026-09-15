@@ -1,0 +1,4 @@
+double pi = PI;
+pi = -pi;
+pi = abs(pi);
+print pi;

@@ -1,0 +1,13 @@
+{
+    "name": "Binary Expression - Greater Than true",
+    "description": "Tests greater than comparison returning true",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "comparison",
+        "greater"
+    ]
+}

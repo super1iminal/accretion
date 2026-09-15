@@ -1,0 +1,3 @@
+int a = 42;
+int result = -a;
+print result;

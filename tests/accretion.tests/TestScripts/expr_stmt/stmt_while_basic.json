@@ -1,0 +1,12 @@
+{
+    "name": "While Statement - Basic Loop",
+    "description": "Tests basic while loop",
+    "expectedOutput": "0\n1\n2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "while",
+        "loop"
+    ]
+}

@@ -1,0 +1,4 @@
+double x = sqrt(2.0);
+double y = x * x;
+int z = round(y);
+print z;

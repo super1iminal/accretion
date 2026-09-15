@@ -3,7 +3,8 @@ using System.Text.Json.Serialization;
 namespace accretion.tests
 {
     /// <summary>
-    /// Represents a test case loaded from a JSON file.
+    /// Expectations for a test case. The script itself lives in a sibling
+    /// .acc file with the same base name.
     /// </summary>
     public class TestCase
     {
@@ -13,7 +14,10 @@ namespace accretion.tests
         [JsonPropertyName("description")]
         public string Description { get; set; } = "";
 
-        [JsonPropertyName("script")]
+        /// <summary>
+        /// Populated from the sibling .acc file, not from JSON.
+        /// </summary>
+        [JsonIgnore]
         public string Script { get; set; } = "";
 
         [JsonPropertyName("expectedOutput")]

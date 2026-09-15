@@ -1,0 +1,12 @@
+{
+    "name": "Literal Expression - Integer",
+    "description": "Tests integer literal evaluation",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "literal",
+        "int"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "name": "Logical - AND Evaluates RHS When LHS True",
+    "description": "Tests that true AND expr does evaluate the right side",
+    "expectedOutput": "evaluated\ndone",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "logical",
+        "short-circuit",
+        "and"
+    ]
+}

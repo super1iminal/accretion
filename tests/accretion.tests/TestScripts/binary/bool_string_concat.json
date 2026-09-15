@@ -1,0 +1,13 @@
+{
+    "name": "Bool + String Concat",
+    "description": "Tests that bool + string produces string concatenation regardless of operand order",
+    "expectedOutput": "True story",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "string",
+        "concat",
+        "coercion"
+    ]
+}

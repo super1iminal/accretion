@@ -1,0 +1,12 @@
+{
+    "name": "Assignment Expression - Returns Value",
+    "description": "Tests assignment expression returns assigned value",
+    "expectedOutput": "5\n5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "assignment",
+        "value"
+    ]
+}

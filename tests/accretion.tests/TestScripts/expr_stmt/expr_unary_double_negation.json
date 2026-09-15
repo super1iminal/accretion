@@ -1,0 +1,13 @@
+{
+    "name": "Unary Expression - Double Negation",
+    "description": "Tests double negation returns original value",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "unary",
+        "negation",
+        "boundary"
+    ]
+}

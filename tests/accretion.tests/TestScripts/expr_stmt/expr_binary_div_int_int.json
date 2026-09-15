@@ -1,0 +1,14 @@
+{
+    "name": "Binary Expression - Int / Int",
+    "description": "Tests division of two integers returns double",
+    "expectedOutput": "2.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "arithmetic",
+        "division",
+        "int"
+    ]
+}

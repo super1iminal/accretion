@@ -1,0 +1,12 @@
+{
+    "name": "Literal Expression - Boolean true",
+    "description": "Tests boolean true literal evaluation",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "literal",
+        "bool"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Binary Expression - Greater Or Equal true (Greater)",
+    "description": "Tests greater or equal when first is greater",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "comparison",
+        "greater-equal"
+    ]
+}

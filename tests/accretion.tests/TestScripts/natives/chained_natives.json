@@ -1,0 +1,12 @@
+{
+    "name": "Chained native calls",
+    "description": "Tests nesting native function calls",
+    "expectedOutput": "4",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "chained"
+    ]
+}

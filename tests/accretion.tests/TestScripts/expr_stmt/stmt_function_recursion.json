@@ -1,0 +1,12 @@
+{
+    "name": "Function Statement - Recursion",
+    "description": "Tests recursive function calls",
+    "expectedOutput": "120",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "function",
+        "recursion"
+    ]
+}

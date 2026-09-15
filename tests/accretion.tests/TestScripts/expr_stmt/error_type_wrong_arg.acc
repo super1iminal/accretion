@@ -1,0 +1,4 @@
+int double(int n) {
+    return n * 2;
+}
+double("hello");

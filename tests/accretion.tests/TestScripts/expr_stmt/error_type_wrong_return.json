@@ -1,0 +1,15 @@
+{
+    "name": "Type Error - Wrong Return Type",
+    "description": "Tests returning wrong type from function produces error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match return type",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "error",
+        "type",
+        "function",
+        "return"
+    ]
+}

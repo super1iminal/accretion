@@ -1,0 +1,6 @@
+double a = 3.14;
+double b = 2.71;
+print a > b;
+print a < b;
+print a >= b;
+print a <= b;

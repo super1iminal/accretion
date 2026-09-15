@@ -1,0 +1,15 @@
+{
+    "name": "Type Error - Return Double from Int Function",
+    "description": "Tests that returning a double from a function declared to return int produces a type error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "does not match return type",
+    "exactMatch": false,
+    "tags": [
+        "error",
+        "type",
+        "function",
+        "return",
+        "implicit-cast"
+    ]
+}

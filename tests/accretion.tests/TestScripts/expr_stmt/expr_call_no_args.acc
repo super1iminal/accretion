@@ -1,0 +1,5 @@
+int getFortyTwo() {
+    return 42;
+}
+int result = getFortyTwo();
+print result;

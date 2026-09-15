@@ -1,0 +1,13 @@
+{
+    "name": "If Statement - Else-If Chain",
+    "description": "Tests else-if chain",
+    "expectedOutput": "five",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "if",
+        "else-if",
+        "control-flow"
+    ]
+}

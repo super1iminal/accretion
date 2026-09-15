@@ -1,0 +1,13 @@
+{
+    "name": "Jump Statement - Break",
+    "description": "Tests break statement exits loop",
+    "expectedOutput": "0\n1\n2\ndone",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "jump",
+        "break",
+        "loop"
+    ]
+}

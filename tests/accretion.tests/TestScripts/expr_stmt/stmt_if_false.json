@@ -1,0 +1,12 @@
+{
+    "name": "If Statement - false Condition",
+    "description": "Tests if statement with false condition (no output)",
+    "expectedOutput": "done",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "if",
+        "control-flow"
+    ]
+}

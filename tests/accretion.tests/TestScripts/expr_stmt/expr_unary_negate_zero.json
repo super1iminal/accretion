@@ -1,0 +1,13 @@
+{
+    "name": "Unary Expression - Negate Zero",
+    "description": "Tests negation of zero",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "unary",
+        "negation",
+        "boundary"
+    ]
+}

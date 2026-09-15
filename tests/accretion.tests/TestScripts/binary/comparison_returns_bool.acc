@@ -1,0 +1,6 @@
+int a = 5;
+int b = 3;
+bool result = a > b;
+print result;
+bool result2 = a < b;
+print result2;

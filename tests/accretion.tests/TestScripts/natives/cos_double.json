@@ -1,0 +1,13 @@
+{
+    "name": "cos(double)",
+    "description": "Tests cos with a double argument (cos(0) = 1)",
+    "expectedOutput": "1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "trig",
+        "cos"
+    ]
+}

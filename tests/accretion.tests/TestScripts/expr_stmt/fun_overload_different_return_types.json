@@ -1,0 +1,12 @@
+{
+    "name": "Function Overload - Different Return Types",
+    "description": "Tests overloaded functions can have different return types",
+    "expectedOutput": "5\n5.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "function",
+        "overload",
+        "return-type"
+    ]
+}

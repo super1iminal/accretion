@@ -1,0 +1,2 @@
+double x = sqrt(9.0);
+print x;

@@ -1,0 +1,8 @@
+int a = sign(-42.5);
+int b = sign(0.0);
+int c = sign(100.0);
+int d = sign(-3);
+print a;
+print b;
+print c;
+print d;

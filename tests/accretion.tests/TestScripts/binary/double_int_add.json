@@ -1,0 +1,13 @@
+{
+    "name": "Double + Int Mixed Addition",
+    "description": "Tests adding double to int returns double",
+    "expectedOutput": "5.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "mixed",
+        "addition"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "name": "Break Statement",
+    "description": "Tests break statement in while loop",
+    "expectedOutput": "0\n1\n2",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "loops",
+        "break"
+    ]
+}

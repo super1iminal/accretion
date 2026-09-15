@@ -1,0 +1,13 @@
+{
+    "name": "Binary Expression - Less Than true",
+    "description": "Tests less than comparison returning true",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "comparison",
+        "less"
+    ]
+}

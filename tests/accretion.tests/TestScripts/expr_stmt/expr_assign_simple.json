@@ -1,0 +1,11 @@
+{
+    "name": "Assignment Expression - Simple",
+    "description": "Tests simple variable assignment",
+    "expectedOutput": "20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "assignment"
+    ]
+}

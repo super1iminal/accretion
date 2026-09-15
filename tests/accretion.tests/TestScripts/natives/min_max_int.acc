@@ -1,0 +1,4 @@
+int a = min(10, 3);
+int b = max(10, 3);
+print a;
+print b;

@@ -1,0 +1,4 @@
+double a = 10.5;
+double b = 3.2;
+double result = a - b;
+print result;

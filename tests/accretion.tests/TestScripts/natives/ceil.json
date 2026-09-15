@@ -1,0 +1,13 @@
+{
+    "name": "ceil(double)",
+    "description": "Tests ceil returns int rounded up",
+    "expectedOutput": "4",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "ceil",
+        "rounding"
+    ]
+}

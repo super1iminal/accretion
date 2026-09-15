@@ -1,0 +1,13 @@
+{
+    "name": "Double * Int Mixed Multiplication",
+    "description": "Tests multiplying double by int returns double",
+    "expectedOutput": "7",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "mixed",
+        "multiplication"
+    ]
+}

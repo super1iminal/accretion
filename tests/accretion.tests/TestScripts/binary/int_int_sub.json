@@ -1,0 +1,13 @@
+{
+    "name": "Int - Int Subtraction",
+    "description": "Tests subtraction of two integers returns an integer",
+    "expectedOutput": "7",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "int",
+        "subtraction"
+    ]
+}

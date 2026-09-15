@@ -1,0 +1,2 @@
+double x = pow(3, 3);
+print x;

@@ -1,0 +1,13 @@
+{
+    "name": "Logical Expression - And false true",
+    "description": "Tests logical and with false and true (short circuit)",
+    "expectedOutput": "false",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "logical",
+        "and",
+        "short-circuit"
+    ]
+}

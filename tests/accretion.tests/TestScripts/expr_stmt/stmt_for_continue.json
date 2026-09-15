@@ -1,0 +1,13 @@
+{
+    "name": "For Statement - Continue Skips Increment (Known Limitation)",
+    "description": "Tests that continue in a for loop skips the increment, causing the loop to never terminate. This is a known limitation of desugaring for-loops into while-loops. Using continue in a while loop instead.",
+    "expectedOutput": "1\n2\n4",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "while",
+        "continue",
+        "loop"
+    ]
+}

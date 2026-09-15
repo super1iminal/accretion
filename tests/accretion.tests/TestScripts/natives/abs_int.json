@@ -1,0 +1,13 @@
+{
+    "name": "abs(int)",
+    "description": "Tests abs with a negative int argument",
+    "expectedOutput": "7",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "abs",
+        "int"
+    ]
+}

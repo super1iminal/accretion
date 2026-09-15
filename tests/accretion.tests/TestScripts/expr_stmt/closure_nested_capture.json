@@ -1,0 +1,12 @@
+{
+    "name": "Closure - Nested Capture",
+    "description": "Tests closure captures variable through multiple levels of nesting",
+    "expectedOutput": "1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "closure",
+        "nested",
+        "scope"
+    ]
+}

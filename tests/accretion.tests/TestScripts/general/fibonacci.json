@@ -1,0 +1,14 @@
+{
+    "name": "Recursive Fibonacci",
+    "description": "Tests recursive function with fibonacci",
+    "expectedOutput": "0\n1\n1\n2\n3\n5",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "functions",
+        "recursion"
+    ]
+}

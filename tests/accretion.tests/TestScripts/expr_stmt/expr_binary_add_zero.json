@@ -1,0 +1,14 @@
+{
+    "name": "Binary Expression - Addition with Zero",
+    "description": "Tests addition with zero (boundary value - identity)",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "arithmetic",
+        "addition",
+        "boundary"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Int <= Double Mixed Less Equal",
+    "description": "Tests less than or equal comparison with int and double",
+    "expectedOutput": "true\ntrue\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "comparison",
+        "mixed",
+        "less_equal"
+    ]
+}

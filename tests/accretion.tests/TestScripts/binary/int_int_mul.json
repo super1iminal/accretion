@@ -1,0 +1,13 @@
+{
+    "name": "Int * Int Multiplication",
+    "description": "Tests multiplication of two integers",
+    "expectedOutput": "20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "int",
+        "multiplication"
+    ]
+}

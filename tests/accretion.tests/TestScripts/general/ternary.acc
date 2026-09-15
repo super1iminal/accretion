@@ -1,0 +1,3 @@
+int x = 10;
+string result = x > 5 ? "big" : "small";
+print result;

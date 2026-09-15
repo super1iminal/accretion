@@ -1,0 +1,13 @@
+{
+    "name": "Call Expression - With Arguments",
+    "description": "Tests function call with arguments",
+    "expectedOutput": "8",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "call",
+        "function",
+        "arguments"
+    ]
+}

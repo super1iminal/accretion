@@ -1,0 +1,8 @@
+int x = 5;
+if (x == 1) {
+    print "one";
+} else if (x == 5) {
+    print "five";
+} else {
+    print "other";
+}

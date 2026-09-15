@@ -1,0 +1,14 @@
+{
+    "name": "Comparison Operators",
+    "description": "Tests comparison operators",
+    "expectedOutput": "true\nfalse\ntrue\nfalse\nfalse\ntrue",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "operators",
+        "comparison"
+    ]
+}

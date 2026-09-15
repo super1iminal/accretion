@@ -1,0 +1,14 @@
+{
+    "name": "Arithmetic Operations",
+    "description": "Tests basic arithmetic operations",
+    "expectedOutput": "13\n7\n30",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "arithmetic",
+        "operators"
+    ]
+}

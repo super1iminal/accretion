@@ -1,0 +1,15 @@
+{
+    "name": "Unused Variable Warning",
+    "description": "Tests that declaring but not using a variable produces a warning",
+    "expectedOutput": "done",
+    "expectCompilerError": false,
+    "expectCompilerWarning": true,
+    "expectedCompilerWarning": "unused",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "trimWhitespace": true,
+    "tags": [
+        "warnings",
+        "variables"
+    ]
+}

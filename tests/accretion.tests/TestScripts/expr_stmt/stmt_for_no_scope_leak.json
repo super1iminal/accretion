@@ -1,0 +1,13 @@
+{
+    "name": "For Statement - No Scope Leak",
+    "description": "Tests that variable declared in for-loop init does not leak to outer scope",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "no declared variable",
+    "exactMatch": false,
+    "tags": [
+        "statement",
+        "for",
+        "scope"
+    ]
+}

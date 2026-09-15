@@ -1,0 +1,12 @@
+{
+    "name": "Logical Expression - Or false false",
+    "description": "Tests logical or with both operands false",
+    "expectedOutput": "false",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "logical",
+        "or"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "name": "Variable Expression - Simple Access",
+    "description": "Tests simple variable access",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "variable",
+        "access"
+    ]
+}

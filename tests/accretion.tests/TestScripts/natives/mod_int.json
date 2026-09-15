@@ -1,0 +1,13 @@
+{
+    "name": "mod(int, int)",
+    "description": "Tests integer modulo",
+    "expectedOutput": "2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "mod",
+        "int"
+    ]
+}

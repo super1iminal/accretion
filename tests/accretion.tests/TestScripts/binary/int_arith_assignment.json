@@ -1,0 +1,13 @@
+{
+    "name": "Int Arithmetic Result Assignment",
+    "description": "Tests that int arithmetic can be assigned to int",
+    "expectedOutput": "13\n7\n30",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "int",
+        "assignment"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Int + String Concatenation",
+    "description": "Tests string concatenation with int and string",
+    "expectedOutput": "42 is the answer",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "string",
+        "concatenation",
+        "mixed"
+    ]
+}

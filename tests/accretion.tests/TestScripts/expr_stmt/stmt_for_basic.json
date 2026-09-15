@@ -1,0 +1,12 @@
+{
+    "name": "For Statement - Basic",
+    "description": "Tests basic for loop",
+    "expectedOutput": "0\n1\n2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "for",
+        "loop"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "name": "Binary Expression - Inequality false",
+    "description": "Tests inequality of two equal integers",
+    "expectedOutput": "false",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "inequality"
+    ]
+}

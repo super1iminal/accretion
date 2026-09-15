@@ -1,0 +1,14 @@
+{
+    "name": "Binary Expression - Multiplication by Zero",
+    "description": "Tests multiplication by zero (boundary value)",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "arithmetic",
+        "multiplication",
+        "boundary"
+    ]
+}

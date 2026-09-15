@@ -1,0 +1,12 @@
+{
+    "name": "Double == Double Equality",
+    "description": "Tests equality comparison with two doubles",
+    "expectedOutput": "true\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "equality",
+        "double"
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "name": "Ternary Expression - false Condition",
+    "description": "Tests ternary with false condition returns alternative",
+    "expectedOutput": "2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "ternary"
+    ]
+}

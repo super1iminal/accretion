@@ -1,0 +1,14 @@
+{
+    "name": "Simple Print",
+    "description": "Tests basic print statement with string literal",
+    "expectedOutput": "Hello, World!",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "basic",
+        "print"
+    ]
+}

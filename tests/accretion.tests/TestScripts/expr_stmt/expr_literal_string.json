@@ -1,0 +1,12 @@
+{
+    "name": "Literal Expression - String",
+    "description": "Tests string literal evaluation",
+    "expectedOutput": "hello world",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "literal",
+        "string"
+    ]
+}

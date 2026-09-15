@@ -1,0 +1,14 @@
+{
+    "name": "Type Error - Unknown Type",
+    "description": "Tests declaring variable with unknown type produces error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "Unknown type",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "error",
+        "type",
+        "unknown"
+    ]
+}

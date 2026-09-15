@@ -1,0 +1,13 @@
+{
+    "name": "Comparison Returns Bool",
+    "description": "Tests that comparison operations return bool type",
+    "expectedOutput": "true\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "comparison",
+        "bool",
+        "type"
+    ]
+}

@@ -1,0 +1,2 @@
+double x = sqrt(4.0) + pow(2.0, 3.0);
+print x;

@@ -1,0 +1,4 @@
+double pi = PI;
+double e = E;
+print pi;
+print e;

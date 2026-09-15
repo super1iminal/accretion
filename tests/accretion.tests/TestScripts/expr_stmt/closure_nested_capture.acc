@@ -1,0 +1,8 @@
+int x = 1;
+void outer() {
+    void inner() {
+        print x;
+    }
+    inner();
+}
+outer();

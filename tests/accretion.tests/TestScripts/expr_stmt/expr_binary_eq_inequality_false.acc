@@ -1,0 +1,4 @@
+int a = 42;
+int b = 42;
+bool result = a != b;
+print result;

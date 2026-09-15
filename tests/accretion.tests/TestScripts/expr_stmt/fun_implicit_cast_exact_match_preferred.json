@@ -1,0 +1,12 @@
+{
+    "name": "Function Implicit Cast - Exact Match Preferred Over Implicit",
+    "description": "Tests that an exact match (int overload) is selected over an implicit cast match (double overload) when both exist",
+    "expectedOutput": "1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "function",
+        "implicit-cast",
+        "overload"
+    ]
+}

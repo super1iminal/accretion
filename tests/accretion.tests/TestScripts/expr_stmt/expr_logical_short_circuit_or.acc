@@ -1,0 +1,6 @@
+bool sideEffect() {
+    print "evaluated";
+    return false;
+}
+bool result = true or sideEffect();
+print "done";

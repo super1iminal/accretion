@@ -1,0 +1,2 @@
+int x = ceil(-2.7);
+print x;

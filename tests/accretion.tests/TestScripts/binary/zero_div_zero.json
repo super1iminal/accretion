@@ -1,0 +1,14 @@
+{
+    "name": "Zero Divided By Zero",
+    "description": "Tests that 0.0 / 0.0 produces NaN",
+    "expectedOutput": "NaN",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "division",
+        "edge"
+    ]
+}

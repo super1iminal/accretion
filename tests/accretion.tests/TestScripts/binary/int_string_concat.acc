@@ -1,0 +1,3 @@
+int a = 42;
+string b = " is the answer";
+print a + b;

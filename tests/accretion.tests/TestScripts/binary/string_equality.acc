@@ -1,0 +1,6 @@
+string a = "hello";
+string b = "hello";
+string c = "world";
+print a == b;
+print a == c;
+print a != c;

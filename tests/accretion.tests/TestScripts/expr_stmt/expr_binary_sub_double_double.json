@@ -1,0 +1,14 @@
+{
+    "name": "Binary Expression - Double - Double",
+    "description": "Tests subtraction of two doubles",
+    "expectedOutput": "7.3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "arithmetic",
+        "subtraction",
+        "double"
+    ]
+}

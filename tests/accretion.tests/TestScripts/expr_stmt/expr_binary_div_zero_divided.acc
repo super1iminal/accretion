@@ -1,0 +1,4 @@
+int a = 0;
+int b = 5;
+double result = a / b;
+print result;

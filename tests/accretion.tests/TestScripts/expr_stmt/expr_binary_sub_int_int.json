@@ -1,0 +1,14 @@
+{
+    "name": "Binary Expression - Int - Int",
+    "description": "Tests subtraction of two integers returns an integer",
+    "expectedOutput": "7",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "arithmetic",
+        "subtraction",
+        "int"
+    ]
+}

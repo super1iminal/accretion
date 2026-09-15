@@ -1,0 +1,6 @@
+bool t = true;
+bool f = false;
+print t and t;
+print t and f;
+print t or f;
+print f or f;

@@ -1,0 +1,5 @@
+int a = 5;
+double b = 4.5;
+double c = 5.5;
+print a > b;
+print a > c;

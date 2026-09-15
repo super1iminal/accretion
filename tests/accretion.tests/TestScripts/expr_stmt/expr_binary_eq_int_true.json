@@ -1,0 +1,12 @@
+{
+    "name": "Binary Expression - Equality Int true",
+    "description": "Tests equality of two equal integers",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "equality"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "name": "Function Statement - With Return Value",
+    "description": "Tests function with return value",
+    "expectedOutput": "25",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "function",
+        "return"
+    ]
+}

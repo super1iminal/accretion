@@ -1,0 +1,8 @@
+void greet(int n) {
+    print "int";
+}
+void greet(string s) {
+    print "string";
+}
+greet(1);
+greet("hi");

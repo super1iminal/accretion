@@ -1,0 +1,14 @@
+{
+    "name": "Continue Statement",
+    "description": "Tests continue statement in while loop",
+    "expectedOutput": "1\n2\n4\n5",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "loops",
+        "continue"
+    ]
+}

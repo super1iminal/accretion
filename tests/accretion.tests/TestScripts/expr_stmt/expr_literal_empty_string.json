@@ -1,0 +1,13 @@
+{
+    "name": "Literal Expression - Empty String",
+    "description": "Tests empty string literal",
+    "expectedOutput": "\ndone",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "literal",
+        "string",
+        "boundary"
+    ]
+}

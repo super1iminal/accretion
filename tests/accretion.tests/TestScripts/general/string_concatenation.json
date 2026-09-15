@@ -1,0 +1,14 @@
+{
+    "name": "String Concatenation",
+    "description": "Tests string concatenation with + operator",
+    "expectedOutput": "Hello, World!",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "strings",
+        "operators"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "sin(double)",
+    "description": "Tests sin with a double argument (sin(0) = 0)",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "trig",
+        "sin"
+    ]
+}

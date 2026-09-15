@@ -1,0 +1,13 @@
+{
+    "name": "Chained Int Arithmetic",
+    "description": "Tests chained arithmetic with ints maintains int type",
+    "expectedOutput": "11",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "int",
+        "chained"
+    ]
+}

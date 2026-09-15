@@ -1,0 +1,13 @@
+{
+    "name": "Int > Double Mixed Greater Than",
+    "description": "Tests greater than comparison with int and double",
+    "expectedOutput": "true\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "comparison",
+        "mixed",
+        "greater"
+    ]
+}

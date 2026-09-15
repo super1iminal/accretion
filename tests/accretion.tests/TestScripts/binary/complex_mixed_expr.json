@@ -1,0 +1,14 @@
+{
+    "name": "Complex Mixed Expression",
+    "description": "Tests complex expression with multiple types and operators",
+    "expectedOutput": "36.666666666666664",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "mixed",
+        "complex"
+    ]
+}

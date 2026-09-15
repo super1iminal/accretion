@@ -1,0 +1,13 @@
+{
+    "name": "Multiple Errors - Resolver Error Propagates Ignore",
+    "description": "Tests that using an undefined variable in a type expression does not cascade into additional false errors",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "no declared variable",
+    "exactMatch": false,
+    "tags": [
+        "error",
+        "resolver",
+        "propagation"
+    ]
+}

@@ -1,0 +1,2 @@
+double x = tan(0.0);
+print x;

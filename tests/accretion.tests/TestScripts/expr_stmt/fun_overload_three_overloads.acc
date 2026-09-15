@@ -1,0 +1,12 @@
+string describe(int n) {
+    return "int";
+}
+string describe(double n) {
+    return "double";
+}
+string describe(string s) {
+    return "string";
+}
+print describe(1);
+print describe(1.0);
+print describe("hi");

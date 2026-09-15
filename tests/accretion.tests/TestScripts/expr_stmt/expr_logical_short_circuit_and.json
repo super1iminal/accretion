@@ -1,0 +1,12 @@
+{
+    "name": "Logical - Short Circuit AND Skips RHS",
+    "description": "Tests that false AND expr does not evaluate the right side (verified by no side effect print)",
+    "expectedOutput": "done",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "logical",
+        "short-circuit",
+        "and"
+    ]
+}

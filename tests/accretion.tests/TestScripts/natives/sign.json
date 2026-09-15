@@ -1,0 +1,12 @@
+{
+    "name": "sign(double) and sign(int)",
+    "description": "Tests sign returns -1, 0, or 1",
+    "expectedOutput": "-1\n0\n1\n-1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "sign"
+    ]
+}

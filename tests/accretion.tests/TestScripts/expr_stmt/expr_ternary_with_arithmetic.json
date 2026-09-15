@@ -1,0 +1,11 @@
+{
+    "name": "Ternary - With Arithmetic in Branches",
+    "description": "Tests ternary with arithmetic expressions in branches",
+    "expectedOutput": "8",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "ternary",
+        "arithmetic"
+    ]
+}

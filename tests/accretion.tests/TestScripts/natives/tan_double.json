@@ -1,0 +1,13 @@
+{
+    "name": "tan(double)",
+    "description": "Tests tan with a double argument (tan(0) = 0)",
+    "expectedOutput": "0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "trig",
+        "tan"
+    ]
+}

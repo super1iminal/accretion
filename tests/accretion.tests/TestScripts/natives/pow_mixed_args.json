@@ -1,0 +1,12 @@
+{
+    "name": "Native - Pow with Int Arguments",
+    "description": "Tests calling pow with int arguments (implicit cast to double)",
+    "expectedOutput": "1024",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "pow",
+        "implicit-cast"
+    ]
+}

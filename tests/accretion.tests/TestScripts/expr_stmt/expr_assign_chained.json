@@ -1,0 +1,12 @@
+{
+    "name": "Assignment Expression - Chained",
+    "description": "Tests chained assignment (a = b = value)",
+    "expectedOutput": "42\n42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "assignment",
+        "chained"
+    ]
+}

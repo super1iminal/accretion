@@ -1,0 +1,13 @@
+{
+    "name": "Literal Expression - Negative Integer",
+    "description": "Tests negative integer literal (unary minus on literal)",
+    "expectedOutput": "-42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "literal",
+        "int",
+        "unary"
+    ]
+}

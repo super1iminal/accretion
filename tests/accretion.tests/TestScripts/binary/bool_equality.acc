@@ -1,0 +1,6 @@
+bool a = true;
+bool b = true;
+bool c = false;
+print a == b;
+print a == c;
+print a != c;

@@ -1,0 +1,14 @@
+{
+    "name": "Binary Expression - Int * Int",
+    "description": "Tests multiplication of two integers",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "arithmetic",
+        "multiplication",
+        "int"
+    ]
+}

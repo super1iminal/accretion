@@ -1,0 +1,12 @@
+{
+    "name": "Function Overload - Void Return",
+    "description": "Tests overloaded function with void return type",
+    "expectedOutput": "int\nstring",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "function",
+        "overload",
+        "void"
+    ]
+}

@@ -1,0 +1,7 @@
+int x = 10;
+void printX() {
+    print x;
+}
+printX();
+x = 20;
+printX();

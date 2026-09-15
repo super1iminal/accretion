@@ -1,0 +1,7 @@
+int foo(int n) {
+    return 1;
+}
+int foo(double n) {
+    return 2;
+}
+print foo(5.0);

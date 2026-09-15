@@ -1,0 +1,8 @@
+int i = 0;
+while (i < 3) {
+    void show() {
+        print i;
+    }
+    show();
+    i = i + 1;
+}

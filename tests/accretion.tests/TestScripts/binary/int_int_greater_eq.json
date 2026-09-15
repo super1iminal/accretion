@@ -1,0 +1,13 @@
+{
+    "name": "Int >= Int Greater Equal",
+    "description": "Tests greater than or equal comparison with two ints",
+    "expectedOutput": "true\ntrue\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "comparison",
+        "int",
+        "greater_equal"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "name": "Function Statement - Multiple Parameters",
+    "description": "Tests function with multiple parameters",
+    "expectedOutput": "6",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "function",
+        "parameters"
+    ]
+}

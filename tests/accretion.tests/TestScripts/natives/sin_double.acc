@@ -1,0 +1,2 @@
+double x = sin(0.0);
+print x;

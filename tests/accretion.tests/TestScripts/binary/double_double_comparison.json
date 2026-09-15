@@ -1,0 +1,12 @@
+{
+    "name": "Double Double Comparison",
+    "description": "Tests comparison operators with two doubles",
+    "expectedOutput": "true\nfalse\ntrue\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "comparison",
+        "double"
+    ]
+}

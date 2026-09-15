@@ -1,0 +1,12 @@
+{
+    "name": "Scope - Access Outer Variable",
+    "description": "Tests accessing variable from outer scope",
+    "expectedOutput": "10",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "scope",
+        "variable",
+        "access"
+    ]
+}

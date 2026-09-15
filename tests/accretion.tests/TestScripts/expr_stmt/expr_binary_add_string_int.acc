@@ -1,0 +1,4 @@
+string a = "value: ";
+int b = 42;
+string result = a + b;
+print result;

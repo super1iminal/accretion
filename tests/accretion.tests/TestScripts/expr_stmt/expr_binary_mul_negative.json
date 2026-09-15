@@ -1,0 +1,14 @@
+{
+    "name": "Binary Expression - Multiplication Negative Numbers",
+    "description": "Tests multiplication with negative numbers",
+    "expectedOutput": "-42",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "arithmetic",
+        "multiplication",
+        "negative"
+    ]
+}

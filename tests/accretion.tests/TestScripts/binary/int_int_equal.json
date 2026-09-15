@@ -1,0 +1,12 @@
+{
+    "name": "Int == Int Equality",
+    "description": "Tests equality comparison with two ints",
+    "expectedOutput": "true\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "equality",
+        "int"
+    ]
+}

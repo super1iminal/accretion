@@ -1,0 +1,13 @@
+{
+    "name": "Double / Int Mixed Division",
+    "description": "Tests dividing double by int returns double",
+    "expectedOutput": "2.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "mixed",
+        "division"
+    ]
+}

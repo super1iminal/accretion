@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="TestScripts\**\*.json">
+    <None Include="TestScripts\**\*.json;TestScripts\**\*.acc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

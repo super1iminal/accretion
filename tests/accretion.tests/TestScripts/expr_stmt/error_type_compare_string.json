@@ -1,0 +1,14 @@
+{
+    "name": "Type Error - Compare String With Greater",
+    "description": "Tests comparing strings with > produces error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "must be numbers",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "error",
+        "type",
+        "comparison"
+    ]
+}

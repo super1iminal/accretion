@@ -1,0 +1,2 @@
+bool result = true and false or true and true;
+print result;

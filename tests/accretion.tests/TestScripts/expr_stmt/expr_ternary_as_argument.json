@@ -1,0 +1,12 @@
+{
+    "name": "Ternary - As Function Argument",
+    "description": "Tests ternary expression used as a function argument",
+    "expectedOutput": "10",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "ternary",
+        "function",
+        "argument"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Chained Mixed Arithmetic",
+    "description": "Tests chained arithmetic with mixed int/double produces double",
+    "expectedOutput": "15",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "mixed",
+        "chained"
+    ]
+}

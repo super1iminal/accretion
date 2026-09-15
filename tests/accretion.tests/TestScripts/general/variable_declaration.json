@@ -1,0 +1,14 @@
+{
+    "name": "Variable Declaration",
+    "description": "Tests variable declaration and printing",
+    "expectedOutput": "42",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "variables",
+        "print"
+    ]
+}

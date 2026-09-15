@@ -1,0 +1,4 @@
+int identity(int n) {
+    return n;
+}
+print identity(true ? 10 : 20);

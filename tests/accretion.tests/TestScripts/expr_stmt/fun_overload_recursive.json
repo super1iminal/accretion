@@ -1,0 +1,12 @@
+{
+    "name": "Function Overload - Recursive with Overload",
+    "description": "Tests recursive function that also has an overloaded variant",
+    "expectedOutput": "120\n200",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "function",
+        "overload",
+        "recursion"
+    ]
+}

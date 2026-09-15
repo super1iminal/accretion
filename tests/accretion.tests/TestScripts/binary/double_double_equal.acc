@@ -1,0 +1,5 @@
+double a = 3.14;
+double b = 3.14;
+double c = 3.15;
+print a == b;
+print a == c;

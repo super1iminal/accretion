@@ -1,0 +1,4 @@
+string a = "hello";
+string b = "hello";
+bool result = a == b;
+print result;

@@ -1,0 +1,12 @@
+{
+    "name": "Int != Int Inequality",
+    "description": "Tests inequality comparison with two ints",
+    "expectedOutput": "false\ntrue",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "equality",
+        "int"
+    ]
+}

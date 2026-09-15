@@ -1,0 +1,12 @@
+{
+    "name": "String Equality",
+    "description": "Tests string equality comparison",
+    "expectedOutput": "true\nfalse\ntrue",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "equality",
+        "string"
+    ]
+}

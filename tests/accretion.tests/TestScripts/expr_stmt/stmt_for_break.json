@@ -1,0 +1,13 @@
+{
+    "name": "For Statement - Break",
+    "description": "Tests for loop with break",
+    "expectedOutput": "0\n1\n2",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "for",
+        "break",
+        "loop"
+    ]
+}

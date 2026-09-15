@@ -1,0 +1,12 @@
+{
+    "name": "Ternary Expression - With Comparison",
+    "description": "Tests ternary with comparison expression as condition",
+    "expectedOutput": "100",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "ternary",
+        "comparison"
+    ]
+}

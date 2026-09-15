@@ -1,0 +1,13 @@
+{
+    "name": "asin, acos, atan",
+    "description": "Tests inverse trig functions at known values",
+    "expectedOutput": "0\n0\n0",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "trig",
+        "inverse"
+    ]
+}

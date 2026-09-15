@@ -1,0 +1,14 @@
+{
+    "name": "Binary Expression - Subtraction Negative Result",
+    "description": "Tests subtraction resulting in negative number",
+    "expectedOutput": "-7",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "arithmetic",
+        "subtraction",
+        "boundary"
+    ]
+}

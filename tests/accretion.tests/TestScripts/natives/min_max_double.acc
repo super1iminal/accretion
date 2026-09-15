@@ -1,0 +1,4 @@
+double a = min(2.5, 7.1);
+double b = max(2.5, 7.1);
+print a;
+print b;

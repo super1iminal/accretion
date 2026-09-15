@@ -1,0 +1,4 @@
+void unused() {
+    print 1;
+}
+print "done";

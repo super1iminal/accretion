@@ -1,0 +1,6 @@
+int a = 5;
+int b = 5;
+int c = 3;
+print a >= b;
+print a >= c;
+print c >= a;

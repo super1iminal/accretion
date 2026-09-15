@@ -1,0 +1,11 @@
+{
+    "name": "Scope - Deeply Nested Access",
+    "description": "Tests variable access through multiple levels of nested blocks",
+    "expectedOutput": "1",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "scope",
+        "nested"
+    ]
+}

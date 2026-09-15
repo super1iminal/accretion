@@ -1,0 +1,11 @@
+{
+    "name": "Function Overload - Three Overloads",
+    "description": "Tests resolution among three overloads with different parameter types",
+    "expectedOutput": "int\ndouble\nstring",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "function",
+        "overload"
+    ]
+}

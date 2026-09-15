@@ -1,0 +1,14 @@
+{
+    "name": "For Statement - Break Only Inner",
+    "description": "Tests break in nested loop only exits inner loop",
+    "expectedOutput": "0\n10\n20",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "for",
+        "break",
+        "nested",
+        "loop"
+    ]
+}

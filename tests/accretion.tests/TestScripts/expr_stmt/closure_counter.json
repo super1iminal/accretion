@@ -1,0 +1,12 @@
+{
+    "name": "Closure - Counter Pattern",
+    "description": "Tests closure that modifies a captured variable across multiple calls",
+    "expectedOutput": "1\n2\n3",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "closure",
+        "mutation",
+        "scope"
+    ]
+}

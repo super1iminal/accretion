@@ -1,0 +1,14 @@
+{
+    "name": "Type Error - Duplicate Function Signature",
+    "description": "Tests that declaring two functions with identical parameter types produces a compile error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "same signature",
+    "exactMatch": false,
+    "tags": [
+        "error",
+        "function",
+        "overload",
+        "duplicate"
+    ]
+}

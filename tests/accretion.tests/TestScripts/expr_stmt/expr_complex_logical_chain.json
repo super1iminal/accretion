@@ -1,0 +1,12 @@
+{
+    "name": "Complex Expression - Logical Chain",
+    "description": "Tests complex logical expression chain",
+    "expectedOutput": "true",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "complex",
+        "logical"
+    ]
+}

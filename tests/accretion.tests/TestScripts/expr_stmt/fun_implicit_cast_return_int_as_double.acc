@@ -1,0 +1,4 @@
+double toDouble(int n) {
+    return n;
+}
+print toDouble(42);

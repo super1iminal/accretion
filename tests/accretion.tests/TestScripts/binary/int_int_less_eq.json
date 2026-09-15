@@ -1,0 +1,13 @@
+{
+    "name": "Int <= Int Less Equal",
+    "description": "Tests less than or equal comparison with two ints",
+    "expectedOutput": "true\ntrue\nfalse",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "comparison",
+        "int",
+        "less_equal"
+    ]
+}

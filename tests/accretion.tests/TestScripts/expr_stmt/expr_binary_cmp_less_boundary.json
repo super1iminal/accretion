@@ -1,0 +1,14 @@
+{
+    "name": "Binary Expression - Less Than Equal Values",
+    "description": "Tests less than with equal values (boundary)",
+    "expectedOutput": "false",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "expression",
+        "binary",
+        "comparison",
+        "less",
+        "boundary"
+    ]
+}

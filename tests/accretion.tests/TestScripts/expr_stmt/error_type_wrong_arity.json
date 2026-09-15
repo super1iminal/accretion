@@ -1,0 +1,15 @@
+{
+    "name": "Type Error - Wrong Argument Count",
+    "description": "Tests passing wrong number of arguments produces error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "No matching function found",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "error",
+        "type",
+        "function",
+        "arity"
+    ]
+}

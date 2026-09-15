@@ -1,0 +1,13 @@
+{
+    "name": "If Statement - Nested If",
+    "description": "Tests nested if statements",
+    "expectedOutput": "big",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "if",
+        "nested",
+        "control-flow"
+    ]
+}

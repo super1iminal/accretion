@@ -1,0 +1,3 @@
+string s = "";
+print s;
+print "done";

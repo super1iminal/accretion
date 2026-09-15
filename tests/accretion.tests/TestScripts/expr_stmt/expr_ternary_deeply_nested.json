@@ -1,0 +1,11 @@
+{
+    "name": "Ternary - Deeply Nested",
+    "description": "Tests triple-nested ternary expression",
+    "expectedOutput": "three",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "ternary",
+        "nested"
+    ]
+}

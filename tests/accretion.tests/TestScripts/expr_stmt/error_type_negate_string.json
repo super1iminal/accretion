@@ -1,0 +1,14 @@
+{
+    "name": "Type Error - Negate String",
+    "description": "Tests negating string produces error",
+    "expectedOutput": "",
+    "expectCompilerError": true,
+    "expectedCompilerError": "must be a number",
+    "expectRuntimeError": false,
+    "exactMatch": false,
+    "tags": [
+        "error",
+        "type",
+        "unary"
+    ]
+}

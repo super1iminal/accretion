@@ -1,0 +1,13 @@
+{
+    "name": "String + Double Concatenation",
+    "description": "Tests string concatenation with string and double",
+    "expectedOutput": "Pi is 3.14",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "string",
+        "concatenation",
+        "mixed"
+    ]
+}

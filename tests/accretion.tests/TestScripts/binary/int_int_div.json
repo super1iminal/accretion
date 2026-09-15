@@ -1,0 +1,13 @@
+{
+    "name": "Int / Int Division",
+    "description": "Tests division of two integers returns a double",
+    "expectedOutput": "2.5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "binary",
+        "arithmetic",
+        "int",
+        "division"
+    ]
+}

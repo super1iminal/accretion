@@ -1,0 +1,13 @@
+{
+    "name": "Jump Statement - Continue",
+    "description": "Tests continue statement skips rest of loop body",
+    "expectedOutput": "1\n2\n4\n5",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "statement",
+        "jump",
+        "continue",
+        "loop"
+    ]
+}

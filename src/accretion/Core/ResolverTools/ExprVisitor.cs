@@ -96,7 +96,7 @@ namespace accretion.Core.ResolverTools
                             return NativeAccTypeFactory.INT;
                         }
                     }
-                    else if ((IsString(left) || IsString(right)) && IsAlphaNum(left, right))
+                    else if ((IsString(left) || IsString(right)) && (IsAlphaNum(left) || IsAlphaNum(right)))
                     {
                         return NativeAccTypeFactory.STRING;
                     }

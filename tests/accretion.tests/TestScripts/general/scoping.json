@@ -1,0 +1,14 @@
+{
+    "name": "Block Scoping",
+    "description": "Tests variable scoping with nested blocks",
+    "expectedOutput": "inner a\nglobal b\nouter a\nglobal a",
+    "expectCompilerError": false,
+    "expectCompilerWarning": false,
+    "expectRuntimeError": false,
+    "exactMatch": true,
+    "trimWhitespace": true,
+    "tags": [
+        "scope",
+        "variables"
+    ]
+}

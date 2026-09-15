@@ -1,0 +1,8 @@
+int identity(int n) {
+    return n;
+}
+double identity(double n) {
+    return n;
+}
+print identity(5);
+print identity(5.5);

@@ -1,0 +1,12 @@
+{
+    "name": "Native in arithmetic expression",
+    "description": "Tests using native functions inside larger expressions",
+    "expectedOutput": "10",
+    "expectCompilerError": false,
+    "expectRuntimeError": false,
+    "tags": [
+        "native",
+        "math",
+        "expression"
+    ]
+}
