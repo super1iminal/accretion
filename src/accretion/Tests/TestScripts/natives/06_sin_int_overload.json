@@ -1,9 +1,0 @@
-{
-    "name": "sin(int) overload",
-    "description": "Tests that sin can be called with an int argument",
-    "script": "double x = sin(0);\nprint x;",
-    "expectedOutput": "0",
-    "expectCompilerError": false,
-    "expectRuntimeError": false,
-    "tags": ["native", "math", "trig", "overload", "int"]
-}

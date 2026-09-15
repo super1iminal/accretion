@@ -5,4 +5,5 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="src/accretion/accretion.csproj" />
+  <Project Path="tests/accretion.tests/accretion.tests.csproj" />
 </Solution>

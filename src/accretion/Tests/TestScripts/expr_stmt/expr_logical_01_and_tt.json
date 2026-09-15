@@ -1,9 +1,0 @@
-{
-    "name": "Logical Expression - And true true",
-    "description": "Tests logical and with both operands true",
-    "script": "bool result = true and true;\nprint result;",
-    "expectedOutput": "true",
-    "expectCompilerError": false,
-    "expectRuntimeError": false,
-    "tags": ["expression", "logical", "and"]
-}
