@@ -2,7 +2,7 @@
 > The process of growth or enlargement by a gradual buildup
 
 
-Accretion is a user-first, statically typed, interpreted programming language designed for use in C# education and game applications. Accretion is a statically typed language. You may not even know what a type is. That's okay. I forgive you. You probably *like* not knowing. A friend of mine once said that they hated Python for the sole reason that it wasn't typed. 
+Accretion is a user-first, statically typed, interpreted programming language designed for use in C# education and game applications. Accretion is a statically typed language. You may not even know what a type is. That's okay. I forgive you. You probably *like* not knowing. A friend of mine once said that they hated Python for the sole reason that it wasn't typed. No comment.
 
 ## Language Features/Support
 - Static typing
@@ -34,6 +34,21 @@ bar();
 ```
 [line 1] Warning at 'foo': Variable/Function is never used
 31.41592653589793
+```
+
+## Building & Running
+Requires the [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0).
+
+Run a script by passing its path to the CLI.
+```
+dotnet run --project src/accretion.cli -- scripts/fibfun.acc
+```
+With no arguments, the CLI asks for the name of a script in `scripts/`.
+
+### Tests
+Each test is an `.acc` script in `tests/accretion.tests/TestScripts/`, paired with a `.json` file that specifies its expected output, warnings and errors. CI runs the full suite on every push.
+```
+dotnet test tests/accretion.tests/accretion.tests.csproj
 ```
 
 ## Language Specification
@@ -425,4 +440,3 @@ Section in progress.
 
 
 [^1]: Read my [article](https://onetwelvethree.com/blog/interpreted-languages/) on interpreted language for a more beginner-friendly introduction to interpreted lanauges
-
